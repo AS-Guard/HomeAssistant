@@ -1,14 +1,12 @@
 #   /homeassistant/.gitignore
-
-# https://git-scm.com/book/ru/v2/
-
 #Example .gitignore file for your config dir.
-
 #An * ensures that everything will be ignored.
 # Ignore everything
 *
 
 # You can whitelist files/folders with !, these will not be ignored.
+!README
+
 !*.yaml
 !.gitignore
 !*.md
@@ -17,9 +15,6 @@
 !*.js*
 
 !includes/
-#!includes/**/*.yaml
-
-!README
 
 #Comment these 2 lines if you don't want to include your SSH keys
 .ssh/
@@ -35,7 +30,6 @@ secrets.yaml
 
 # Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
 ip_bans.yaml
-secrets.yaml
 known_devices.yaml
 zone.yaml
 
