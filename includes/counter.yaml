@@ -1,0 +1,8 @@
+# Счетчики фильтра воды
+  water_filter:
+    initial: 0
+    step: 1
+
+  water_filter_day:
+    initial: 0
+    step: 1

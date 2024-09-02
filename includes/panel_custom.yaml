@@ -1,0 +1,38 @@
+#   includes/panel_custom.yaml
+#panel_custom:
+  - name: server_state
+    sidebar_title: 'Система'
+    sidebar_icon: mdi:server
+    js_url: /api/hassio/app/entrypoint.js
+    url_path: 'hassio/system'
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: core_configurator
+  - name: ha_integ
+    sidebar_title: 'Устройства и службы'
+    sidebar_icon: mdi:devices
+    js_url: /api/hassio/app/entrypoint.js
+    url_path: 'config/integrations'
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: core_configurator  
+  - name: ha_auto
+    sidebar_title: 'Автоматизации и сцены'
+    sidebar_icon: mdi:robot
+    js_url: /api/hassio/app/entrypoint.js
+    url_path: 'config/automation'
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: core_configurator
+  - name: ha_log
+    sidebar_title: 'Журнал сервера'
+    sidebar_icon: mdi:math-log
+    js_url: /api/hassio/app/entrypoint.js
+    url_path: 'config/logs'
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: core_configurator
