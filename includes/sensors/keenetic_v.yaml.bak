@@ -1,0 +1,29 @@
+#   includes/sensors/keenetic.yaml
+# sensor:
+  - platform: rest
+    name: Keenetic Viva MGTS IP
+    unique_id: !secret keenetic_id
+    resource: http://192.168.11.1:81/rci/show/interface?name=ISP
+    scan_interval: 300
+    value_template: "{{ value_json.address }}"
+    json_attributes:
+      - mask
+      - mac
+
+  - platform: rest
+    name: Keenetic Viva CPU Usage
+    unique_id: !secret keenetic_id
+    unit_of_measurement: '%'
+    resource: http://192.168.11.1:81/rci/show/system
+    value_template: "{{ value_json.cpuload }}"
+      
+  - platform: rest
+    name: Keenetic Viva RAM Usage
+    unique_id: !secret keenetic_id
+    unit_of_measurement: '%'
+    resource: http://192.168.11.1:81/rci/show/system
+    value_template: >
+          {%- set mem = value_json.memory-%}
+          {%- set memfree = mem.split('/')[0]|int(0)-%}
+          {%- set memtotal = mem.split('/')[1]|int(1)-%}
+          {{ (memfree*100/memtotal)| round(2) }}

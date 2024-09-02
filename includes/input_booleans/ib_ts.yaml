@@ -1,0 +1,13 @@
+#   includes/input_booleans/ib_ts.yaml
+#input_boolean:
+  temp_rele_ts1:
+    initial: off
+
+  temp_rele_ts2:
+    initial: off
+
+  temp_rele_ts54:
+    initial: off
+
+  temp_rele_tsa:
+    initial: off

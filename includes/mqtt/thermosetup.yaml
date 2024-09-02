@@ -1,0 +1,22 @@
+# mqtt: /homeassistant/includes/mqtt/thermosetup.yaml
+  - climate:
+      name: ThermoSetup
+      modes:
+        - "off"
+        - "heat"
+      mode_command_topic: "//OT/7916732-1450117/auto/control"
+      mode_command_template: "{{'1' if value == 'heat' else '0'}}"
+      mode_state_topic: "//OT/7916732-1450117/auto/status"
+      mode_state_template: "{{'heat' if value_json.status == '1' else 'off'}}"
+      current_temperature_topic: "//OT/7916732-1450117/term_id/status"
+      current_temperature_template: "{{ value_json.status }}"
+      temperature_command_topic: "//OT/7916732-1450117/set_id/control"
+      temperature_state_topic: "//OT/7916732-1450117/set_id/status"
+      temperature_state_template: "{{ value_json.status }}"
+      availability_topic: "//OT/7916732-1450117/state"
+      availability_template: "{{ value_json.status }}"
+      availability_mode: "any"
+      min_temp: 11.1
+      max_temp: 33.3
+      precision: 0.5
+      temp_step: 0.5

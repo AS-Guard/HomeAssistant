@@ -1,0 +1,14 @@
+#   includes/switchs/sw_ts54.yaml
+#switchs:
+  - platform: template
+    switches:
+      sw_ts54:
+        value_template: "{{ is_state('input_boolean.temp_rele_ts54', 'on') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.temp_rele_ts54
+        turn_off:
+          service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.temp_rele_ts54

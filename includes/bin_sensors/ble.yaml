@@ -1,0 +1,5 @@
+esp32_ble_tracker:
+binary_sensor:
+  - platform: ble_presence
+    mac_address: DD:AA:BB:CC:11:22
+    name: ${location}_bin_hpa

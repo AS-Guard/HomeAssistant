@@ -1,0 +1,46 @@
+#   /homeassistant/.gitignore
+
+# https://git-scm.com/book/ru/v2/
+
+#Example .gitignore file for your config dir.
+
+#An * ensures that everything will be ignored.
+# Ignore everything
+*
+
+# You can whitelist files/folders with !, these will not be ignored.
+!*.yaml
+!.gitignore
+!*.md
+!*/*.yaml
+!*.sh
+!*.js*
+!includes
+
+!README
+
+#Comment these 2 lines if you don't want to include your SSH keys
+.ssh/
+id_rsa*
+
+#Uncomment this if you don' want to include secrets.yaml 
+secrets.yaml
+
+# Ignore folders.
+.storage
+.cloud
+.google.token
+
+# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml
+zone.yaml
+
+# Logs
+logs
+*.log
+
+# Python cache
+__pycache__
+*.pyc

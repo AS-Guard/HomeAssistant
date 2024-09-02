@@ -1,0 +1,17 @@
+#   includes/sensors/sen_b6k.yaml
+#sensor:
+  - platform: template
+    sensors:
+      b6k_5s:
+        value_template: >
+          {% if is_state('sensor.b6k_action', '5_single') %} 5_single
+          {% endif %}
+      b6k_5d:
+        value_template: >
+          {% if is_state('sensor.b6k_action', '5_double') %} 5_double
+          {% endif %}
+      b6k_5h:
+        value_template: >
+          {% if is_state('sensor.b6k_action', '5_long') %} 5_long
+          {% else %} None
+          {% endif %}

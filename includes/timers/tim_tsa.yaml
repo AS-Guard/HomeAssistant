@@ -1,0 +1,5 @@
+#   includes/timers/tim_tsa.yaml
+#Timers:
+# TSA
+  tsa:
+    duration: "00:5:00"

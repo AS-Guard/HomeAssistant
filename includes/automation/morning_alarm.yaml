@@ -1,0 +1,40 @@
+# morning_alarm.yaml
+
+- alias: 'Wake Me Up'
+  trigger:
+    platform: time
+    at: input_datetime.weather_notification
+  condition:
+    condition: or
+    conditions:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_boolean.alarmweekday # оповещение в выходные
+            state: 'on'
+          - condition: time
+            weekday:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_boolean.alarmweekday
+            state: 'off'
+
+  action:
+    service: telegram_bot.send_message
+    data: # тут
+      message: "{% if now().strftime('%H')|int < 7 %} 
+        Доброй ночи,
+        {% elif now().strftime('%H')|int < 12 %}
+        Доброе утро,
+        {% elif now().strftime('%H')|int < 18 %}
+        Хорошего дня,
+        {% else %}
+        Хорошего вечера,
+        {% endif %}
+         сейчас на улице {{states('sensor.openweathermap_temperature')}}°C. "

@@ -1,0 +1,5 @@
+  - platform: ping
+    host: 192.168.11.68
+    name: Cam8
+    count: 2
+    scan_interval: 30

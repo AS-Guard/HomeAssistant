@@ -1,0 +1,6 @@
+#   includes/input_booleans/ib_set.yaml
+#input_boolean:
+  alarmweekday:
+    name: Weekdays Only
+    initial: off
+    icon: mdi:calendar

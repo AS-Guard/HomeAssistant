@@ -1,0 +1,50 @@
+#   includes/climates/cl_tsa.yaml
+#climate:
+  - platform: generic_thermostat
+    name: TermoState_1
+    unique_id: TS01
+    heater: switch.heater_ts1
+    target_sensor: sensor.temperature_ts1
+    min_temp: 14 
+    max_temp: 26 
+    ac_mode: false 
+    target_temp: 23.0 
+    cold_tolerance: 0.1 
+    hot_tolerance: 0.1 
+    min_cycle_duration: 
+      seconds: 5 
+    keep_alive: 
+      minutes: 1 
+    initial_hvac_mode: "heat" 
+    precision: 0.1 
+    comfort_temp: 23 
+    home_temp: 21 
+    sleep_temp: 20 
+    activity_temp: 18 
+    away_temp: 16 
+    eco_temp: 12 
+
+#climate:
+  - platform: generic_thermostat
+    name: TermoState_2
+    unique_id: TS02
+    heater: switch.heater_ts2
+    target_sensor: sensor.temperature_ts2
+    min_temp: 11 
+    max_temp: 19 
+    ac_mode: false 
+    target_temp: 15.5 
+    cold_tolerance: 0.1 
+    hot_tolerance: 0.1 
+    min_cycle_duration: 
+      seconds: 5 
+    keep_alive: 
+      minutes: 1 
+    initial_hvac_mode: "heat" 
+    precision: 0.1 
+    comfort_temp: 23 
+    home_temp: 21 
+    sleep_temp: 20 
+    activity_temp: 18 
+    away_temp: 16 
+    eco_temp: 12 

@@ -1,0 +1,50 @@
+#   includes/templates/template.yaml
+#template:
+  - binary_sensor:
+      - name: "Has Unavailable States"
+        state: "{{ states.sensor | selectattr('state', 'in', ['unavailable', 'unknown', 'none']) | list | count }}"
+
+#template:
+  - sensor:
+      - name: "Sun State"
+        state: >
+          {% if is_state('sun.sun', 'above_horizon') %}
+            up
+          {% else %}
+            down
+          {% endif %}
+
+#template:
+  - sensor:
+      - unique_id: indoor_vs_outdoor_temperature
+        attributes:
+          state_class: measurement
+          friendly_name: Binnen vs buiten temperatuur
+          unit_of_measurement: °C
+          device_class: temperature
+        state: >
+          {% set binnen = states.sensor.tr01_temperature.state | float %}
+          {% set buiten = states.sensor.kotel_ulitsa_k.state | float %}
+          {{ (binnen - buiten)|round(2) }}
+
+#template:
+  - sensor:
+      - name: "Average temperature"
+        unit_of_measurement: "°C"
+        state: >
+          {% set bedroom = states('sensor.tr01_temperature') | float %}
+          {% set kitchen = states('sensor.tr2_temperature') | float %}
+          {{ ((bedroom + kitchen) / 2) | round(1, default=0) }}
+
+#template:
+  - trigger:
+      - platform: time_pattern
+        # This will update every night
+        hours: 5
+        minutes: 0
+    sensor:
+      # Keep track how many days have past since a date
+      - name: "Not smoking"
+        state: '{{ ( ( as_timestamp(now()) - as_timestamp(strptime("06.07.2018", "%d.%m.%Y")) ) / 86400 ) | round(default=0) }}'
+        unit_of_measurement: "Days"
+

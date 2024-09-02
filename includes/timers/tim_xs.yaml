@@ -1,0 +1,21 @@
+#   includes/timers/tim_xs.yaml
+#Timers:
+# Розетка ZigBee 1
+  xs1:
+    duration: "01:50:00"
+
+# Розетка ZigBee 3
+  xs3:
+    duration: "01:05:00"
+
+# Розетка ZigBee 4
+  xs4:
+    duration: "01:05:00"
+
+# Розетка ZigBee 5
+  xs5:
+    duration: "00:15:00"
+
+# Розетка ZigBee 7
+  xs7:
+    duration: "00:03:00"

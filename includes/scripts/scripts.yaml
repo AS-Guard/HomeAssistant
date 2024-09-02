@@ -1,0 +1,28 @@
+# script:   includes/scripts/scripts.yaml
+  turn_on_with_delay:
+    sequence:
+      - service: script.turn_off
+        data:
+          entity_id: script.turn_off_with_delay
+      - service: switch.turn_on
+        data:
+          entity_id: switch.fake_heater_1
+      - delay:
+          seconds: 1
+      - service: switch.turn_on
+        data:
+          entity_id: switch.fake_heater_2
+
+  turn_off_with_delay:
+    sequence:
+      - service: script.turn_off
+        data:
+          entity_id: script.turn_on_with_delay
+      - service: switch.turn_off
+        data:
+          entity_id: switch.fake_heater_1
+      - delay:
+          seconds: 1
+      - service: switch.turn_off
+        data: 
+          entity_id: switch.fake_heater_2

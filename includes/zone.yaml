@@ -1,0 +1,31 @@
+#zone:
+- name: Seascape
+  latitude: 29.242990
+  longitude: -94.870588
+  radius: 200
+  icon: mdi:map-marker
+  passive: false
+
+- name: Home
+  latitude: !secret latitude_coord
+  longitude: !secret longitude_coord
+  radius: 450
+  icon: mdi:home
+
+- name: Work
+  latitude: !secret work_latitude_coord
+  longitude: !secret work_longitude_coord
+  radius: 200
+  icon: mdi:domain
+
+- name: Parents
+  latitude: !secret parents_latitude_coord
+  longitude: !secret parents_longitude_coord
+  radius: 200
+  icon: mdi:home
+
+- name: !secret zone_gf_name
+  latitude: !secret gf_latitude_coord
+  longitude: !secret gf_longitude_coord
+  radius: 200
+  icon: mdi:home

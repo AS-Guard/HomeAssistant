@@ -1,0 +1,5 @@
+  - platform: ping
+    host: 192.168.11.69
+    name: Cam270
+    count: 2
+    scan_interval: 30

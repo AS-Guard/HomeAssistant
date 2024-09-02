@@ -1,0 +1,10 @@
+#   includes/input_selects/is_ts54.yaml
+#input_select:
+  is_ts54:
+    name: 'Ts54'
+    options:
+      - Slider
+      - Sensor1
+      - Sensor2
+    initial: Slider
+    icon: mdi:speaker-wireless

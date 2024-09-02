@@ -1,0 +1,10 @@
+#   includes/timer.yaml
+#Timers:
+  tim05s:
+    duration: "00:00:05"
+
+  tim30s:
+    duration: "00:00:30"
+
+  tim30m:
+    duration: "00:30:00"

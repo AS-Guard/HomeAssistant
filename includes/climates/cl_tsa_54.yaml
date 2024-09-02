@@ -1,0 +1,25 @@
+#   includes/climates/cl_tsa_54.yaml
+#climate:
+  - platform: generic_thermostat 
+    name: Ts54 
+    unique_id: id_ts54
+    heater: switch.sw_ts54 #switch.heater 
+    target_sensor: sensor.ts54_sent #sensor.temperature_ts1 # input_number.sl_ts54
+    min_temp: 10 
+    max_temp: 30 
+    ac_mode: false 
+    target_temp: 23.0 
+    cold_tolerance: 0.1 
+    hot_tolerance: 0.1 
+    min_cycle_duration: 
+      seconds: 5 
+    keep_alive: 
+      minutes: 1 
+    initial_hvac_mode: "heat" 
+    precision: 0.1 
+    comfort_temp: 23 
+    home_temp: 21 
+    sleep_temp: 20 
+    activity_temp: 18 
+    away_temp: 16 
+    eco_temp: 12 

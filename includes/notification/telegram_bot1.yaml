@@ -1,0 +1,6 @@
+# telegram_bot telegram_bot1.yaml:
+  - platform: polling
+    api_key:  !secret telegram_api1
+    parse_mode: html
+    allowed_chat_ids:
+      !secret telegram_chat_id1

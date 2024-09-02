@@ -1,0 +1,26 @@
+#   includes/sensors/sen_ts54.yaml
+#sensor:
+  - platform: template
+    sensors:
+      ts54_sent:
+        unit_of_measurement: 'ºC'
+        value_template: >
+          {% if is_state('input_select.is_ts54', 'Sensor1') %}
+            {{ states('sensor.tr01_temperature') | float }}
+          {% elif is_state('input_select.is_ts54', 'Sensor2') %}
+            {{ states('sensor.tr2_temperature') | float }}
+          {% else %}
+            {{ states('input_number.sl_ts54') | float }}
+          {% endif %}
+
+  - platform: template
+    sensors:
+      ts54_st:
+        unit_of_measurement: 'ºC'
+        value_template: "{{ state_attr('climate.ts54', 'temperature') | float }}"
+
+  - platform: template
+    sensors:
+      ts54_it:
+        unit_of_measurement: 'ºC'
+        value_template: "{{ state_attr('climate.ts54', 'current_temperature') | float }}"

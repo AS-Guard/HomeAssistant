@@ -1,0 +1,25 @@
+# notify notify.yaml:
+  - name: me
+    platform: telegram
+    chat_id: 
+      !secret telegram_U_chat_id
+
+  - name: dr
+    platform: telegram
+    chat_id: 
+      !secret telegram_D_chat_id
+    
+  - name: gHA
+    platform: telegram
+    chat_id: 
+      !secret telegram_HA_chat_id
+
+  - name: gMF
+    platform: telegram
+    chat_id: 
+      !secret telegram_MF_chat_id
+
+  - name: gDA
+    platform: telegram
+    chat_id: 
+      !secret telegram_DA_chat_id

@@ -1,0 +1,30 @@
+#   includes/timers/tim_lzw.yaml
+#Timers:
+# Лампа ZigBee 1
+  lz01:
+    duration: "00:10:00"
+
+# Лампа WiFi 1    
+  lw01:
+    duration: "00:03:00"
+
+# Лампа WiFi 2    
+  lw02:
+    duration: "00:03:00"
+
+# Лампа WiFi 3   
+  lw03:
+    duration: "00:03:00"
+
+# Лампа ZigBee 4
+  sw4k1:
+    duration: "02:00:00"
+
+  sw4k2:
+    duration: "02:00:00"
+
+  sw4k3:
+    duration: "00:10:00"
+
+  sw4k4:
+    duration: "00:10:00"

@@ -1,0 +1,11 @@
+#   includes/templates/templ_ds.yaml
+
+#template:
+  - sensor:
+      - name: "Ds02_olx"
+        state: >
+          {% if is_state('sensor.ds02_illuminance')>0 %}
+            {{ states('sensor.ds02_illuminance') }}
+          {% else %}
+            0
+          {% endif %}
