@@ -1,10 +1,128 @@
-$ echo 'My Project' > README
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
+clear
+cd /root/config
+git init
+git config --global user.name "MyName"
+git config --global user.email MyName@mail.ru
+git remote add origin git@github.com:username/reponame.git
+mkdir .ssh
+ssh-keygen -t rsa -b 4096 -C "email"
+/root/config/.ssh/id_rsa
+git config core.sshCommand "ssh -i /root/config/.ssh/id_rsa -F /dev/null"
+git branch -M main
+git config --list --show-origin
 
-    README
+#insert in .gitignore from file contents
+nano .gitignore
 
-nothing added to commit but untracked files present (use "git add" to track)
+git add README
+git add .gitignore
+git add -f includes/**/*.yaml
+git commit -m 'initial commit'
+git status --short
+
+git push -u origin main
+
+#insert in ha_gitpush.sh from file contents
+nano ha_gitpush.sh
+chmod +x ha_gitpush.sh
+
+#insert in automations.yaml from file contents
+
+
+
+#   /homeassistant/.gitignore
+# Example .gitignore file for your config dir.
+# An * ensures that everything will be ignored.
+# Ignore everything
+*
+
+# You can whitelist files/folders with !, these will not be ignored.
+!README
+
+!*.yaml
+!.gitignore
+!*.md
+!*/*.yaml
+!*.sh
+!*.js*
+
+!includes/
+
+#Comment these 2 lines if you don't want to include your SSH keys
+.ssh/
+id_rsa*
+
+#Uncomment this if you don' want to include secrets.yaml 
+secrets.yaml
+
+# Ignore folders.
+.storage
+.cloud
+.google.token
+
+# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+ip_bans.yaml
+known_devices.yaml
+zone.yaml
+
+# Logs
+logs
+*.log
+
+
+
+/homeassistant/.git/config
+
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	sshCommand = ssh -i /config/.ssh/id_rsa -F /dev/null
+[remote "origin"]
+	url = git@github.com:username/reponame.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+
+
+
+#   /homeassistant/ha_gitpush.sh
+#Go to /config folder or 
+#Change this to your Home Assistant config folder if it is different
+cd /config
+#Add all files to the repository with respect to .gitignore rules 
+git add README
+git add .gitignore
+git add automations.yaml
+git add configuration.yaml
+git add -f includes/**/*.yaml
+#Commit changes with message with current date stamp
+git commit -m "config files on `date +'%d-%m-%Y %H:%M:%S'`"
+#Push changes towards GitHub
+git push -u origin main
+
+
+
+#   /homeassistant/automations.yaml
+- id: '1725031180093'
+  alias: Git
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:55:55
+    enabled: false
+  condition: []
+  action:
+  - action: hassio.addon_stdin
+    metadata: {}
+    data:
+      addon: a0d7b954_ssh
+      input: /root/config/ha_gitpush.sh
+  mode: single
+
+
+
+# https://git-scm.com/book/ru/v2/
+# https://www.youtube.com/watch?v=9-OG3bCQFFQ

@@ -15,7 +15,9 @@
 !*/*.yaml
 !*.sh
 !*.js*
-!includes
+
+!includes/
+#!includes/**/*.yaml
 
 !README
 
