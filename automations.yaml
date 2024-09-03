@@ -1251,6 +1251,11 @@
       target:
         entity_id: timer.ds02_lx
       action: timer.start
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.xs5
   - if:
     - condition: state
       entity_id: binary_sensor.ds02_contact
@@ -1268,6 +1273,11 @@
       target:
         entity_id: timer.ds02_lx
       action: timer.start
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.xs5
   mode: single
 - id: '1723484792938'
   alias: Boiler GVS - Tg msg
