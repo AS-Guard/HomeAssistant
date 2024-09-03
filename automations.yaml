@@ -2478,6 +2478,11 @@
     enabled: false
   condition: []
   action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
   - action: hassio.addon_stdin
     metadata: {}
     data:
