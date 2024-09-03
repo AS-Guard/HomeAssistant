@@ -55,7 +55,7 @@
         - 2519fe869b93b107ae307fed766beb9f
       data:
         kelvin: 6500
-        brightness_pct: 100
+        brightness_pct: 15
   - if:
     - condition: numeric_state
       entity_id: light.lampochka_3
@@ -2497,6 +2497,24 @@
     entity_id: binary_sensor.ms4_occupancy
     state: 'on'
   action:
+  - if:
+    - condition: numeric_state
+      entity_id: sensor.ms4_illuminance
+      below: 2000
+    then:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.xs7
+    - data: {}
+      target:
+        entity_id: timer.xs7
+      action: timer.cancel
+    - data: {}
+      target:
+        entity_id: timer.xs7
+      action: timer.start
   - if:
     - condition: state
       entity_id: binary_sensor.tod_foll_night
