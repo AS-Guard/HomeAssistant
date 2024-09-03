@@ -2480,7 +2480,7 @@
   action:
   - data:
       addon: a0d7b954_ssh
-      input: /config/ha_gitpush.sh
+      input: bash /config/gitpush.sh
     action: hassio.addon_stdin
   mode: single
 - id: '1725204137212'

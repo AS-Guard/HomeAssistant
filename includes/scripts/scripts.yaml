@@ -26,3 +26,6 @@
       - service: switch.turn_off
         data: 
           entity_id: switch.fake_heater_2
+
+#  shell_comand:
+#    get_file_contents: "cat {{ filename }}"
