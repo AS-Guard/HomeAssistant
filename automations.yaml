@@ -243,17 +243,28 @@
   - platform: state
     entity_id:
     - light.lz01
-    to: 'on'
     for:
       hours: 0
       minutes: 0
-      seconds: 5
+      seconds: 1
   condition: []
   action:
-  - service: timer.cancel
-    entity_id: timer.lz01
-  - service: timer.start
-    entity_id: timer.lz01
+  - if:
+    - condition: state
+      entity_id: light.lz01
+      state: 'on'
+    then:
+    - entity_id: timer.lz01
+      action: timer.cancel
+    - entity_id: timer.lz01
+      action: timer.start
+  - if:
+    - condition: state
+      entity_id: light.lz01
+      state: 'off'
+    then:
+    - entity_id: timer.lz01
+      action: timer.cancel
   mode: single
 - id: '1716404845307'
   alias: 'lz01 tim '
@@ -1892,38 +1903,53 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 5
+      seconds: 3
   condition: []
   action:
+  - action: timer.cancel
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.tsa
   - if:
     - condition: state
       entity_id: switch.switch_tsa
       state: 'on'
     then:
-    - metadata: {}
-      data:
-        skip_condition: false
-      action: automation.trigger
-      target:
-        entity_id: automation.etk_on
+    - if:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: switch.klimat_etk
+          state: 'on'
+      then:
+      - metadata: {}
+        data:
+          skip_condition: false
+        action: automation.trigger
+        target:
+          entity_id: automation.etk_on
+        enabled: false
       enabled: false
-    - metadata: {}
-      data:
-        skip_condition: false
-      target:
-        entity_id: automation.etk2
-      action: automation.trigger
-      enabled: true
+    - if:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: switch.klimat_etk2
+          state: 'on'
+      then:
+      - metadata: {}
+        data:
+          skip_condition: false
+        target:
+          entity_id: automation.etk2
+        action: automation.trigger
+        enabled: true
     - metadata: {}
       data: {}
       target:
         entity_id: switch.klimat_gist
       action: switch.turn_off
-    - delay:
-        hours: 0
-        minutes: 0
-        seconds: 5
-        milliseconds: 0
     - if:
       - condition: not
         conditions:
@@ -1951,11 +1977,6 @@
       target:
         entity_id: switch.klimat_gist
       action: switch.turn_on
-    - delay:
-        hours: 0
-        minutes: 0
-        seconds: 5
-        milliseconds: 0
     - if:
       - condition: not
         conditions:
@@ -2649,4 +2670,26 @@
     data: {}
     target:
       entity_id: switch.xs5
+  mode: single
+- id: '1725335684916'
+  alias: tsa tim
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.tsa
+    to: idle
+    from: active
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  condition: []
+  action:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.ts54_on
   mode: single

@@ -2,7 +2,7 @@
 #Timers:
 # Лампа ZigBee 1
   lz01:
-    duration: "00:10:00"
+    duration: "00:03:00"
 
 # Лампа WiFi 1    
   lw01:
