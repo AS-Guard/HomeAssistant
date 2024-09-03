@@ -22,8 +22,8 @@ git status --short
 
 git push -u origin main
 
-#insert in ha_gitpush.sh from file contents
-nano ha_gitpush.sh
+#insert in gitpush.sh from file contents
+nano gitpush.sh
 chmod +x ha_gitpush.sh
 
 #insert in automations.yaml from file contents
@@ -120,7 +120,7 @@ git push -u origin main
       metadata: {}
       data:
         addon: a0d7b954_ssh
-        input: /root/config/ha_gitpush.sh
+        input: /config/ha_gitpush.sh
   mode: single
 
 
