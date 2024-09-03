@@ -109,18 +109,18 @@ git push -u origin main
 #   /homeassistant/automations.yaml
 - id: '1725031180093'
   alias: Git
-  description: ''
+  description: ""
   trigger:
-  - platform: time
-    at: 05:55:55
-    enabled: false
+    - platform: time
+      at: "05:55:55"
+      enabled: false
   condition: []
   action:
-  - action: hassio.addon_stdin
-    metadata: {}
-    data:
-      addon: a0d7b954_ssh
-      input: /root/config/ha_gitpush.sh
+    - action: hassio.addon_stdin
+      metadata: {}
+      data:
+        addon: a0d7b954_ssh
+        input: /root/config/ha_gitpush.sh
   mode: single
 
 
