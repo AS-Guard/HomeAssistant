@@ -2478,15 +2478,10 @@
     enabled: false
   condition: []
   action:
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 3
-      milliseconds: 0
-  - action: hassio.addon_stdin
-    data:
+  - data:
       addon: a0d7b954_ssh
-      input: bash /config/ha_gitpush.sh
+      input: /config/ha_gitpush.sh
+    action: hassio.addon_stdin
   mode: single
 - id: '1725204137212'
   alias: Ms4 - Xs7 On
