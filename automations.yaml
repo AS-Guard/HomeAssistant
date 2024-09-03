@@ -2484,10 +2484,9 @@
       seconds: 3
       milliseconds: 0
   - action: hassio.addon_stdin
-    metadata: {}
     data:
       addon: a0d7b954_ssh
-      input: /root/config/ha_gitpush.sh
+      input: bash /config/ha_gitpush.sh
   mode: single
 - id: '1725204137212'
   alias: Ms4 - Xs7 On
