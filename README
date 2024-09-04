@@ -16,7 +16,11 @@ nano .gitignore
 
 git add README
 git add .gitignore
+git add ha_gitpush.sh
+git add automations.yaml
+git add configuration.yaml
 git add -f includes/**/*.yaml
+
 git commit -m 'initial commit'
 git status --short
 
@@ -125,5 +129,16 @@ git push -u origin main
 
 
 
+#   Help str
+
 # https://git-scm.com/book/ru/v2/
 # https://www.youtube.com/watch?v=9-OG3bCQFFQ
+
+
+git status --short
+git remote -v
+
+git fetch origin #HomeAssistant
+git fetch GitHA
+
+git config --global pull.rebase "false"

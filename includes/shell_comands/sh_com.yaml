@@ -1,3 +1,0 @@
-#   includes/shell_comands/sh_com.yaml
-#shell_command:
-  get_file_contents: "cat {{ filename }}"
