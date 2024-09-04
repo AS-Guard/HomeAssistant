@@ -134,6 +134,7 @@ git push -u origin main
 # https://git-scm.com/book/ru/v2/
 # https://www.youtube.com/watch?v=9-OG3bCQFFQ
 
+git branch -M main
 
 git status --short
 git remote -v
@@ -146,3 +147,6 @@ git remote show origin
 git remote rename HA HomeAssistant
 git remote remove HAR
 git tag
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.visual '!gitk'
