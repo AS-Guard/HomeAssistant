@@ -150,3 +150,9 @@ git tag
 git config --global alias.unstage 'reset HEAD --'
 git config --global alias.last 'log -1 HEAD'
 git config --global alias.visual '!gitk'
+
+git branch main2
+git log
+git checkout main2
+git log --oneline --decorate --graph --all
+git switch -c new-branch
