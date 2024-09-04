@@ -142,3 +142,7 @@ git fetch origin #HomeAssistant
 git fetch GitHA
 
 git config --global pull.rebase "false"
+git remote show origin
+git remote rename HA HomeAssistant
+git remote remove HAR
+git tag
