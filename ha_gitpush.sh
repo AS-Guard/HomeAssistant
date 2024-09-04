@@ -18,4 +18,6 @@ git commit -m "config files on `date +'%d-%m-%Y %H:%M:%S'`"
 git status --short
 
 #Push changes towards GitHub Branches GHA  (main or master)
-git push -u origin main
+#git push origin master
+#git push -u origin main
+git push origin main
