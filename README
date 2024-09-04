@@ -32,6 +32,18 @@ chmod +x ha_gitpush.sh
 
 #insert in automations.yaml from file contents
 
+!!!turbidare!!!
+Выполнен: 4 сентября 2024 г. в 14:30:53
+Результат:
+params:
+  domain: hassio
+  service: addon_stdin
+  service_data:
+    addon: a0d7b954_ssh
+    input: /config/ha_gitpush.sh
+  target: {}
+running_script: false
+
 
 
 #   /homeassistant/.gitignore
@@ -155,4 +167,14 @@ git branch main2
 git log
 git checkout main2
 git log --oneline --decorate --graph --all
-git switch -c new-branch
+git switch -c main3 #new-branch
+
+#Switched to branch 'master'
+git checkout master
+
+git checkout -b hotfix
+git commit -a -m 'Fix broken email address'
+
+git checkout master
+git merge hotfix
+git branch -d hotfix
