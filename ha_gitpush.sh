@@ -1,3 +1,4 @@
+#!/bin/sh
 #   /homeassistant/ha_gitpush.sh
 
 #Go to /config folder or Change this to your Home Assistant config folder if it is different

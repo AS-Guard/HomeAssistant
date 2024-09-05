@@ -1403,12 +1403,18 @@
         minutes: 0
         seconds: 13
     then:
+    - device_id: ea950932245b5733fe0d30e68fbca21b
+      domain: number
+      entity_id: 2fcdaff632f9b202d362d5c52be9cdbc
+      type: set_value
+      value: 99.9
     - action: automation.trigger
       metadata: {}
       data:
         skip_condition: true
       target:
         entity_id: automation.boiler_reset
+      enabled: false
   mode: single
 - id: '1723486104669'
   alias: Tr01 21/25 - Tg msg
@@ -2486,7 +2492,7 @@
         entity_id: switch.sw4k_l4
   mode: single
 - id: '1725031180093'
-  alias: Git
+  alias: Git Push
   description: ''
   trigger:
   - platform: time
@@ -2494,10 +2500,14 @@
     enabled: false
   condition: []
   action:
-  - data:
+  - action: hassio.addon_stdin
+    metadata: {}
+    data:
       addon: a0d7b954_ssh
       input: /config/ha_gitpush.sh
-    action: hassio.addon_stdin
+    enabled: false
+  - action: shell_command.shell_gitpush
+    enabled: false
   mode: single
 - id: '1725204137212'
   alias: Ms4 - Xs7 On
@@ -2793,7 +2803,7 @@
   mode: single
 - id: '1725520813967'
   alias: Boiler Reset
-  description: Котёл тест отклика
+  description: Котёл сброс питанием
   trigger:
   - platform: state
     entity_id:

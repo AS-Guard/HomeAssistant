@@ -45,6 +45,19 @@ params:
 running_script: false
 
 
+Выполнен: 5 сентября 2024 г. в 14:47:58
+Ошибка: Action shell_command.shell_gitpush not found
+Результат:
+params:
+  domain: shell_command
+  service: shell_gitpush
+  service_data: {}
+  target: {}
+running_script: false
+
+
+
+
 
 #   /homeassistant/.gitignore
 # Example .gitignore file for your config dir.
