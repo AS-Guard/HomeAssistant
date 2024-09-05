@@ -11,7 +11,7 @@ git add ha_gitpush.sh
 git add automations.yaml
 git add configuration.yaml
 git add -f includes/**/*.yaml
-
+git add .storage/lovelace.dashboard_ld1
 #Commit changes with message with current date stamp
 git commit -m "config files on `date +'%d-%m-%Y %H:%M:%S'`"
 
