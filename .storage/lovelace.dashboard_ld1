@@ -1,0 +1,2680 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_ld1",
+  "data": {
+    "config": {
+      "title": "My Home Assistant",
+      "views": [
+        {
+          "path": "default_view",
+          "title": "Home",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "alert_classes": [
+                        "motion",
+                        "moisture"
+                      ],
+                      "sensor_classes": [
+                        "temperature",
+                        "humidity",
+                        "wind_speed",
+                        "precipitation_intensity"
+                      ],
+                      "type": "area",
+                      "area": "ulitsa",
+                      "navigation_path": "/lovelace/boiler"
+                    },
+                    {
+                      "alert_classes": [
+                        "motion",
+                        "moisture",
+                        "door"
+                      ],
+                      "sensor_classes": [
+                        "temperature",
+                        "humidity",
+                        "illuminance"
+                      ],
+                      "type": "area",
+                      "area": "garazh",
+                      "navigation_path": "/lovelace/g"
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "alert_classes": [
+                        "motion",
+                        "moisture"
+                      ],
+                      "sensor_classes": [
+                        "temperature",
+                        "humidity",
+                        "energy"
+                      ],
+                      "type": "area",
+                      "area": "kukhnia",
+                      "navigation_path": "/lovelace/Kuh"
+                    },
+                    {
+                      "type": "vertical-stack",
+                      "cards": [
+                        {
+                          "alert_classes": [
+                            "motion",
+                            "moisture",
+                            "occupancy",
+                            "door"
+                          ],
+                          "sensor_classes": [
+                            "temperature",
+                            "humidity",
+                            "energy"
+                          ],
+                          "type": "area",
+                          "area": "seni",
+                          "navigation_path": "/lovelace/Sen"
+                        },
+                        {
+                          "alert_classes": [
+                            "motion",
+                            "moisture"
+                          ],
+                          "sensor_classes": [
+                            "temperature",
+                            "humidity"
+                          ],
+                          "type": "area",
+                          "area": "koridor",
+                          "navigation_path": "/lovelace/kr"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "alert_classes": [
+                        "motion",
+                        "moisture"
+                      ],
+                      "sensor_classes": [
+                        "temperature",
+                        "humidity",
+                        "energy"
+                      ],
+                      "type": "area",
+                      "area": "zal",
+                      "navigation_path": "/lovelace/Zal"
+                    },
+                    {
+                      "type": "vertical-stack",
+                      "cards": [
+                        {
+                          "alert_classes": [
+                            "motion",
+                            "moisture"
+                          ],
+                          "sensor_classes": [
+                            "temperature",
+                            "humidity"
+                          ],
+                          "type": "area",
+                          "area": "vannaia",
+                          "navigation_path": "/lovelace/tel"
+                        },
+                        {
+                          "alert_classes": [
+                            "motion",
+                            "moisture",
+                            "occupancy"
+                          ],
+                          "sensor_classes": [
+                            "temperature",
+                            "humidity"
+                          ],
+                          "type": "area",
+                          "area": "spalnia",
+                          "navigation_path": "/lovelace/Sp"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entity",
+                  "entity": "sensor.time_date",
+                  "theme": "day_and_night"
+                },
+                {
+                  "type": "grid",
+                  "square": false,
+                  "columns": 1,
+                  "cards": [
+                    {
+                      "show_current": true,
+                      "show_forecast": true,
+                      "type": "weather-forecast",
+                      "entity": "weather.ha_asg_v",
+                      "forecast_type": "daily",
+                      "theme": "day_and_night"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.ha_asg_v_realfeel_temperature"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_precipitation"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_wind_speed"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_hours_of_sun_today"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_uv_index"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_cloud_ceiling"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_realfeel_temperature_min_today"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_realfeel_temperature_max_today"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_air_quality_today"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_condition_today"
+                    },
+                    {
+                      "entity": "sensor.ha_asg_v_condition_tonight"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "icon": "mdi:greenhouse"
+        },
+        {
+          "title": "Boiler",
+          "path": "boiler",
+          "icon": "mdi:water-boiler",
+          "theme": "my_theme",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.kotel_kotel",
+                  "name": "       Котел"
+                },
+                {
+                  "entity": "sensor.kotel_goriachaia_voda",
+                  "name": "     🚰горячая вода",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.kotel_otoplenie",
+                  "name": "    ♻️отопление",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.kotel_goriachei_vody",
+                  "name": "    🌡 горячей воды"
+                },
+                {
+                  "entity": "sensor.kotel_otopleniia",
+                  "name": "    🌡 отопления"
+                },
+                {
+                  "entity": "sensor.kotel_gorelka",
+                  "name": "   ♨️ горелка",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.kotel_moshchnost_gorelki",
+                  "name": "   ♨️ мощность горелки"
+                },
+                {
+                  "entity": "switch.kotel_otoplenie",
+                  "name": "   ♻️отопление",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "switch.kotel_gvs",
+                  "name": "   🚰ГВС"
+                },
+                {
+                  "entity": "sensor.kotel_oshibka_kotla",
+                  "name": "  ⁉️ ошибка котла"
+                },
+                {
+                  "entity": "switch.kotel_sbros_oshibki",
+                  "name": "  ⁉️сброс ошибки"
+                },
+                {
+                  "entity": "number.kotel_gvs_35_57",
+                  "name": "  🌡ГВС (35-57)"
+                },
+                {
+                  "entity": "number.kotel_otoplenie_35_78",
+                  "name": " 🌡отопление (35-78)"
+                },
+                {
+                  "entity": "sensor.kotel_ulitsa_k",
+                  "name": "🌡 Улица К",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "switch.kotel_uvedomleniia_telegram",
+                  "name": "📣 Телеграм"
+                }
+              ],
+              "show_header_toggle": false,
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.klimat_gvs_max_vkl",
+                  "name": " 🌡 ГВС (MAX) вкл"
+                },
+                {
+                  "entity": "sensor.klimat_gvs_max_m",
+                  "name": " 🌡 ГВС (MAX) м"
+                },
+                {
+                  "entity": "number.klimat_gvs_norm_2",
+                  "name": " 🌡 ГВС (норма)"
+                },
+                {
+                  "entity": "number.klimat_otoplenie_max",
+                  "name": " 🌡 Отопление (MAX)"
+                },
+                {
+                  "entity": "number.klimat_zadannaia",
+                  "name": " 🌡 Заданная (день)"
+                },
+                {
+                  "entity": "sensor.klimat_seni1_t1",
+                  "name": " 🌡 Сени1 T1"
+                },
+                {
+                  "entity": "sensor.klimat_seni2_t2",
+                  "name": " 🌡 Сени2 T2"
+                },
+                {
+                  "entity": "switch.klimat_gist_nagrev",
+                  "name": "   GIST нагрев"
+                },
+                {
+                  "entity": "switch.klimat_gist",
+                  "name": "  GIST"
+                },
+                {
+                  "entity": "sensor.klimat_gist_termostat",
+                  "name": "  GIST термостат"
+                },
+                {
+                  "entity": "switch.klimat_etk",
+                  "name": "ETK"
+                },
+                {
+                  "entity": "sensor.klimat_etk_termostat",
+                  "name": "ETK термостат"
+                },
+                {
+                  "entity": "switch.klimat_etk2",
+                  "name": "ETK2"
+                },
+                {
+                  "entity": "sensor.klimat_etk2_termostat",
+                  "name": "ETK2 термостат"
+                },
+                {
+                  "entity": "switch.klimat_pid",
+                  "name": "PID"
+                },
+                {
+                  "entity": "sensor.klimat_pid_termostat",
+                  "name": "PID термостат"
+                }
+              ],
+              "show_header_toggle": false
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.tr01_temperature"
+                    },
+                    {
+                      "entity": "sensor.tr2_temperature"
+                    }
+                  ]
+                },
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.kotel_otopleniia",
+                    "sensor.klimat_etk_termostat",
+                    "sensor.klimat_etk2_termostat",
+                    "sensor.klimat_pid_termostat"
+                  ],
+                  "stat_types": [
+                    "max"
+                  ],
+                  "days_to_show": 0.25,
+                  "hide_legend": true
+                },
+                {
+                  "chart_type": "line",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.kotel_ulitsa_k",
+                    "sensor.klimat_seni1_t1",
+                    "sensor.klimat_seni2_t2",
+                    "sensor.tr01_temperature",
+                    "sensor.tr2_temperature"
+                  ],
+                  "period": "5minute",
+                  "stat_types": [
+                    "max"
+                  ],
+                  "hide_legend": true,
+                  "logarithmic_scale": false,
+                  "days_to_show": 0.25
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.kotel_gorelka",
+                      "name": "Горелка"
+                    },
+                    {
+                      "entity": "sensor.kotel_goriachaia_voda",
+                      "name": "ГВС"
+                    },
+                    {
+                      "entity": "sensor.kotel_otoplenie",
+                      "name": "СО"
+                    },
+                    {
+                      "entity": "switch.switch_tsa"
+                    }
+                  ],
+                  "hours_to_show": 7
+                },
+                {
+                  "type": "tile",
+                  "entity": "binary_sensor.st32",
+                  "show_entity_picture": true,
+                  "icon_tap_action": {
+                    "action": "url",
+                    "url_path": "http://192.168.11.132/#/"
+                  },
+                  "hide_state": false,
+                  "state_content": [
+                    "state",
+                    "last_changed"
+                  ],
+                  "vertical": false
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.xs8",
+                      "name": "Контроллер К",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.xs9",
+                      "name": "Котёл",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.xs9_voltage"
+                    },
+                    {
+                      "entity": "sensor.xs9_current"
+                    },
+                    {
+                      "entity": "sensor.xs9_power"
+                    },
+                    {
+                      "entity": "sensor.xs9_energy"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "TSA",
+          "path": "tsa",
+          "icon": "mdi:thermometer-auto",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.termostate_1",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        },
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "show_current_as_primary": false,
+                      "name": "TS1",
+                      "theme": "happy"
+                    },
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.termostate_2",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        },
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "name": "TS2",
+                      "theme": "happy"
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.ts54",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        },
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "name": "TS54",
+                      "theme": "happy"
+                    },
+                    {
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "entity": "switch.switch_tsa",
+                          "name": "TSA",
+                          "secondary_info": "last-changed"
+                        },
+                        {
+                          "entity": "switch.heater_ts1",
+                          "name": "TS1",
+                          "secondary_info": "last-changed"
+                        },
+                        {
+                          "entity": "switch.heater_ts2",
+                          "secondary_info": "last-changed",
+                          "name": "TS2"
+                        },
+                        {
+                          "entity": "switch.sw_ts54",
+                          "name": "TS54",
+                          "secondary_info": "last-changed"
+                        }
+                      ],
+                      "state_color": true,
+                      "show_header_toggle": false
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.tsa",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.tsa"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.ts54_st",
+                      "name": "Ts54 Ореентир",
+                      "icon": "mdi:thermometer-check",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ts54_it",
+                      "name": "Ts54 Текущая",
+                      "icon": "mdi:thermometer-low",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "input_number.sl_ts54",
+                      "name": "Слайдер темп-ры"
+                    },
+                    {
+                      "entity": "input_select.is_ts54",
+                      "secondary_info": "last-changed",
+                      "icon": "mdi:selection-ellipse-arrow-inside",
+                      "name": "Сенсор для Ts54"
+                    },
+                    {
+                      "entity": "sensor.ts54_sent",
+                      "name": "Температура S",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.tr01_temperature",
+                      "secondary_info": "last-changed",
+                      "name": "Температура T1"
+                    },
+                    {
+                      "entity": "sensor.tr2_temperature",
+                      "secondary_info": "last-changed",
+                      "name": "Температура T2"
+                    },
+                    {
+                      "entity": "sensor.kotel_ulitsa_k",
+                      "secondary_info": "last-changed",
+                      "name": "Температура У"
+                    },
+                    {
+                      "entity": "sensor.kotel_otopleniia",
+                      "name": "Температура СО",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.kotel_gorelka",
+                      "name": "Горелка"
+                    },
+                    {
+                      "entity": "sensor.kotel_goriachaia_voda",
+                      "name": "ГВС"
+                    },
+                    {
+                      "entity": "sensor.kotel_otoplenie",
+                      "name": "СО"
+                    },
+                    {
+                      "entity": "switch.switch_tsa",
+                      "name": "TSA"
+                    }
+                  ],
+                  "hours_to_show": 2.2
+                },
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.tr01_temperature",
+                    "sensor.tr2_temperature",
+                    "sensor.ts54_sent"
+                  ],
+                  "stat_types": [
+                    "max"
+                  ],
+                  "days_to_show": 0.05,
+                  "hide_legend": true
+                }
+              ]
+            }
+          ],
+          "theme": "day_and_night"
+        },
+        {
+          "title": "Сени",
+          "path": "Sen",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ds01_contact"
+                    }
+                  ],
+                  "hours_to_show": 4
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ds01_contact",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "state_color": true
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ds01",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ds01"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ds01_2",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ds01_2"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms4_occupancy"
+                    }
+                  ],
+                  "hours_to_show": 4,
+                  "logarithmic_scale": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms4_occupancy",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ms4_illuminance",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ms4_illuminance_interval",
+                      "name": "Illuminance interval"
+                    },
+                    {
+                      "entity": "number.ms4_illuminance_interval"
+                    },
+                    {
+                      "entity": "select.ms4_keep_time",
+                      "name": "Keep time"
+                    },
+                    {
+                      "entity": "select.ms4_sensitivity",
+                      "name": "Sensitivity"
+                    },
+                    {
+                      "entity": "sensor.ms4_battery"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ms4",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ms4"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.xs7",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.xs7_power"
+                    },
+                    {
+                      "entity": "sensor.xs7_current"
+                    },
+                    {
+                      "entity": "sensor.xs7_energy"
+                    }
+                  ],
+                  "state_color": true,
+                  "title": "Лампа"
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.xs7",
+                      "state": "on"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.xs7",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "tile",
+              "entity": "input_boolean.userplace",
+              "show_entity_picture": true,
+              "vertical": false,
+              "state_content": "last-changed"
+            },
+            {
+              "type": "entity",
+              "entity": "counter.ds01",
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "counter.ds01",
+                  "above": 0
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.b6k_battery",
+                  "name": "Батарея"
+                },
+                {
+                  "entity": "sensor.b6k_action"
+                },
+                {
+                  "entity": "sensor.b6k_5s"
+                },
+                {
+                  "entity": "sensor.b6k_5d"
+                },
+                {
+                  "entity": "sensor.b6k_5h"
+                }
+              ],
+              "title": "B6k"
+            }
+          ],
+          "icon": "mdi:door-closed-lock"
+        },
+        {
+          "title": "Кух",
+          "path": "Kuh",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms3_occupancy"
+                    }
+                  ],
+                  "hours_to_show": 2
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms3_occupancy",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ms3",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ms3",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "light.lampochka_3",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "title": "Лампочка 3"
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.lw03",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.lw03",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "light",
+              "entity": "light.lampochka_3"
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.xs3",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.xs3_power"
+                    },
+                    {
+                      "entity": "sensor.xs3_current"
+                    },
+                    {
+                      "entity": "sensor.xs3_energy"
+                    }
+                  ],
+                  "state_color": true,
+                  "title": "Лампа"
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.xs3",
+                      "state": "on"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.xs3",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.sw4k_l1",
+                      "name": "L1",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "switch.sw4k_l2",
+                      "name": "L2",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "switch.sw4k_l3",
+                      "name": "L3",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "switch.sw4k_l4",
+                      "name": "L4",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "title": "Sw4k",
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.sw4k1",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.sw4k1",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.sw4k2",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.sw4k2",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.sw4k3",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.sw4k3",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.sw4k4",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.sw4k4",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.0xa4c138dda6382dba_action"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.b1k_action",
+                      "name": "Action"
+                    },
+                    {
+                      "entity": "sensor.b1k_battery"
+                    }
+                  ]
+                }
+              ],
+              "title": "B1k"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.yandex_station_r109xd000fzvhy",
+              "theme": "my_theme"
+            }
+          ],
+          "icon": "mdi:countertop-outline"
+        },
+        {
+          "title": "Зал",
+          "path": "Zal",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "switch.xs1"
+                    }
+                  ],
+                  "hours_to_show": 12
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.xs1",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.xs1_voltage"
+                    },
+                    {
+                      "entity": "sensor.xs1_current",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.xs1_power"
+                    },
+                    {
+                      "entity": "sensor.xs1_energy"
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "state_color": true
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.xs01",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.xs01",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs2",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs2_voltage"
+                },
+                {
+                  "entity": "sensor.xs2_current"
+                },
+                {
+                  "entity": "sensor.xs2_power"
+                },
+                {
+                  "entity": "sensor.xs2_energy"
+                }
+              ],
+              "theme": "my_theme"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs4",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs4_voltage"
+                },
+                {
+                  "entity": "sensor.xs4_current"
+                },
+                {
+                  "entity": "sensor.xs4_power"
+                },
+                {
+                  "entity": "sensor.xs4_energy"
+                }
+              ]
+            },
+            {
+              "chart_type": "line",
+              "period": "5minute",
+              "type": "statistics-graph",
+              "entities": [
+                "sensor.xs1_current"
+              ],
+              "stat_types": [
+                "min",
+                "max"
+              ],
+              "days_to_show": 0.125
+            },
+            {
+              "chart_type": "line",
+              "period": "5minute",
+              "type": "statistics-graph",
+              "entities": [
+                "sensor.xs2_current"
+              ],
+              "stat_types": [
+                "max"
+              ],
+              "days_to_show": 0.125
+            }
+          ],
+          "icon": "mdi:sofa-outline",
+          "theme": "day_and_night"
+        },
+        {
+          "title": "Спа",
+          "path": "Sp",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms2_occupancy"
+                    }
+                  ],
+                  "hours_to_show": 3,
+                  "logarithmic_scale": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms2_occupancy",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ms2_battery"
+                    },
+                    {
+                      "entity": "sensor.ms2_voltage"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ms2",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ms2"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "light.lampochka_2",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "title": "Лампочка 2"
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.lw02",
+                      "state_not": "OFF"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.lw02",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "light.turn_on"
+                      },
+                      "entity": "light.lampochka_2",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": [
+                            "1aabce343509ada8a0cf550f5252a8a0"
+                          ]
+                        },
+                        "data": {
+                          "rgb_color": [
+                            255,
+                            0,
+                            0
+                          ],
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_2"
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
+                        },
+                        "data": {
+                          "rgb_color": [
+                            255,
+                            255,
+                            0
+                          ],
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_2",
+                      "show_state": false
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
+                        },
+                        "data": {
+                          "kelvin": 2000,
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_2"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "icon": "mdi:bed-outline"
+        },
+        {
+          "title": "G",
+          "path": "g",
+          "icon": "mdi:garage",
+          "theme": "my_theme",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ds02_contact"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ds02_contact",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ds02_illuminance",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ds02_battery"
+                    },
+                    {
+                      "entity": "sensor.ds02_illuminance_interval"
+                    },
+                    {
+                      "entity": "number.ds02_illuminance_interval"
+                    }
+                  ]
+                },
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.ds02_illuminance"
+                  ],
+                  "stat_types": [
+                    "mean",
+                    "min",
+                    "max"
+                  ],
+                  "days_to_show": 0.25
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ds02",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ds02"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.xs5",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.xs5_voltage"
+                    },
+                    {
+                      "entity": "sensor.xs5_current"
+                    },
+                    {
+                      "entity": "sensor.xs5_power"
+                    },
+                    {
+                      "entity": "sensor.xs5_energy"
+                    }
+                  ],
+                  "state_color": true,
+                  "title": "Лампа"
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.xs5",
+                      "state": "on"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.xs5",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "entity": "counter.ds02",
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "counter.ds01",
+                  "above": 0
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.b4k_01_l1",
+                  "name": "L1"
+                },
+                {
+                  "entity": "switch.b4k_01_l2",
+                  "name": "L2"
+                },
+                {
+                  "entity": "switch.b4k_01_l3",
+                  "name": "L3"
+                },
+                {
+                  "entity": "switch.b4k_01_l4",
+                  "name": "L4"
+                }
+              ],
+              "title": "B4K_01"
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.xs1_voltage"
+                  ],
+                  "stat_types": [
+                    "max"
+                  ],
+                  "days_to_show": 1
+                },
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.xs3_voltage"
+                  ],
+                  "stat_types": [
+                    "max"
+                  ],
+                  "days_to_show": 1
+                },
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.xs5_voltage"
+                  ],
+                  "stat_types": [
+                    "max"
+                  ],
+                  "days_to_show": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Wr",
+          "path": "wr",
+          "icon": "mdi:hand-wash-outline",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.lz01"
+                },
+                {
+                  "entity": "sensor.lz01_device_temperature"
+                },
+                {
+                  "entity": "switch.lz01_power_outage_memory"
+                },
+                {
+                  "entity": "timer.lz01"
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms1_occupancy"
+                    }
+                  ],
+                  "hours_to_show": 4,
+                  "logarithmic_scale": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms1_occupancy",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ms1",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ms1"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "timer.lz01",
+                  "state": "active"
+                }
+              ],
+              "card": {
+                "type": "entities",
+                "entities": [
+                  {
+                    "entity": "timer.lz01"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "light",
+              "entity": "light.lz01"
+            }
+          ]
+        },
+        {
+          "title": "Cam",
+          "path": "cam",
+          "icon": "mdi:cctv",
+          "cards": [
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "show_state": false,
+                  "show_name": false,
+                  "camera_view": "auto",
+                  "type": "picture-entity",
+                  "entity": "camera.cam8_profile_1"
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "1",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "tilt": "UP"
+                        }
+                      },
+                      "entity": "input_button.camup",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "2",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "pan": "RIGHT",
+                          "distance": 0.5
+                        }
+                      },
+                      "entity": "input_button.caml",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "tilt": "DOWN"
+                        }
+                      },
+                      "entity": "input_button.camdwn",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "distance": 0.5,
+                          "move_mode": "ContinuousMove",
+                          "pan": "LEFT"
+                        }
+                      },
+                      "entity": "input_button.camr",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "3",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "4",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.cam8_cell_motion_detection",
+                      "name": "Cell Motion Detection",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "title": "Cam8",
+                  "show_header_toggle": false,
+                  "state_color": true
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "show_state": false,
+                  "show_name": false,
+                  "camera_view": "auto",
+                  "type": "picture-entity",
+                  "entity": "camera.nvt_mainstream"
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "preset": "1",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "tilt": "UP"
+                        }
+                      },
+                      "entity": "input_button.camup",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "preset": "2",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "pan": "RIGHT",
+                          "distance": 0.5
+                        }
+                      },
+                      "entity": "input_button.caml",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "tilt": "DOWN"
+                        }
+                      },
+                      "entity": "input_button.camdwn",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "distance": 0.5,
+                          "move_mode": "ContinuousMove",
+                          "pan": "LEFT"
+                        }
+                      },
+                      "entity": "input_button.camr",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "preset": "3",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "preset": "4",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.nvt_cell_motion_detection",
+                      "name": "Cell Motion Detection",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "binary_sensor.nvt_digital_input",
+                      "name": "Digital Input",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "binary_sensor.nvt_motion_alarm",
+                      "name": "Motion Alarm",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "title": "NVT",
+                  "show_header_toggle": false,
+                  "state_color": true
+                }
+              ]
+            }
+          ],
+          "theme": "happy",
+          "visible": [
+            {
+              "user": "027dd16451b0484db8461edd2acd679a"
+            },
+            {
+              "user": "a6c002ef319045f49993a4b9e7277105"
+            },
+            {
+              "user": "d7d9d8c463b54f3e8d741cc1ebdc71be"
+            },
+            {
+              "user": "44683ecfc7934ad08ea70b2ea694e23d"
+            },
+            {
+              "user": "59ed0668adea4558a60f31d5f271a70d"
+            }
+          ]
+        },
+        {
+          "title": "Rozetki",
+          "path": "rozetki",
+          "theme": "my_theme",
+          "cards": [
+            {
+              "chart_type": "line",
+              "period": "5minute",
+              "type": "statistics-graph",
+              "entities": [
+                "sensor.xs1_voltage",
+                "sensor.xs2_voltage",
+                "sensor.xs3_voltage",
+                "sensor.xs4_voltage",
+                "sensor.xs5_voltage",
+                "sensor.xs6_voltage",
+                "sensor.xs7_voltage",
+                "sensor.xs8_voltage",
+                "sensor.xs9_voltage"
+              ],
+              "stat_types": [
+                "mean"
+              ],
+              "hide_legend": true,
+              "logarithmic_scale": false,
+              "days_to_show": 0.01
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs1",
+                  "name": "Телефон",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs1_voltage"
+                },
+                {
+                  "entity": "sensor.xs1_current"
+                },
+                {
+                  "entity": "sensor.xs1_power"
+                },
+                {
+                  "entity": "sensor.xs1_energy"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs2",
+                  "name": "Спутник",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs2_voltage"
+                },
+                {
+                  "entity": "sensor.xs2_current"
+                },
+                {
+                  "entity": "sensor.xs2_power"
+                },
+                {
+                  "entity": "sensor.xs2_energy"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs3",
+                  "name": "Лампа кухня",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs3_voltage"
+                },
+                {
+                  "entity": "sensor.xs3_current"
+                },
+                {
+                  "entity": "sensor.xs3_power"
+                },
+                {
+                  "entity": "sensor.xs3_energy"
+                }
+              ],
+              "state_color": true,
+              "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs4",
+                  "name": "Бра зал",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs4_voltage"
+                },
+                {
+                  "entity": "sensor.xs4_current"
+                },
+                {
+                  "entity": "sensor.xs4_power"
+                },
+                {
+                  "entity": "sensor.xs4_energy"
+                }
+              ],
+              "state_color": true,
+              "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs5",
+                  "name": "Лампа гараж",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs5_voltage"
+                },
+                {
+                  "entity": "sensor.xs5_current"
+                },
+                {
+                  "entity": "sensor.xs5_power"
+                },
+                {
+                  "entity": "sensor.xs5_energy"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs6",
+                  "name": "ДТК",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs6_voltage"
+                },
+                {
+                  "entity": "sensor.xs6_current"
+                },
+                {
+                  "entity": "sensor.xs6_power"
+                },
+                {
+                  "entity": "sensor.xs6_energy"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs7",
+                  "secondary_info": "last-changed",
+                  "name": "Лампа сени"
+                },
+                {
+                  "entity": "sensor.xs7_voltage"
+                },
+                {
+                  "entity": "sensor.xs7_current"
+                },
+                {
+                  "entity": "sensor.xs7_power"
+                },
+                {
+                  "entity": "sensor.xs7_energy"
+                }
+              ],
+              "state_color": true,
+              "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs8",
+                  "name": "Контроллер К",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs8_voltage"
+                },
+                {
+                  "entity": "sensor.xs8_current"
+                },
+                {
+                  "entity": "sensor.xs8_power"
+                },
+                {
+                  "entity": "sensor.xs8_energy"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs9",
+                  "name": "Котёл",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.xs9_voltage"
+                },
+                {
+                  "entity": "sensor.xs9_current"
+                },
+                {
+                  "entity": "sensor.xs9_power"
+                },
+                {
+                  "entity": "sensor.xs9_energy"
+                }
+              ]
+            }
+          ],
+          "icon": "mdi:connection"
+        },
+        {
+          "path": "Bat",
+          "icon": "mdi:power-plug-battery-outline",
+          "cards": [
+            {
+              "type": "glance",
+              "entities": [
+                "sensor.ms1_battery",
+                "sensor.ms2_battery",
+                "sensor.ms3_battery",
+                "sensor.tr01_battery",
+                "sensor.tr2_battery",
+                "sensor.ds01_battery",
+                "sensor.ds02_battery"
+              ]
+            },
+            {
+              "type": "glance",
+              "entities": [
+                "sensor.ms1_voltage",
+                "sensor.ms2_voltage",
+                "sensor.ms3_voltage",
+                "sensor.tr01_voltage",
+                "sensor.tr2_voltage",
+                "sensor.ds01_voltage",
+                "sensor.ds02_voltage"
+              ]
+            }
+          ],
+          "title": "Бат"
+        },
+        {
+          "icon": "mdi:calendar-today",
+          "title": "KR",
+          "path": "kr",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.workday_sensor"
+                },
+                {
+                  "entity": "binary_sensor.tod_morning"
+                },
+                {
+                  "entity": "binary_sensor.tod_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_long_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_evening"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_early_night"
+                }
+              ],
+              "title": "Workday Sensor"
+            },
+            {
+              "type": "history-graph",
+              "entities": [
+                {
+                  "entity": "binary_sensor.tod_morning"
+                },
+                {
+                  "entity": "binary_sensor.tod_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_long_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_evening"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_early_night"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Tel",
+          "path": "tel",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "device_tracker.asg_s23u"
+                },
+                {
+                  "entity": "sensor.as_g_s23u_battery_level",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.as_g_s23u_battery_state"
+                },
+                {
+                  "entity": "sensor.as_g_s23u_charger_type"
+                }
+              ],
+              "show_header_toggle": false,
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "device_tracker.sm_g781b"
+                },
+                {
+                  "entity": "sensor.sm_g781b_battery_level",
+                  "name": "Battery level",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.sm_g781b_battery_state",
+                  "name": "Battery state",
+                  "secondary_info": "none"
+                },
+                {
+                  "entity": "sensor.sm_g781b_charger_type",
+                  "name": "Charger type"
+                }
+              ],
+              "show_header_toggle": false,
+              "state_color": true
+            }
+          ],
+          "icon": "mdi:phone"
+        },
+        {
+          "icon": "mdi:account-group",
+          "cards": [
+            {
+              "type": "grid",
+              "square": true,
+              "columns": 3,
+              "cards": [
+                {
+                  "type": "picture-entity",
+                  "entity": "person.andrey",
+                  "aspect_ratio": "1",
+                  "show_name": false,
+                  "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%2369ffd4'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EА%3C/text%3E%3C/g%3E%3C/svg%3E"
+                },
+                {
+                  "type": "picture-entity",
+                  "entity": "person.aleksey",
+                  "aspect_ratio": "1",
+                  "show_name": false,
+                  "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%2369ffd4'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EА%3C/text%3E%3C/g%3E%3C/svg%3E"
+                },
+                {
+                  "type": "picture-entity",
+                  "entity": "person.svetlana",
+                  "aspect_ratio": "1",
+                  "show_name": false,
+                  "image": "/api/image/serve/6b1f17469ce9a9f0eb48b2b4d38c40c4/512x512"
+                }
+              ]
+            },
+            {
+              "type": "iframe",
+              "url": "https://www.youtube.com/playlist?list=PL4y1yofoNjT737C4hXti0SD-V6pBjqOmO",
+              "aspect_ratio": "50%",
+              "title": "https://www.youtube.com/playlist?list=PL4y1yofoNjT737C4hXti0SD-V6pBjqOmO"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
