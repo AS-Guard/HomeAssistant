@@ -139,7 +139,7 @@
       message: 'Температура улицы датчика котла -  {{ states(''sensor.kotel_ulitsa_k'')
         }} '
 - id: Отопление_телеграм
-  alias: Boiler Sen Otoplenie On/Off - Tg msg
+  alias: Boiler Otoplenie Sens On/Off - Tg msg
   trigger:
   - platform: state
     entity_id:
@@ -149,19 +149,21 @@
       hours: 0
       minutes: 0
       seconds: 0
+    to: ✅
   - platform: state
     entity_id:
     - sensor.kotel_otoplenie
-    from: "\U0001F7E2"
+    from: ✅
     for:
       hours: 0
       minutes: 0
       seconds: 0
+    to: ➖
   action:
   - if:
     - condition: state
       entity_id: sensor.kotel_otoplenie
-      state: "\U0001F7E2"
+      state: ✅
     then:
     - data:
         title: Отопление {{ states('sensor.kotel_otoplenie') }}
@@ -171,6 +173,21 @@
         data:
           disable_notification: true
       action: notify.gHA
+    - if:
+      - condition: state
+        entity_id: switch.kotel_otoplenie
+        state: 'off'
+      then:
+      - data:
+          title: ⁉️ Контроллер
+          message: 'Нет согласования, Отопление
+
+            Статус {{ states(''sensor.kotel_otoplenie'') }}
+
+            Задано {{ states(''switch.kotel_otoplenie'') }}
+
+            '
+        action: notify.gHA
   - if:
     - condition: state
       entity_id: sensor.kotel_otoplenie
@@ -184,6 +201,21 @@
         data:
           disable_notification: true
       action: notify.gHA
+    - if:
+      - condition: state
+        entity_id: switch.kotel_otoplenie
+        state: 'on'
+      then:
+      - data:
+          title: ⁉️ Контроллер
+          message: 'Нет согласования, Отопление
+
+            Статус {{ states(''sensor.kotel_otoplenie'') }}
+
+            Задано {{ states(''switch.kotel_otoplenie'') }}
+
+            '
+        action: notify.gHA
 - id: '1715770066650'
   alias: tg temp_kotel_h
   description: ''
@@ -640,15 +672,6 @@
   - platform: state
     entity_id:
     - sensor.kotel_oshibka_kotla
-    from: нет
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 15
-  - platform: state
-    entity_id:
-    - sensor.kotel_oshibka_kotla
-    from: unavailable
     for:
       hours: 0
       minutes: 0
@@ -852,17 +875,19 @@
     action: notify.gHA
   mode: single
 - id: '1722105592543'
-  alias: Boiler Gorelka On/Off
+  alias: Boiler Gorelka Sens On/Off
   description: ''
   trigger:
   - platform: state
     entity_id:
     - sensor.kotel_gorelka
     from: "\U0001F525работает"
+    to: ➖
   - platform: state
     entity_id:
     - sensor.kotel_gorelka
     from: ➖
+    to: "\U0001F525работает"
   condition: []
   action:
   - if:
@@ -990,36 +1015,6 @@
         }}
     action: notify.gHA
   mode: single
-- id: '1722873004594'
-  alias: Boiler OtNCbO - Tg msg
-  description: Ошибка подключения контроллера
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.kotel_otoplenie
-    to: "\U0001F7E2"
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 10
-  condition:
-  - condition: device
-    type: is_off
-    device_id: 2ee25c80e7ec67d70c86fbeba345a76e
-    entity_id: 5f816e521077d0a999ce00be29a683db
-    domain: switch
-  action:
-  - data:
-      title: ⁉️ Контроллер
-      message: 'Нет согласования, Отопление
-
-        Статус {{ states(''sensor.kotel_otoplenie'') }}
-
-        Задано {{ states(''switch.kotel_otoplenie'') }}
-
-        '
-    action: notify.gHA
-  mode: single
 - id: '1723319157849'
   alias: lw03 tim
   description: ''
@@ -1133,7 +1128,7 @@
     action: notify.gHA
   mode: single
 - id: '1723435591077'
-  alias: Boiler OtNCc - Tg msg
+  alias: Boiler Otoplenie Swch On/Off - Tg msg
   description: Ошибка подключения контроллера
   trigger:
   - platform: state
@@ -1280,20 +1275,69 @@
         entity_id: switch.xs5
   mode: single
 - id: '1723484792938'
-  alias: Boiler GVS - Tg msg
+  alias: Boiler GVS Sens On/Off - Tg msg
   description: ''
   trigger:
   - platform: state
     entity_id:
     - sensor.kotel_goriachaia_voda
-    to: "\U0001F7E2"
+    to: ✅
     from: ➖
     for:
       hours: 0
       minutes: 0
-      seconds: 10
+      seconds: 3
+  - platform: state
+    entity_id:
+    - sensor.kotel_goriachaia_voda
+    from: ✅
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    to: ➖
   condition: []
   action:
+  - if:
+    - condition: state
+      entity_id: sensor.kotel_goriachaia_voda
+      state: ✅
+    then:
+    - if:
+      - condition: state
+        entity_id: switch.kotel_gvs
+        state: 'off'
+      then:
+      - data:
+          title: ⁉️ Контроллер
+          message: 'Нет согласования, ГВС
+
+            Статус {{ states(''sensor.kotel_goriachaia_voda'') }}
+
+            Задано {{ states(''switch.kotel_gvs'') }}
+
+            '
+        action: notify.gHA
+  - if:
+    - condition: state
+      entity_id: sensor.kotel_goriachaia_voda
+      state: ➖
+    then:
+    - if:
+      - condition: state
+        entity_id: switch.kotel_gvs
+        state: 'on'
+      then:
+      - data:
+          title: ⁉️ Контроллер
+          message: 'Нет согласования, ГВС
+
+            Статус {{ states(''sensor.kotel_goriachaia_voda'') }}
+
+            Задано {{ states(''switch.kotel_gvs'') }}
+
+            '
+        action: notify.gHA
   - data:
       title: Горячяя вода {{ states('sensor.kotel_goriachaia_voda') }}
       message: "\U0001F321 ГВС {{ states('sensor.kotel_goriachei_vody') }}\n\U0001F321
@@ -1322,10 +1366,13 @@
     conditions:
     - condition: state
       entity_id: sensor.kotel_goriachaia_voda
-      state: "\"\U0001F7E2\""
+      state: ✅
     - condition: state
       entity_id: sensor.kotel_otoplenie
-      state: "\U0001F7E2"
+      state: ✅
+    - condition: state
+      entity_id: sensor.kotel_gorelka
+      state: "\U0001F525работает"
   action:
   - metadata: {}
     data: {}
@@ -1356,29 +1403,15 @@
         minutes: 0
         seconds: 13
     then:
-    - metadata: {}
-      data: {}
+    - action: automation.trigger
+      metadata: {}
+      data:
+        skip_condition: true
       target:
-        entity_id: switch.0x70b3d52b6008c121
-      action: switch.turn_off
-    - delay:
-        hours: 0
-        minutes: 0
-        seconds: 11
-        milliseconds: 0
-    - metadata: {}
-      data: {}
-      target:
-        entity_id: switch.0x70b3d52b6008c121
-      action: switch.turn_on
-    - device_id: ea950932245b5733fe0d30e68fbca21b
-      domain: number
-      entity_id: 2fcdaff632f9b202d362d5c52be9cdbc
-      type: set_value
-      value: 44.8
+        entity_id: automation.boiler_reset
   mode: single
 - id: '1723486104669'
-  alias: Tr01 21/25 - Tg mess
+  alias: Tr01 21/25 - Tg msg
   description: ''
   trigger:
   - platform: numeric_state
@@ -1411,7 +1444,7 @@
     action: notify.gHA
   mode: single
 - id: '1723531923222'
-  alias: Boiler NA - Tg msg
+  alias: Boiler NA or Off - Tg msg
   description: ''
   trigger:
   - platform: state
@@ -1426,6 +1459,9 @@
   - if:
     - condition: or
       conditions:
+      - condition: state
+        entity_id: sensor.kotel_kotel
+        state: ❌
       - condition: state
         entity_id: sensor.kotel_kotel
         state: unavailable
@@ -1447,36 +1483,6 @@
         data:
           disable_notification: true
       action: notify.gHA
-  mode: single
-- id: '1723575553288'
-  alias: Boiler OtNCbG - Tg msg
-  description: Ошибка подключения контроллера
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.kotel_goriachaia_voda
-    to: "\U0001F7E2"
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 10
-  condition:
-  - condition: device
-    type: is_off
-    device_id: 2ee25c80e7ec67d70c86fbeba345a76e
-    entity_id: 5d19ddbc53575a9f15e8ad7ee3be79f1
-    domain: switch
-  action:
-  - data:
-      title: ⁉️ Контроллер
-      message: 'Нет согласования, Горячая вода
-
-        Статус {{ states(''sensor.kotel_goriachaia_voda'') }}
-
-        Задано {{ states(''switch.kotel_gvs'') }}
-
-        '
-    action: notify.gHA
   mode: single
 - id: '1723637212944'
   alias: Ds02 lx - Tg
@@ -2719,4 +2725,126 @@
       skip_condition: false
     target:
       entity_id: automation.ts54_on
+  mode: single
+- id: '1725519787137'
+  alias: Boiler GVS Swch On/Off - Tg msg
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.kotel_gvs
+    to: 'on'
+    from: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  - platform: state
+    entity_id:
+    - switch.kotel_gvs
+    from: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    to: 'off'
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: switch.kotel_gvs
+      state: 'off'
+    then:
+    - if:
+      - condition: state
+        entity_id: sensor.kotel_goriachaia_voda
+        state: ✅
+      then:
+      - data:
+          title: ⁉️ Контроллер
+          message: 'Нет согласования, ГВС
+
+            Статус {{ states(''sensor.kotel_goriachaia_voda'') }}
+
+            Задано {{ states(''switch.kotel_gvs'') }}
+
+            '
+        action: notify.gHA
+  - if:
+    - condition: state
+      entity_id: switch.kotel_gvs
+      state: 'on'
+    then:
+    - if:
+      - condition: state
+        entity_id: sensor.kotel_goriachaia_voda
+        state: ➖
+      then:
+      - data:
+          title: ⁉️ Контроллер
+          message: 'Нет согласования, ГВС
+
+            Статус {{ states(''sensor.kotel_goriachaia_voda'') }}
+
+            Задано {{ states(''switch.kotel_gvs'') }}
+
+            '
+        action: notify.gHA
+  mode: single
+- id: '1725520813967'
+  alias: Boiler Reset
+  description: Котёл тест отклика
+  trigger:
+  - platform: state
+    entity_id:
+    - number.klimat_otoplenie_max
+    to: '99.9'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 11
+    enabled: true
+  condition: []
+  action:
+  - if:
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: sensor.kotel_gorelka
+        state: "\U0001F525работает"
+    then:
+    - metadata: {}
+      data: {}
+      action: switch.turn_off
+      target:
+        entity_id:
+        - switch.xs9
+        - switch.xs8
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 5
+        milliseconds: 0
+    - metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - switch.xs8
+      action: switch.turn_on
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 11
+        milliseconds: 0
+    - metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - switch.xs9
+      action: switch.turn_on
+    - device_id: ea950932245b5733fe0d30e68fbca21b
+      domain: number
+      entity_id: 2fcdaff632f9b202d362d5c52be9cdbc
+      type: set_value
+      value: 44.8
   mode: single

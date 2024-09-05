@@ -178,3 +178,7 @@ git commit -a -m 'Fix broken email address'
 git checkout master
 git merge hotfix
 git branch -d hotfix
+
+git branch --move master main
+git push --set-upstream origin main
+git branch --all
