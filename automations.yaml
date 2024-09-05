@@ -148,7 +148,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 0
+      seconds: 5
     to: ✅
   - platform: state
     entity_id:
@@ -157,7 +157,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 0
+      seconds: 5
     to: ➖
   action:
   - if:
@@ -883,17 +883,28 @@
     - sensor.kotel_gorelka
     from: "\U0001F525работает"
     to: ➖
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
   - platform: state
     entity_id:
     - sensor.kotel_gorelka
     from: ➖
     to: "\U0001F525работает"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
   condition: []
   action:
   - if:
     - condition: state
       entity_id: sensor.kotel_gorelka
       state: "\U0001F525работает"
+    - condition: state
+      entity_id: sensor.kotel_goriachaia_voda
+      state: 'on'
     then:
     - target:
         entity_id: timer.lz01
@@ -903,17 +914,22 @@
       metadata: {}
       data:
         kelvin: 6500
+        brightness_pct: 80
       target:
         device_id: b719ed1e31d7c898470e7fc10d438b3e
   - if:
     - condition: state
       entity_id: sensor.kotel_gorelka
       state: ➖
+    - condition: state
+      state: 'on'
+      entity_id: sensor.kotel_goriachaia_voda
     then:
     - action: light.turn_on
       metadata: {}
       data:
         kelvin: 2000
+        brightness_pct: 80
       target:
         device_id: b719ed1e31d7c898470e7fc10d438b3e
     - entity_id: timer.lz01

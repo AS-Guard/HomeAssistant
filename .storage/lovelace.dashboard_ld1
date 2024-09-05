@@ -23,6 +23,40 @@
                       ],
                       "sensor_classes": [
                         "temperature",
+                        "humidity"
+                      ],
+                      "type": "area",
+                      "area": "teplitsa",
+                      "navigation_path": "/dashboard-ld1/tsa",
+                      "theme": "my_theme",
+                      "aspect_ratio": "21:7"
+                    },
+                    {
+                      "alert_classes": [
+                        "motion",
+                        "moisture"
+                      ],
+                      "sensor_classes": [
+                        "temperature",
+                        "humidity"
+                      ],
+                      "type": "area",
+                      "area": "lodzhiia",
+                      "aspect_ratio": "21:7",
+                      "navigation_path": "/dashboard-ld1/Cam"
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "alert_classes": [
+                        "motion",
+                        "moisture"
+                      ],
+                      "sensor_classes": [
+                        "temperature",
                         "humidity",
                         "wind_speed",
                         "precipitation_intensity"
@@ -44,7 +78,7 @@
                       ],
                       "type": "area",
                       "area": "garazh",
-                      "navigation_path": "/dashboard-ld1/g"
+                      "navigation_path": "/dashboard-ld1/garage"
                     }
                   ]
                 },
@@ -63,7 +97,7 @@
                       ],
                       "type": "area",
                       "area": "kukhnia",
-                      "navigation_path": "/dashboard_ld1/Kuh"
+                      "navigation_path": "/dashboard-ld1/Kuh"
                     },
                     {
                       "type": "vertical-stack",
@@ -146,7 +180,7 @@
                           ],
                           "type": "area",
                           "area": "spalnia",
-                          "navigation_path": "/dashboard-ld1/Sp"
+                          "navigation_path": "/dashboard-ld1/Spa"
                         }
                       ]
                     }
@@ -1517,7 +1551,7 @@
         },
         {
           "title": "Гараж",
-          "path": "Garage",
+          "path": "garage",
           "icon": "mdi:garage",
           "theme": "my_theme",
           "cards": [
