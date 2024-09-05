@@ -29,7 +29,7 @@
                       ],
                       "type": "area",
                       "area": "ulitsa",
-                      "navigation_path": "/lovelace/boiler"
+                      "navigation_path": "/dashboard-ld1/boiler"
                     },
                     {
                       "alert_classes": [
@@ -44,7 +44,7 @@
                       ],
                       "type": "area",
                       "area": "garazh",
-                      "navigation_path": "/lovelace/g"
+                      "navigation_path": "/dashboard-ld1/g"
                     }
                   ]
                 },
@@ -63,7 +63,7 @@
                       ],
                       "type": "area",
                       "area": "kukhnia",
-                      "navigation_path": "/lovelace/Kuh"
+                      "navigation_path": "/dashboard_ld1/Kuh"
                     },
                     {
                       "type": "vertical-stack",
@@ -82,7 +82,7 @@
                           ],
                           "type": "area",
                           "area": "seni",
-                          "navigation_path": "/lovelace/Sen"
+                          "navigation_path": "/dashboard-ld1/Sen"
                         },
                         {
                           "alert_classes": [
@@ -95,7 +95,7 @@
                           ],
                           "type": "area",
                           "area": "koridor",
-                          "navigation_path": "/lovelace/kr"
+                          "navigation_path": "/dashboard-ld1/rozetki"
                         }
                       ]
                     }
@@ -116,7 +116,7 @@
                       ],
                       "type": "area",
                       "area": "zal",
-                      "navigation_path": "/lovelace/Zal"
+                      "navigation_path": "/dashboard-ld1/Zal"
                     },
                     {
                       "type": "vertical-stack",
@@ -132,7 +132,7 @@
                           ],
                           "type": "area",
                           "area": "vannaia",
-                          "navigation_path": "/lovelace/tel"
+                          "navigation_path": "/dashboard-ld1/wr"
                         },
                         {
                           "alert_classes": [
@@ -146,7 +146,7 @@
                           ],
                           "type": "area",
                           "area": "spalnia",
-                          "navigation_path": "/lovelace/Sp"
+                          "navigation_path": "/dashboard-ld1/Sp"
                         }
                       ]
                     }
@@ -699,7 +699,7 @@
               ]
             }
           ],
-          "theme": "day_and_night"
+          "theme": "my_theme"
         },
         {
           "title": "Сени",
@@ -918,10 +918,11 @@
               "title": "B6k"
             }
           ],
-          "icon": "mdi:door-closed-lock"
+          "icon": "mdi:door-closed-lock",
+          "theme": "my_theme"
         },
         {
-          "title": "Кух",
+          "title": "Кухня",
           "path": "Kuh",
           "cards": [
             {
@@ -1196,7 +1197,8 @@
               "theme": "my_theme"
             }
           ],
-          "icon": "mdi:countertop-outline"
+          "icon": "mdi:countertop-outline",
+          "theme": "my_theme"
         },
         {
           "title": "Зал",
@@ -1330,11 +1332,11 @@
             }
           ],
           "icon": "mdi:sofa-outline",
-          "theme": "day_and_night"
+          "theme": "my_theme"
         },
         {
-          "title": "Спа",
-          "path": "Sp",
+          "title": "Спальня",
+          "path": "Spa",
           "cards": [
             {
               "type": "vertical-stack",
@@ -1510,11 +1512,12 @@
               ]
             }
           ],
-          "icon": "mdi:bed-outline"
+          "icon": "mdi:bed-outline",
+          "theme": "my_theme"
         },
         {
-          "title": "G",
-          "path": "g",
+          "title": "Гараж",
+          "path": "Garage",
           "icon": "mdi:garage",
           "theme": "my_theme",
           "cards": [
@@ -1710,7 +1713,7 @@
           ]
         },
         {
-          "title": "Wr",
+          "title": "Ванная",
           "path": "wr",
           "icon": "mdi:hand-wash-outline",
           "cards": [
@@ -1797,11 +1800,12 @@
               "type": "light",
               "entity": "light.lz01"
             }
-          ]
+          ],
+          "theme": "my_theme"
         },
         {
-          "title": "Cam",
-          "path": "cam",
+          "title": "Камера",
+          "path": "Cam",
           "icon": "mdi:cctv",
           "cards": [
             {
@@ -2231,7 +2235,7 @@
               ]
             }
           ],
-          "theme": "happy",
+          "theme": "my_theme",
           "visible": [
             {
               "user": "027dd16451b0484db8461edd2acd679a"
@@ -2251,8 +2255,8 @@
           ]
         },
         {
-          "title": "Rozetki",
-          "path": "rozetki",
+          "title": "Розетки",
+          "path": "Rozetki",
           "theme": "my_theme",
           "cards": [
             {
@@ -2513,12 +2517,13 @@
               ]
             }
           ],
-          "title": "Бат"
+          "title": "Батарейки",
+          "theme": "my_theme"
         },
         {
           "icon": "mdi:calendar-today",
-          "title": "KR",
-          "path": "kr",
+          "title": "Календарь",
+          "path": "Day",
           "cards": [
             {
               "type": "entities",
@@ -2582,7 +2587,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "theme": "my_theme"
         },
         {
           "title": "Tel",
@@ -2672,7 +2678,10 @@
               "aspect_ratio": "50%",
               "title": "https://www.youtube.com/playlist?list=PL4y1yofoNjT737C4hXti0SD-V6pBjqOmO"
             }
-          ]
+          ],
+          "title": "Пол",
+          "path": "User",
+          "theme": "my_theme"
         }
       ]
     }
