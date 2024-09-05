@@ -29,7 +29,8 @@
                       "area": "teplitsa",
                       "navigation_path": "/dashboard-ld1/tsa",
                       "theme": "my_theme",
-                      "aspect_ratio": "21:7"
+                      "aspect_ratio": "20:6",
+                      "show_camera": false
                     },
                     {
                       "alert_classes": [
@@ -42,7 +43,7 @@
                       ],
                       "type": "area",
                       "area": "lodzhiia",
-                      "aspect_ratio": "21:7",
+                      "aspect_ratio": "20:6",
                       "navigation_path": "/dashboard-ld1/Cam"
                     }
                   ]
@@ -63,7 +64,8 @@
                       ],
                       "type": "area",
                       "area": "ulitsa",
-                      "navigation_path": "/dashboard-ld1/boiler"
+                      "navigation_path": "/dashboard-ld1/boiler",
+                      "aspect_ratio": "19:10"
                     },
                     {
                       "alert_classes": [
@@ -78,7 +80,8 @@
                       ],
                       "type": "area",
                       "area": "garazh",
-                      "navigation_path": "/dashboard-ld1/garage"
+                      "navigation_path": "/dashboard-ld1/garage",
+                      "aspect_ratio": "19:10"
                     }
                   ]
                 },
@@ -116,7 +119,8 @@
                           ],
                           "type": "area",
                           "area": "seni",
-                          "navigation_path": "/dashboard-ld1/Sen"
+                          "navigation_path": "/dashboard-ld1/Sen",
+                          "aspect_ratio": "19:10"
                         },
                         {
                           "alert_classes": [
@@ -129,7 +133,8 @@
                           ],
                           "type": "area",
                           "area": "koridor",
-                          "navigation_path": "/dashboard-ld1/rozetki"
+                          "navigation_path": "/dashboard-ld1/rozetki",
+                          "aspect_ratio": "19:10"
                         }
                       ]
                     }
@@ -166,7 +171,8 @@
                           ],
                           "type": "area",
                           "area": "vannaia",
-                          "navigation_path": "/dashboard-ld1/wr"
+                          "navigation_path": "/dashboard-ld1/wr",
+                          "aspect_ratio": "19:10"
                         },
                         {
                           "alert_classes": [
@@ -180,7 +186,8 @@
                           ],
                           "type": "area",
                           "area": "spalnia",
-                          "navigation_path": "/dashboard-ld1/Spa"
+                          "navigation_path": "/dashboard-ld1/Spa",
+                          "aspect_ratio": "19:10"
                         }
                       ]
                     }
