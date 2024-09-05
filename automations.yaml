@@ -2506,8 +2506,8 @@
       addon: a0d7b954_ssh
       input: /config/ha_gitpush.sh
     enabled: false
-  - action: shell_command.shell_gitpush
-    enabled: false
+  - action: shell_command.call_gitpush
+    enabled: true
   mode: single
 - id: '1725204137212'
   alias: Ms4 - Xs7 On

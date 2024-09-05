@@ -1,3 +1,3 @@
 #   includes/shell/shell_commands.yaml
 #shell_commands:
-  shell_gitpush: bash /config/ha_gitpush.sh
+  call_gitpush: bash /config/ha_gitpush.sh
