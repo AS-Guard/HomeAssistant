@@ -707,11 +707,9 @@
     entity_id: f4892b5c7432477ac56fc7d22745307d
     domain: binary_sensor
   condition:
-  - type: is_occupied
-    condition: device
-    device_id: 71b1cd644912d7d9dcabc4da61bd258a
-    entity_id: f4892b5c7432477ac56fc7d22745307d
-    domain: binary_sensor
+  - condition: state
+    entity_id: binary_sensor.ms2_occupancy
+    state: 'on'
   action:
   - if:
     - condition: state
@@ -758,6 +756,16 @@
       target:
         entity_id: timer.lw02
       action: timer.start
+  - action: timer.cancel
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.ms2
+  - action: timer.start
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.ms2
   mode: single
 - id: '1721934904885'
   alias: lw02 tim
@@ -786,7 +794,7 @@
   - delay:
       hours: 0
       minutes: 0
-      seconds: 10
+      seconds: 5
       milliseconds: 0
   - type: turn_off
     device_id: 1aabce343509ada8a0cf550f5252a8a0
@@ -805,7 +813,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 22
+      seconds: 3
   condition: []
   action:
   - data: {}

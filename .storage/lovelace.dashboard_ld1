@@ -29,7 +29,7 @@
                       "area": "teplitsa",
                       "navigation_path": "/dashboard-ld1/tsa",
                       "theme": "my_theme",
-                      "aspect_ratio": "20:6",
+                      "aspect_ratio": "20:4",
                       "show_camera": false
                     },
                     {
@@ -43,8 +43,9 @@
                       ],
                       "type": "area",
                       "area": "lodzhiia",
-                      "aspect_ratio": "20:6",
-                      "navigation_path": "/dashboard-ld1/Cam"
+                      "aspect_ratio": "20:4",
+                      "navigation_path": "/dashboard-ld1/Cam",
+                      "theme": "my_theme"
                     }
                   ]
                 },
@@ -64,8 +65,7 @@
                       ],
                       "type": "area",
                       "area": "ulitsa",
-                      "navigation_path": "/dashboard-ld1/boiler",
-                      "aspect_ratio": "19:10"
+                      "navigation_path": "/dashboard-ld1/boiler"
                     },
                     {
                       "alert_classes": [
@@ -80,8 +80,7 @@
                       ],
                       "type": "area",
                       "area": "garazh",
-                      "navigation_path": "/dashboard-ld1/garage",
-                      "aspect_ratio": "19:10"
+                      "navigation_path": "/dashboard-ld1/garage"
                     }
                   ]
                 },
@@ -119,8 +118,7 @@
                           ],
                           "type": "area",
                           "area": "seni",
-                          "navigation_path": "/dashboard-ld1/Sen",
-                          "aspect_ratio": "19:10"
+                          "navigation_path": "/dashboard-ld1/Sen"
                         },
                         {
                           "alert_classes": [
@@ -133,8 +131,7 @@
                           ],
                           "type": "area",
                           "area": "koridor",
-                          "navigation_path": "/dashboard-ld1/rozetki",
-                          "aspect_ratio": "19:10"
+                          "navigation_path": "/dashboard-ld1/Rozetki"
                         }
                       ]
                     }
@@ -171,8 +168,7 @@
                           ],
                           "type": "area",
                           "area": "vannaia",
-                          "navigation_path": "/dashboard-ld1/wr",
-                          "aspect_ratio": "19:10"
+                          "navigation_path": "/dashboard-ld1/wr"
                         },
                         {
                           "alert_classes": [
@@ -186,8 +182,7 @@
                           ],
                           "type": "area",
                           "area": "spalnia",
-                          "navigation_path": "/dashboard-ld1/Spa",
-                          "aspect_ratio": "19:10"
+                          "navigation_path": "/dashboard-ld1/Spa"
                         }
                       ]
                     }
@@ -257,6 +252,21 @@
                   ]
                 }
               ]
+            },
+            {
+              "alert_classes": [
+                "motion",
+                "moisture"
+              ],
+              "sensor_classes": [
+                "temperature",
+                "humidity"
+              ],
+              "type": "area",
+              "area": "gostinaia",
+              "navigation_path": "/lovelace",
+              "theme": "my_theme",
+              "aspect_ratio": "16:1"
             }
           ],
           "icon": "mdi:greenhouse"
@@ -424,20 +434,21 @@
                   ]
                 },
                 {
-                  "chart_type": "line",
-                  "period": "5minute",
-                  "type": "statistics-graph",
+                  "type": "history-graph",
+                  "hours_to_show": 7,
+                  "entities": [
+                    "sensor.kotel_ulitsa_k"
+                  ]
+                },
+                {
+                  "type": "history-graph",
+                  "hours_to_show": 7,
                   "entities": [
                     "sensor.kotel_otopleniia",
+                    "sensor.tr01_temperature",
                     "sensor.klimat_etk_termostat",
-                    "sensor.klimat_etk2_termostat",
-                    "sensor.klimat_pid_termostat"
-                  ],
-                  "stat_types": [
-                    "max"
-                  ],
-                  "days_to_show": 0.25,
-                  "hide_legend": true
+                    "sensor.klimat_etk2_termostat"
+                  ]
                 },
                 {
                   "chart_type": "line",
@@ -1383,6 +1394,131 @@
               "type": "vertical-stack",
               "cards": [
                 {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
+                        },
+                        "data": {
+                          "rgb_color": [
+                            255,
+                            255,
+                            0
+                          ],
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_2",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "light.turn_on",
+                        "data": {
+                          "brightness_pct": 1,
+                          "rgb_color": [
+                            0,
+                            255,
+                            255
+                          ]
+                        },
+                        "target": {
+                          "entity_id": "light.lampochka_2"
+                        }
+                      },
+                      "entity": "light.lampochka_2",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": [
+                            "1aabce343509ada8a0cf550f5252a8a0"
+                          ]
+                        },
+                        "data": {
+                          "rgb_color": [
+                            255,
+                            0,
+                            0
+                          ],
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_2",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
+                        },
+                        "data": {
+                          "kelvin": 2000,
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_2",
+                      "show_state": false
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "light.lampochka_2",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.lw02",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.lw02",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
                   "type": "history-graph",
                   "entities": [
                     {
@@ -1398,12 +1534,6 @@
                     {
                       "entity": "binary_sensor.ms2_occupancy",
                       "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.ms2_battery"
-                    },
-                    {
-                      "entity": "sensor.ms2_voltage"
                     }
                   ],
                   "state_color": true,
@@ -1426,129 +1556,6 @@
                       }
                     ]
                   }
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "light.lampochka_2",
-                      "secondary_info": "last-changed"
-                    }
-                  ],
-                  "title": "Лампочка 2"
-                },
-                {
-                  "type": "conditional",
-                  "conditions": [
-                    {
-                      "condition": "state",
-                      "entity": "switch.lw02",
-                      "state_not": "OFF"
-                    }
-                  ],
-                  "card": {
-                    "type": "entities",
-                    "entities": [
-                      {
-                        "entity": "timer.lw02",
-                        "secondary_info": "none"
-                      }
-                    ],
-                    "state_color": true
-                  }
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "show_name": true,
-                      "show_icon": true,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "light.turn_on"
-                      },
-                      "entity": "light.lampochka_2",
-                      "show_state": false
-                    },
-                    {
-                      "show_name": true,
-                      "show_icon": true,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
-                        "target": {
-                          "device_id": [
-                            "1aabce343509ada8a0cf550f5252a8a0"
-                          ]
-                        },
-                        "data": {
-                          "rgb_color": [
-                            255,
-                            0,
-                            0
-                          ],
-                          "brightness_pct": 1
-                        }
-                      },
-                      "entity": "light.lampochka_2"
-                    },
-                    {
-                      "show_name": true,
-                      "show_icon": true,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
-                        "target": {
-                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
-                        },
-                        "data": {
-                          "rgb_color": [
-                            255,
-                            255,
-                            0
-                          ],
-                          "brightness_pct": 1
-                        }
-                      },
-                      "entity": "light.lampochka_2",
-                      "show_state": false
-                    }
-                  ]
-                },
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "show_name": true,
-                      "show_icon": true,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
-                        "target": {
-                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
-                        },
-                        "data": {
-                          "kelvin": 2000,
-                          "brightness_pct": 1
-                        }
-                      },
-                      "entity": "light.lampochka_2"
-                    }
-                  ]
                 }
               ]
             }
@@ -2723,6 +2730,26 @@
           "title": "Пол",
           "path": "User",
           "theme": "my_theme"
+        },
+        {
+          "title": "His1",
+          "path": "his1",
+          "type": "panel",
+          "cards": [
+            {
+              "type": "history-graph",
+              "hours_to_show": 10,
+              "entities": [
+                "sensor.kotel_otoplenie",
+                "sensor.kotel_gorelka",
+                "sensor.kotel_moshchnost_gorelki",
+                "sensor.kotel_otopleniia",
+                "number.kotel_otoplenie_35_78",
+                "sensor.klimat_etk2_termostat",
+                "sensor.tr01_temperature"
+              ]
+            }
+          ]
         }
       ]
     }
