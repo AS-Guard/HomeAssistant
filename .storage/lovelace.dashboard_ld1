@@ -447,7 +447,8 @@
                     "sensor.kotel_otopleniia",
                     "sensor.tr01_temperature",
                     "sensor.klimat_etk_termostat",
-                    "sensor.klimat_etk2_termostat"
+                    "sensor.klimat_etk2_termostat",
+                    "sensor.ha_asg_v_realfeel_temperature"
                   ]
                 },
                 {
@@ -981,48 +982,96 @@
               "type": "vertical-stack",
               "cards": [
                 {
-                  "type": "history-graph",
-                  "entities": [
+                  "type": "horizontal-stack",
+                  "cards": [
                     {
-                      "entity": "binary_sensor.ms3_occupancy"
-                    }
-                  ],
-                  "hours_to_show": 2
-                },
-                {
-                  "type": "entities",
-                  "entities": [
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
+                        },
+                        "data": {
+                          "rgb_color": [
+                            255,
+                            255,
+                            0
+                          ],
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_3",
+                      "show_state": false
+                    },
                     {
-                      "entity": "binary_sensor.ms3_occupancy",
-                      "secondary_info": "last-changed"
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "light.turn_on",
+                        "data": {
+                          "brightness_pct": 1,
+                          "rgb_color": [
+                            0,
+                            255,
+                            255
+                          ]
+                        },
+                        "target": {
+                          "entity_id": "light.lampochka_3"
+                        }
+                      },
+                      "entity": "light.lampochka_3",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": [
+                            "1aabce343509ada8a0cf550f5252a8a0"
+                          ]
+                        },
+                        "data": {
+                          "rgb_color": [
+                            255,
+                            0,
+                            0
+                          ],
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_3",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "light.turn_on",
+                        "target": {
+                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
+                        },
+                        "data": {
+                          "kelvin": 2000,
+                          "brightness_pct": 1
+                        }
+                      },
+                      "entity": "light.lampochka_3",
+                      "show_state": false
                     }
                   ]
                 },
-                {
-                  "type": "conditional",
-                  "conditions": [
-                    {
-                      "condition": "state",
-                      "entity": "timer.ms3",
-                      "state": "active"
-                    }
-                  ],
-                  "card": {
-                    "type": "entities",
-                    "entities": [
-                      {
-                        "entity": "timer.ms3",
-                        "secondary_info": "none"
-                      }
-                    ],
-                    "state_color": true
-                  }
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
                 {
                   "type": "entities",
                   "entities": [
@@ -1030,8 +1079,11 @@
                       "entity": "light.lampochka_3",
                       "secondary_info": "last-changed"
                     }
-                  ],
-                  "title": "Лампочка 3"
+                  ]
+                },
+                {
+                  "type": "light",
+                  "entity": "light.lampochka_3"
                 },
                 {
                   "type": "conditional",
@@ -1054,10 +1106,6 @@
                   }
                 }
               ]
-            },
-            {
-              "type": "light",
-              "entity": "light.lampochka_3"
             },
             {
               "type": "vertical-stack",
@@ -1247,6 +1295,49 @@
               "type": "media-control",
               "entity": "media_player.yandex_station_r109xd000fzvhy",
               "theme": "my_theme"
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms3_occupancy"
+                    }
+                  ],
+                  "hours_to_show": 2
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ms3_occupancy",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ms3",
+                      "state": "active"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ms3",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
             }
           ],
           "icon": "mdi:countertop-outline",
