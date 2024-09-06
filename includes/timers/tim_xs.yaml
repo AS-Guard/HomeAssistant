@@ -4,6 +4,10 @@
   xs1:
     duration: "01:50:00"
 
+# Розетка ZigBee 2
+  xs2:
+    duration: "00:05:00"
+
 # Розетка ZigBee 3
   xs3:
     duration: "01:05:00"

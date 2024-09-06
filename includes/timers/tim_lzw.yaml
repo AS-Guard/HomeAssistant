@@ -16,15 +16,15 @@
   lw03:
     duration: "00:03:00"
 
-# Лампа ZigBee 4
+# Выключатель ZigBee 4
   sw4k1:
-    duration: "02:00:00"
+    duration: "00:30:00"
 
   sw4k2:
-    duration: "02:00:00"
+    duration: "00:30:00"
 
   sw4k3:
-    duration: "00:10:00"
+    duration: "00:07:00"
 
   sw4k4:
-    duration: "00:10:00"
+    duration: "00:07:00"

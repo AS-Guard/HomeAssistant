@@ -543,11 +543,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "type": "iframe",
-              "url": "his1",
-              "aspect_ratio": "190%"
             }
           ]
         },
@@ -767,6 +762,51 @@
               "type": "vertical-stack",
               "cards": [
                 {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.xs7",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.xs7_power"
+                    },
+                    {
+                      "entity": "sensor.xs7_current"
+                    },
+                    {
+                      "entity": "sensor.xs7_energy"
+                    }
+                  ],
+                  "state_color": true,
+                  "title": "Лампа"
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.xs7",
+                      "state": "on"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.xs7",
+                        "secondary_info": "none"
+                      }
+                    ],
+                    "state_color": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
                   "type": "history-graph",
                   "entities": [
                     {
@@ -891,67 +931,11 @@
               ]
             },
             {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "switch.xs7",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.xs7_power"
-                    },
-                    {
-                      "entity": "sensor.xs7_current"
-                    },
-                    {
-                      "entity": "sensor.xs7_energy"
-                    }
-                  ],
-                  "state_color": true,
-                  "title": "Лампа"
-                },
-                {
-                  "type": "conditional",
-                  "conditions": [
-                    {
-                      "condition": "state",
-                      "entity": "switch.xs7",
-                      "state": "on"
-                    }
-                  ],
-                  "card": {
-                    "type": "entities",
-                    "entities": [
-                      {
-                        "entity": "timer.xs7",
-                        "secondary_info": "none"
-                      }
-                    ],
-                    "state_color": true
-                  }
-                }
-              ]
-            },
-            {
               "type": "tile",
               "entity": "input_boolean.userplace",
               "show_entity_picture": true,
               "vertical": false,
               "state_content": "last-changed"
-            },
-            {
-              "type": "entity",
-              "entity": "counter.ds01",
-              "visibility": [
-                {
-                  "condition": "numeric_state",
-                  "entity": "counter.ds01",
-                  "above": 0
-                }
-              ]
             },
             {
               "type": "entities",
@@ -974,6 +958,17 @@
                 }
               ],
               "title": "B6k"
+            },
+            {
+              "type": "entity",
+              "entity": "counter.ds01",
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "counter.ds01",
+                  "above": 0
+                }
+              ]
             }
           ],
           "icon": "mdi:door-closed-lock",
@@ -1297,11 +1292,6 @@
               "title": "B1k"
             },
             {
-              "type": "media-control",
-              "entity": "media_player.yandex_station_r109xd000fzvhy",
-              "theme": "my_theme"
-            },
-            {
               "type": "vertical-stack",
               "cards": [
                 {
@@ -1343,6 +1333,238 @@
                   }
                 }
               ]
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "type": "button",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "mqtt.publish",
+                "target": {},
+                "data": {
+                  "evaluate_payload": false,
+                  "qos": 0,
+                  "retain": false,
+                  "topic": "test",
+                  "payload": "12"
+                }
+              },
+              "entity": "sensor.b6k_action",
+              "show_state": true
+            },
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "show_state": false,
+                  "show_name": false,
+                  "camera_view": "auto",
+                  "type": "picture-entity",
+                  "entity": "camera.cam8_profile_1"
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "1",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "tilt": "UP"
+                        }
+                      },
+                      "entity": "input_button.camup",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "2",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "pan": "RIGHT",
+                          "distance": 0.5
+                        }
+                      },
+                      "entity": "input_button.caml",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "tilt": "DOWN"
+                        }
+                      },
+                      "entity": "input_button.camdwn",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "distance": 0.5,
+                          "move_mode": "ContinuousMove",
+                          "pan": "LEFT"
+                        }
+                      },
+                      "entity": "input_button.camr",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "3",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "4",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.cam8_cell_motion_detection",
+                      "name": "Cell Motion Detection",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "title": "Cam8",
+                  "show_header_toggle": false,
+                  "state_color": true
+                }
+              ]
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.yandex_station_r109xd000fzvhy",
+              "theme": "my_theme"
             }
           ],
           "icon": "mdi:countertop-outline",
@@ -1477,6 +1699,252 @@
                 "max"
               ],
               "days_to_show": 0.125
+            },
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "show_state": false,
+                  "show_name": false,
+                  "camera_view": "auto",
+                  "type": "picture-entity",
+                  "entity": "camera.nvt_mainstream"
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "preset": "1",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "tilt": "UP"
+                        }
+                      },
+                      "entity": "input_button.camup",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "preset": "2",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "pan": "RIGHT",
+                          "distance": 0.5
+                        }
+                      },
+                      "entity": "input_button.caml",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove",
+                          "tilt": "DOWN"
+                        }
+                      },
+                      "entity": "input_button.camdwn",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "distance": 0.5,
+                          "move_mode": "ContinuousMove",
+                          "pan": "LEFT"
+                        }
+                      },
+                      "entity": "input_button.camr",
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "preset": "3",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.nvt_mainstream"
+                        },
+                        "data": {
+                          "preset": "4",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.nvt_cell_motion_detection",
+                      "name": "Cell Motion Detection",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "binary_sensor.nvt_digital_input",
+                      "name": "Digital Input",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "binary_sensor.nvt_motion_alarm",
+                      "name": "Motion Alarm",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "title": "NVT",
+                  "show_header_toggle": false,
+                  "state_color": true
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "hours_to_show": 39,
+                  "entities": [
+                    "binary_sensor.nvt_cell_motion_detection"
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.nvt_cell_motion_detection"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "timer.cam270"
+                    }
+                  ]
+                }
+              ]
             }
           ],
           "icon": "mdi:sofa-outline",

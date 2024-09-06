@@ -1558,34 +1558,26 @@
     action: notify.gHA
   mode: single
 - id: '1723818753508'
-  alias: Ms3 - Lw3 On
+  alias: Cam270 - Lw1 On
   description: ''
   trigger:
-  - type: occupied
-    platform: device
-    device_id: 4f7476725d9dceb90bdbd305516fc45b
-    entity_id: 20d6ff06d73852819f8b8410a3278c1e
-    domain: binary_sensor
+  - platform: state
+    entity_id:
+    - binary_sensor.nvt_cell_motion_detection
     for:
       hours: 0
       minutes: 0
-      seconds: 1
+      seconds: 0
   condition:
-  - type: is_occupied
-    condition: device
-    device_id: 4f7476725d9dceb90bdbd305516fc45b
-    entity_id: 20d6ff06d73852819f8b8410a3278c1e
-    domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 1
+  - condition: state
+    entity_id: binary_sensor.nvt_cell_motion_detection
+    state: 'on'
   action:
   - if:
     - condition: device
       type: is_off
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
+      device_id: 7200186a7aabfb3a8a39005a3897fc4e
+      entity_id: ab163e9252cdf74dbd203b72549bfe90
       domain: light
     - condition: state
       entity_id: binary_sensor.tod_night
@@ -1599,13 +1591,14 @@
         - 255
         - 0
       target:
-        entity_id: light.lampochka_3
+        entity_id:
+        - light.lampochka_1
       action: light.turn_on
   - if:
     - condition: device
       type: is_off
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
+      device_id: 7200186a7aabfb3a8a39005a3897fc4e
+      entity_id: ab163e9252cdf74dbd203b72549bfe90
       domain: light
     - condition: state
       entity_id: binary_sensor.tod_foll_night
@@ -1619,33 +1612,33 @@
         brightness_pct: 10
         kelvin: 3333
       target:
-        entity_id: light.lampochka_3
+        entity_id: light.lampochka_1
       action: light.turn_on
   - if:
     - condition: device
       type: is_on
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
+      device_id: 7200186a7aabfb3a8a39005a3897fc4e
+      entity_id: ab163e9252cdf74dbd203b72549bfe90
       domain: light
     then:
     - data: {}
       target:
-        entity_id: timer.lw03
+        entity_id: timer.lw01
       action: timer.cancel
     - data: {}
       target:
-        entity_id: timer.lw03
+        entity_id: timer.lw01
       action: timer.start
   - action: timer.cancel
     metadata: {}
     data: {}
     target:
-      entity_id: timer.ms3
+      entity_id: timer.cam270
   - action: timer.start
     metadata: {}
     data: {}
     target:
-      entity_id: timer.ms3
+      entity_id: timer.cam270
   mode: single
 - id: '1723904754721'
   alias: 8-sec
@@ -2653,12 +2646,30 @@
       seconds: 3
   condition: []
   action:
+  - if:
+    - type: is_occupied
+      condition: device
+      device_id: 4f7476725d9dceb90bdbd305516fc45b
+      entity_id: 20d6ff06d73852819f8b8410a3278c1e
+      domain: binary_sensor
+    then:
+    - action: timer.cancel
+      metadata: {}
+      data: {}
+      target:
+        entity_id: timer.ms3
+    - action: timer.start
+      metadata: {}
+      data: {}
+      target:
+        entity_id: timer.ms3
   - action: automation.trigger
     metadata: {}
     data:
       skip_condition: false
     target:
-      entity_id: automation.ms03_lw3_on
+      entity_id:
+      - automation.ms3_lw3_on
   mode: single
 - id: '1725211449544'
   alias: Xs5 on\off
@@ -2881,4 +2892,117 @@
       entity_id: 2fcdaff632f9b202d362d5c52be9cdbc
       type: set_value
       value: 44.8
+  mode: single
+- id: '1725620803127'
+  alias: Ms3 - Lw3 On
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 4f7476725d9dceb90bdbd305516fc45b
+    entity_id: 20d6ff06d73852819f8b8410a3278c1e
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  condition:
+  - type: is_occupied
+    condition: device
+    device_id: 4f7476725d9dceb90bdbd305516fc45b
+    entity_id: 20d6ff06d73852819f8b8410a3278c1e
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  action:
+  - if:
+    - condition: device
+      type: is_off
+      device_id: 2519fe869b93b107ae307fed766beb9f
+      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
+      domain: light
+    - condition: state
+      entity_id: binary_sensor.tod_night
+      state: 'on'
+    then:
+    - metadata: {}
+      data:
+        brightness_pct: 5
+        rgb_color:
+        - 255
+        - 255
+        - 0
+      target:
+        entity_id: light.lampochka_3
+      action: light.turn_on
+  - if:
+    - condition: device
+      type: is_off
+      device_id: 2519fe869b93b107ae307fed766beb9f
+      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
+      domain: light
+    - condition: state
+      entity_id: binary_sensor.tod_foll_night
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.tod_night
+      state: 'off'
+    then:
+    - metadata: {}
+      data:
+        brightness_pct: 10
+        kelvin: 3333
+      target:
+        entity_id: light.lampochka_3
+      action: light.turn_on
+  - if:
+    - condition: device
+      type: is_on
+      device_id: 2519fe869b93b107ae307fed766beb9f
+      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
+      domain: light
+    then:
+    - data: {}
+      target:
+        entity_id: timer.lw03
+      action: timer.cancel
+    - data: {}
+      target:
+        entity_id: timer.lw03
+      action: timer.start
+  - action: timer.cancel
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.ms3
+  - action: timer.start
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.ms3
+  mode: single
+- id: '1725642188012'
+  alias: Cam270 tim
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.cam270
+    from: active
+    to: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  condition: []
+  action:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.ms03_lw3_on
   mode: single
