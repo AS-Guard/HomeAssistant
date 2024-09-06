@@ -543,6 +543,11 @@
                   ]
                 }
               ]
+            },
+            {
+              "type": "iframe",
+              "url": "his1",
+              "aspect_ratio": "190%"
             }
           ]
         },
@@ -2823,24 +2828,79 @@
           "theme": "my_theme"
         },
         {
-          "title": "His1",
-          "path": "his1",
+          "title": "His0",
+          "path": "his0",
           "type": "panel",
+          "theme": "my_theme",
           "cards": [
             {
               "type": "history-graph",
-              "hours_to_show": 10,
+              "title": "История",
+              "hours_to_show": 12,
               "entities": [
                 "sensor.kotel_otoplenie",
                 "sensor.kotel_gorelka",
-                "sensor.kotel_moshchnost_gorelki",
+                "sensor.tr01_temperature",
+                "sensor.tr2_temperature",
                 "sensor.kotel_otopleniia",
-                "number.kotel_otoplenie_35_78",
+                "sensor.klimat_etk_termostat",
                 "sensor.klimat_etk2_termostat",
-                "sensor.tr01_temperature"
+                "number.kotel_otoplenie_35_78",
+                "sensor.kotel_moshchnost_gorelki"
               ]
             }
-          ]
+          ],
+          "subview": true
+        },
+        {
+          "title": "His1",
+          "path": "his1",
+          "type": "panel",
+          "theme": "my_theme",
+          "cards": [
+            {
+              "type": "history-graph",
+              "title": "История",
+              "hours_to_show": 24,
+              "entities": [
+                "sensor.kotel_otoplenie",
+                "sensor.kotel_gorelka",
+                "sensor.tr01_temperature",
+                "sensor.tr2_temperature",
+                "sensor.kotel_otopleniia",
+                "sensor.klimat_etk_termostat",
+                "sensor.klimat_etk2_termostat",
+                "number.kotel_otoplenie_35_78",
+                "sensor.kotel_moshchnost_gorelki"
+              ]
+            }
+          ],
+          "subview": true
+        },
+        {
+          "title": "His2",
+          "path": "his2",
+          "type": "panel",
+          "theme": "my_theme",
+          "cards": [
+            {
+              "type": "history-graph",
+              "title": "История",
+              "hours_to_show": 48,
+              "entities": [
+                "sensor.kotel_otoplenie",
+                "sensor.kotel_gorelka",
+                "sensor.tr01_temperature",
+                "sensor.tr2_temperature",
+                "sensor.kotel_otopleniia",
+                "sensor.klimat_etk_termostat",
+                "sensor.klimat_etk2_termostat",
+                "number.kotel_otoplenie_35_78",
+                "sensor.kotel_moshchnost_gorelki"
+              ]
+            }
+          ],
+          "subview": true
         }
       ]
     }
