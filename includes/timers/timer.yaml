@@ -8,3 +8,7 @@
 
   tim30m:
     duration: "00:30:00"
+
+#Timer присутствия
+  pris:
+    duration: "00:15:00"

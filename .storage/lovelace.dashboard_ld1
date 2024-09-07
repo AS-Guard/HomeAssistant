@@ -543,6 +543,16 @@
                   ]
                 }
               ]
+            },
+            {
+              "type": "history-graph",
+              "hours_to_show": 7,
+              "entities": [
+                "sensor.xs9_current"
+              ],
+              "min_y_axis": 0.32,
+              "max_y_axis": 0.72,
+              "fit_y_data": false
             }
           ]
         },
@@ -779,15 +789,16 @@
                     }
                   ],
                   "state_color": true,
-                  "title": "Лампа"
+                  "title": "Лампа",
+                  "show_header_toggle": false
                 },
                 {
                   "type": "conditional",
                   "conditions": [
                     {
                       "condition": "state",
-                      "entity": "switch.xs7",
-                      "state": "on"
+                      "entity": "timer.xs7",
+                      "state": "active"
                     }
                   ],
                   "card": {
@@ -798,7 +809,8 @@
                         "secondary_info": "none"
                       }
                     ],
-                    "state_color": true
+                    "state_color": true,
+                    "show_header_toggle": false
                   }
                 }
               ]
@@ -916,7 +928,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.ms4",
-                      "state_not": "idle"
+                      "state": "active"
                     }
                   ],
                   "card": {
@@ -925,7 +937,9 @@
                       {
                         "entity": "timer.ms4"
                       }
-                    ]
+                    ],
+                    "state_color": true,
+                    "show_header_toggle": false
                   }
                 }
               ]
@@ -969,6 +983,35 @@
                   "above": 0
                 }
               ]
+            },
+            {
+              "type": "history-graph",
+              "entities": [
+                {
+                  "entity": "binary_sensor.tod_morning"
+                },
+                {
+                  "entity": "binary_sensor.tod_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_long_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_day"
+                },
+                {
+                  "entity": "binary_sensor.tod_evening"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_early_night"
+                }
+              ]
             }
           ],
           "icon": "mdi:door-closed-lock",
@@ -989,19 +1032,59 @@
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
+                        "action": "perform-action",
                         "target": {
-                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
+                          "entity_id": "light.lampochka_3"
+                        },
+                        "data": {
+                          "kelvin": 2000,
+                          "brightness_pct": 1
+                        },
+                        "perform_action": "light.turn_on"
+                      },
+                      "entity": "light.lampochka_3",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "target": {
+                          "entity_id": "light.lampochka_3"
+                        },
+                        "data": {
+                          "rgb_color": [
+                            0,
+                            255,
+                            0
+                          ],
+                          "brightness_pct": 100
+                        },
+                        "perform_action": "light.turn_on"
+                      },
+                      "entity": "light.lampochka_3",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "target": {
+                          "entity_id": "light.lampochka_3"
                         },
                         "data": {
                           "rgb_color": [
                             255,
-                            255,
-                            0
+                            0,
+                            255
                           ],
-                          "brightness_pct": 1
-                        }
+                          "brightness_pct": 100
+                        },
+                        "perform_action": "light.turn_on"
                       },
                       "entity": "light.lampochka_3",
                       "show_state": false
@@ -1014,7 +1097,7 @@
                         "action": "perform-action",
                         "perform_action": "light.turn_on",
                         "data": {
-                          "brightness_pct": 1,
+                          "brightness_pct": 100,
                           "rgb_color": [
                             0,
                             255,
@@ -1023,48 +1106,6 @@
                         },
                         "target": {
                           "entity_id": "light.lampochka_3"
-                        }
-                      },
-                      "entity": "light.lampochka_3",
-                      "show_state": false
-                    },
-                    {
-                      "show_name": false,
-                      "show_icon": true,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
-                        "target": {
-                          "device_id": [
-                            "1aabce343509ada8a0cf550f5252a8a0"
-                          ]
-                        },
-                        "data": {
-                          "rgb_color": [
-                            255,
-                            0,
-                            0
-                          ],
-                          "brightness_pct": 1
-                        }
-                      },
-                      "entity": "light.lampochka_3",
-                      "show_state": false
-                    },
-                    {
-                      "show_name": false,
-                      "show_icon": true,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
-                        "target": {
-                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
-                        },
-                        "data": {
-                          "kelvin": 2000,
-                          "brightness_pct": 1
                         }
                       },
                       "entity": "light.lampochka_3",
@@ -1281,15 +1322,14 @@
                   "entities": [
                     {
                       "entity": "sensor.b1k_action",
-                      "name": "Action"
-                    },
-                    {
-                      "entity": "sensor.b1k_battery"
+                      "name": "Action",
+                      "secondary_info": "last-changed"
                     }
-                  ]
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
                 }
-              ],
-              "title": "B1k"
+              ]
             },
             {
               "type": "vertical-stack",
