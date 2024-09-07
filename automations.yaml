@@ -2545,6 +2545,7 @@
     - action: switch.turn_on
       target:
         entity_id: switch.xs7
+      data: {}
   - if:
     - condition: state
       entity_id: switch.xs7
@@ -2564,6 +2565,7 @@
     - action: switch.turn_on
       target:
         entity_id: switch.xs7
+      data: {}
   - if:
     - condition: state
       entity_id: switch.xs7
@@ -2581,10 +2583,25 @@
       target:
         entity_id:
         - timer.xs7
+      data: {}
     - action: timer.start
       target:
         entity_id:
         - timer.xs7
+      data: {}
+  - if:
+    - condition: state
+      entity_id: timer.xs7
+      state: idle
+    - condition: state
+      entity_id: switch.xs7
+      state: 'on'
+    then:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.xs7
   mode: single
 - id: '1725205800364'
   alias: Ms1 tim
@@ -2625,13 +2642,6 @@
     to: 'on'
   condition: []
   action:
-  - action: automation.trigger
-    metadata: {}
-    data:
-      skip_condition: false
-    target:
-      entity_id:
-      - automation.ms4_run
   - action: timer.cancel
     data: {}
     target:
@@ -2640,6 +2650,13 @@
     data: {}
     target:
       entity_id: timer.ms4
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.ms4_run
   mode: single
 - id: '1725207078337'
   alias: Ms3 tim
@@ -2700,8 +2717,6 @@
   alias: Ms4 il int
   description: ''
   trigger:
-  - platform: time
-    at: '16:08:08'
   - platform: state
     entity_id:
     - sensor.ms4_illuminance
@@ -2709,6 +2724,8 @@
       hours: 0
       minutes: 0
       seconds: 5
+  - platform: time
+    at: '16:08:08'
   condition: []
   action:
   - if:
@@ -3234,15 +3251,13 @@
   condition: []
   action:
   - action: timer.cancel
-    metadata: {}
-    data: {}
     target:
-      entity_id: timer.ms4
+      entity_id:
+      - timer.xs7
   - action: timer.start
-    metadata: {}
-    data: {}
     target:
-      entity_id: timer.ms4
+      entity_id:
+      - timer.xs7
   mode: single
 - id: '1725723038026'
   alias: Ms4 tim
@@ -3262,13 +3277,9 @@
     state: 'on'
   action:
   - action: timer.cancel
-    metadata: {}
-    data: {}
     target:
       entity_id: timer.ms4
   - action: timer.start
-    metadata: {}
-    data: {}
     target:
       entity_id: timer.ms4
   mode: single
