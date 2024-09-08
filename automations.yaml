@@ -42,48 +42,70 @@
     subtype: single
   condition: []
   action:
-  - if:
-    - condition: device
-      type: is_off
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-      domain: light
-    then:
-    - action: light.turn_on
-      target:
-        device_id:
-        - 2519fe869b93b107ae307fed766beb9f
-      data:
-        kelvin: 6500
-        brightness_pct: 15
-  - if:
-    - condition: numeric_state
-      entity_id: light.lampochka_3
-      below: 90
-      attribute: brightness
-    then:
-    - action: light.turn_on
-      target:
-        device_id:
-        - 2519fe869b93b107ae307fed766beb9f
-      data:
-        kelvin: 6500
-        brightness_pct: 100
-  - if:
-    - condition: numeric_state
-      entity_id: light.lampochka_3
-      above: 90
-      attribute: brightness
-    then:
-    - action: light.turn_off
-      metadata: {}
-      data: {}
-      target:
+  - choose:
+    - conditions:
+      - condition: device
+        type: is_off
         device_id: 2519fe869b93b107ae307fed766beb9f
-    - data: {}
-      target:
-        entity_id: timer.lw03
-      action: timer.cancel
+        entity_id: 45e4e03ecee12bea76a563c6149bdbc7
+        domain: light
+      sequence:
+      - action: light.turn_on
+        target:
+          device_id:
+          - 2519fe869b93b107ae307fed766beb9f
+        data:
+          kelvin: 6500
+          brightness_pct: 15
+    - conditions:
+      - condition: state
+        entity_id: light.lampochka_3
+        attribute: color_temp_kelvin
+        state: 'null'
+      sequence:
+      - action: light.turn_on
+        target:
+          device_id:
+          - 2519fe869b93b107ae307fed766beb9f
+        data:
+          kelvin: 2000
+          brightness_pct: 15
+    - conditions:
+      - condition: numeric_state
+        entity_id: light.lampochka_3
+        above: 90
+        attribute: brightness
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: light.lampochka_3
+          attribute: color_temp_kelvin
+          state: 'null'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          device_id: 2519fe869b93b107ae307fed766beb9f
+      - data: {}
+        target:
+          entity_id: timer.lw03
+        action: timer.cancel
+    - conditions:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: light.lampochka_3
+          attribute: color_temp_kelvin
+          state: 'null'
+      sequence:
+      - action: light.turn_on
+        target:
+          device_id:
+          - 2519fe869b93b107ae307fed766beb9f
+        data:
+          kelvin: 6500
+          brightness_pct: 100
   mode: single
 - id: '1714652428640'
   alias: Xs3 on\off
@@ -638,7 +660,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: light.lampochka_2
@@ -882,7 +904,7 @@
     action: notify.gHA
   mode: single
 - id: '1723319157849'
-  alias: Lw03 tim
+  alias: lw03 tim
   description: ''
   trigger:
   - platform: state
@@ -892,44 +914,34 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
-  - condition: device
-    type: is_on
-    device_id: 2519fe869b93b107ae307fed766beb9f
-    entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-    domain: light
+  - condition: state
+    entity_id: light.lampochka_3
+    state: 'on'
   action:
   - action: automation.trigger
-    metadata: {}
-    data:
-      skip_condition: false
     target:
       entity_id: automation.ms3_lw3_on
+    data:
+      skip_condition: false
   mode: single
 - id: '1723319608529'
-  alias: Lw03 on - tim
+  alias: Lw03 On - tim
   description: ''
   trigger:
-  - platform: device
-    type: turned_on
-    device_id: 2519fe869b93b107ae307fed766beb9f
-    entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-    domain: light
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
+  - platform: state
+    entity_id:
+    - light.lampochka_3
+    to: 'on'
   condition: []
   action:
-  - data: {}
+  - action: timer.cancel
     target:
       entity_id: timer.lw03
-    action: timer.cancel
-  - data: {}
+  - action: timer.start
     target:
       entity_id: timer.lw03
-    action: timer.start
   mode: single
 - id: '1723394894780'
   alias: ds02 LongOpen - Tg msg
@@ -2184,11 +2196,10 @@
     entity_id:
     - timer.sw4k4
     to: idle
-    from: active
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: switch.sw4k_l4
@@ -2582,31 +2593,26 @@
       - automation.ms4_run
   mode: single
 - id: '1725207078337'
-  alias: Ms3 tim
+  alias: ms3 tim
   description: ''
   trigger:
   - platform: state
     entity_id:
     - timer.ms3
-    from: active
     to: idle
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: binary_sensor.ms3_occupancy
     state: 'on'
   action:
   - action: timer.cancel
-    metadata: {}
-    data: {}
     target:
       entity_id: timer.ms3
   - action: timer.start
-    metadata: {}
-    data: {}
     target:
       entity_id: timer.ms3
   mode: single
@@ -2842,102 +2848,6 @@
       type: set_value
       value: 44.8
   mode: single
-- id: '1725620803127'
-  alias: Lw3 On/Off
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - light.lampochka_3
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-  condition: []
-  action:
-  - if:
-    - condition: device
-      type: is_off
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-      domain: light
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: timer.lw03
-        state: active
-    - condition: state
-      entity_id: binary_sensor.tod_night
-      state: 'on'
-    then:
-    - metadata: {}
-      data:
-        brightness_pct: 5
-        rgb_color:
-        - 255
-        - 255
-        - 0
-      target:
-        entity_id: light.lampochka_3
-      action: light.turn_on
-  - if:
-    - condition: device
-      type: is_off
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-      domain: light
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: timer.lw03
-        state: active
-    - condition: state
-      entity_id: binary_sensor.tod_foll_night
-      state: 'on'
-    - condition: state
-      entity_id: binary_sensor.tod_night
-      state: 'off'
-    then:
-    - metadata: {}
-      data:
-        brightness_pct: 10
-        kelvin: 3333
-      target:
-        entity_id: light.lampochka_3
-      action: light.turn_on
-  - if:
-    - condition: device
-      type: is_on
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-      domain: light
-    - condition: state
-      entity_id: timer.ms3
-      state: active
-    then:
-    - data: {}
-      target:
-        entity_id: timer.lw03
-      action: timer.cancel
-    - data: {}
-      target:
-        entity_id: timer.lw03
-      action: timer.start
-  - if:
-    - condition: state
-      entity_id: light.lampochka_3
-      state: 'on'
-    - condition: state
-      entity_id: timer.lw03
-      state: idle
-    then:
-    - action: light.turn_off
-      target:
-        entity_id:
-        - light.lampochka_3
-      data: {}
-  mode: single
 - id: '1725642188012'
   alias: Cam270 tim
   description: ''
@@ -2972,7 +2882,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition: []
   action:
   - action: timer.cancel
@@ -2999,12 +2909,6 @@
       seconds: 1
   condition: []
   action:
-  - action: automation.trigger
-    metadata: {}
-    data:
-      skip_condition: false
-    target:
-      entity_id: automation.ms3_run
   - action: timer.cancel
     metadata: {}
     data: {}
@@ -3015,6 +2919,12 @@
     data: {}
     target:
       entity_id: timer.ms3
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.ms3_run
   mode: single
 - id: '1725700702051'
   alias: Sw4k4 On - tim
@@ -3142,13 +3052,8 @@
     data:
       skip_condition: true
     target:
-      entity_id: automation.sw4k3_tim
-  - action: automation.trigger
-    metadata: {}
-    data:
-      skip_condition: true
-    target:
-      entity_id: automation.ms3_lw3_on
+      entity_id:
+      - automation.lw3_on_off
   mode: single
 - id: '1725721729930'
   alias: Ms4 - Run
@@ -3246,10 +3151,9 @@
   - action: automation.trigger
     metadata: {}
     data:
-      skip_condition: true
+      skip_condition: false
     target:
-      entity_id:
-      - automation.pir01_l2_on
+      entity_id: automation.lw2_on_off
   mode: single
 - id: '1725723937021'
   alias: Ms1 - Run
@@ -3264,162 +3168,55 @@
     target:
       entity_id: automation.lz01_on_off
   mode: single
-- id: '1725738992106'
-  alias: Lw3 Off
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - light.lampochka_3
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-  - platform: state
-    entity_id:
-    - light.lampochka_3
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-  condition: []
-  action:
-  - if:
-    - condition: device
-      type: is_off
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-      domain: light
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: timer.lw03
-        state: active
-    - condition: state
-      entity_id: binary_sensor.tod_night
-      state: 'on'
-    then:
-    - metadata: {}
-      data:
-        brightness_pct: 5
-        rgb_color:
-        - 255
-        - 255
-        - 0
-      target:
-        entity_id: light.lampochka_3
-      action: light.turn_on
-  - if:
-    - condition: device
-      type: is_off
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-      domain: light
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: timer.lw03
-        state: active
-    - condition: state
-      entity_id: binary_sensor.tod_foll_night
-      state: 'on'
-    - condition: state
-      entity_id: binary_sensor.tod_night
-      state: 'off'
-    then:
-    - metadata: {}
-      data:
-        brightness_pct: 10
-        kelvin: 3333
-      target:
-        entity_id: light.lampochka_3
-      action: light.turn_on
-  - if:
-    - condition: device
-      type: is_on
-      device_id: 2519fe869b93b107ae307fed766beb9f
-      entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-      domain: light
-    - condition: state
-      entity_id: timer.ms3
-      state: active
-    then:
-    - data: {}
-      target:
-        entity_id: timer.lw03
-      action: timer.cancel
-    - data: {}
-      target:
-        entity_id: timer.lw03
-      action: timer.start
-  - if:
-    - condition: state
-      entity_id: light.lampochka_3
-      state: 'on'
-    - condition: state
-      entity_id: timer.lw03
-      state: idle
-    then:
-    - action: light.turn_off
-      target:
-        entity_id:
-        - light.lampochka_3
-      data: {}
-  mode: single
 - id: '1725777969740'
-  alias: Ms2 tim
+  alias: ms2 tim
   description: ''
   trigger:
   - platform: state
     entity_id:
     - timer.ms2
     to: idle
-    from: active
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
-    entity_id: timer.ms2
-    state: active
+    entity_id: binary_sensor.ms2_occupancy
+    state: 'on'
   action:
   - action: timer.cancel
     target:
       entity_id:
       - timer.ms2
+    data: {}
   - action: timer.start
     target:
       entity_id:
       - timer.ms2
+    data: {}
   mode: single
 - id: '1725778075643'
   alias: Ms2 - tim
   description: ''
   trigger:
-  - type: occupied
-    platform: device
-    device_id: 71b1cd644912d7d9dcabc4da61bd258a
-    entity_id: f4892b5c7432477ac56fc7d22745307d
-    domain: binary_sensor
+  - platform: state
+    entity_id:
+    - binary_sensor.ms2_occupancy
+    to: 'on'
   condition: []
   action:
-  - action: automation.trigger
-    metadata: {}
-    data:
-      skip_condition: false
-    target:
-      entity_id: automation.ms2_run
   - action: timer.cancel
     target:
       entity_id: timer.ms2
-    data: {}
   - action: timer.start
     target:
       entity_id: timer.ms2
-    data: {}
+  - action: automation.trigger
+    target:
+      entity_id: automation.ms2_run
+    data:
+      skip_condition: false
   mode: single
 - id: '1725814008200'
   alias: Lw2 On/Off
@@ -3438,47 +3235,47 @@
       - choose:
         - conditions:
           - condition: state
-            entity_id: timer.lw02
+            entity_id: timer.ms2
             state: active
+          sequence:
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: binary_sensor.tod_foll_night
+                state: 'on'
+              sequence:
+              - target:
+                  entity_id: light.lampochka_2
+                action: light.turn_on
+                data:
+                  brightness_pct: 1
+                  rgb_color:
+                  - 255
+                  - 255
+                  - 0
+            - conditions:
+              - condition: state
+                entity_id: binary_sensor.tod_foll_night
+                state: 'off'
+              sequence:
+              - target:
+                  entity_id: light.lampochka_2
+                action: light.turn_on
+                data:
+                  brightness_pct: 50
+                  rgb_color:
+                  - 0
+                  - 255
+                  - 255
+        - conditions:
+          - condition: state
+            entity_id: timer.ms2
+            state: idle
           sequence:
           - data: {}
             target:
               entity_id: timer.lw02
             action: timer.cancel
-        - conditions:
-          - condition: state
-            entity_id: binary_sensor.tod_foll_night
-            state: 'on'
-          - condition: state
-            entity_id: timer.ms2
-            state: active
-          sequence:
-          - target:
-              entity_id: light.lampochka_2
-            action: light.turn_on
-            data:
-              brightness_pct: 1
-              rgb_color:
-              - 255
-              - 255
-              - 0
-        - conditions:
-          - condition: state
-            entity_id: binary_sensor.tod_foll_night
-            state: 'off'
-          - condition: state
-            entity_id: timer.ms2
-            state: active
-          sequence:
-          - target:
-              entity_id: light.lampochka_2
-            action: light.turn_on
-            data:
-              brightness_pct: 50
-              rgb_color:
-              - 0
-              - 255
-              - 255
     - conditions:
       - condition: device
         type: is_on
@@ -3508,5 +3305,87 @@
           - action: light.turn_off
             target:
               entity_id: light.lampochka_2
+            data: {}
+  mode: single
+- id: '1725817536368'
+  alias: Lw3 On/Off
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.lampochka_3
+        state: 'off'
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: timer.ms3
+            state: active
+          sequence:
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: binary_sensor.tod_night
+                state: 'on'
+              sequence:
+              - target:
+                  entity_id: light.lampochka_3
+                action: light.turn_on
+                data:
+                  brightness_pct: 10
+                  rgb_color:
+                  - 0
+                  - 255
+                  - 255
+            - conditions:
+              - condition: state
+                entity_id: binary_sensor.tod_foll_night
+                state: 'on'
+              sequence:
+              - target:
+                  entity_id: light.lampochka_3
+                action: light.turn_on
+                data:
+                  brightness_pct: 30
+                  kelvin: 4200
+        - conditions:
+          - condition: state
+            entity_id: timer.ms3
+            state: idle
+          sequence:
+          - action: timer.cancel
+            target:
+              entity_id: timer.lw03
+            data: {}
+    - conditions:
+      - condition: state
+        entity_id: light.lampochka_3
+        state: 'on'
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: timer.ms3
+            state: active
+          sequence:
+          - action: timer.cancel
+            target:
+              entity_id: timer.lw03
+            data: {}
+          - action: timer.start
+            target:
+              entity_id: timer.lw03
+            data: {}
+        - conditions:
+          - condition: state
+            entity_id: timer.ms3
+            state: idle
+          sequence:
+          - action: light.turn_off
+            target:
+              entity_id: light.lampochka_3
             data: {}
   mode: single
