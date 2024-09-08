@@ -1132,7 +1132,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.lw03",
-                      "state": "active"
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -1176,8 +1176,8 @@
                   "conditions": [
                     {
                       "condition": "state",
-                      "entity": "switch.xs3",
-                      "state": "on"
+                      "entity": "timer.xs3",
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -1185,10 +1185,12 @@
                     "entities": [
                       {
                         "entity": "timer.xs3",
-                        "secondary_info": "none"
+                        "secondary_info": "last-changed"
                       }
                     ],
-                    "state_color": true
+                    "state_color": true,
+                    "show_header_toggle": false,
+                    "theme": "my_theme"
                   }
                 }
               ]
@@ -2005,10 +2007,27 @@
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
+                        "action": "perform-action",
                         "target": {
-                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
+                          "entity_id": "light.lampochka_2"
+                        },
+                        "data": {
+                          "kelvin": 2000,
+                          "brightness_pct": 1
+                        },
+                        "perform_action": "light.turn_on"
+                      },
+                      "entity": "light.lampochka_2",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "target": {
+                          "entity_id": "light.lampochka_2"
                         },
                         "data": {
                           "rgb_color": [
@@ -2016,8 +2035,31 @@
                             255,
                             0
                           ],
-                          "brightness_pct": 1
-                        }
+                          "brightness_pct": 2
+                        },
+                        "perform_action": "light.turn_on"
+                      },
+                      "entity": "light.lampochka_2",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": false,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "target": {
+                          "entity_id": "light.lampochka_2"
+                        },
+                        "data": {
+                          "rgb_color": [
+                            255,
+                            0,
+                            255
+                          ],
+                          "brightness_pct": 3
+                        },
+                        "perform_action": "light.turn_on"
                       },
                       "entity": "light.lampochka_2",
                       "show_state": false
@@ -2030,7 +2072,7 @@
                         "action": "perform-action",
                         "perform_action": "light.turn_on",
                         "data": {
-                          "brightness_pct": 1,
+                          "brightness_pct": 4,
                           "rgb_color": [
                             0,
                             255,
@@ -2039,48 +2081,6 @@
                         },
                         "target": {
                           "entity_id": "light.lampochka_2"
-                        }
-                      },
-                      "entity": "light.lampochka_2",
-                      "show_state": false
-                    },
-                    {
-                      "show_name": false,
-                      "show_icon": true,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
-                        "target": {
-                          "device_id": [
-                            "1aabce343509ada8a0cf550f5252a8a0"
-                          ]
-                        },
-                        "data": {
-                          "rgb_color": [
-                            255,
-                            0,
-                            0
-                          ],
-                          "brightness_pct": 1
-                        }
-                      },
-                      "entity": "light.lampochka_2",
-                      "show_state": false
-                    },
-                    {
-                      "show_name": false,
-                      "show_icon": true,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "light.turn_on",
-                        "target": {
-                          "device_id": "1aabce343509ada8a0cf550f5252a8a0"
-                        },
-                        "data": {
-                          "kelvin": 2000,
-                          "brightness_pct": 1
                         }
                       },
                       "entity": "light.lampochka_2",
@@ -2114,7 +2114,8 @@
                         "secondary_info": "none"
                       }
                     ],
-                    "state_color": true
+                    "state_color": true,
+                    "show_header_toggle": false
                   }
                 }
               ]
@@ -2156,10 +2157,74 @@
                     "type": "entities",
                     "entities": [
                       {
-                        "entity": "timer.ms2"
+                        "entity": "timer.ms2",
+                        "secondary_info": "last-changed"
                       }
-                    ]
+                    ],
+                    "show_header_toggle": false,
+                    "state_color": true
                   }
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "automation.trigger",
+                    "target": {
+                      "entity_id": [
+                        "automation.ms2_tim_2"
+                      ]
+                    },
+                    "data": {
+                      "skip_condition": false
+                    }
+                  },
+                  "entity": "timer.ms2",
+                  "show_state": true,
+                  "theme": "my_theme"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "automation.trigger",
+                    "target": {
+                      "entity_id": "automation.ms2_run"
+                    },
+                    "data": {
+                      "skip_condition": false
+                    }
+                  },
+                  "entity": "timer.lw02",
+                  "show_state": true,
+                  "theme": "my_theme"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "automation.trigger",
+                    "target": {
+                      "entity_id": "automation.pir01_l2_on"
+                    },
+                    "data": {
+                      "skip_condition": false
+                    }
+                  },
+                  "entity": "light.lampochka_2",
+                  "show_state": true,
+                  "theme": "my_theme"
                 }
               ]
             }

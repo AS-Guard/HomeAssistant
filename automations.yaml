@@ -627,76 +627,6 @@
       message: "\U0001F4DF Котёл - {{ states('sensor.kotel_kotel') }}\n⁉️ Ошибка -
         {{ states('sensor.kotel_oshibka_kotla') }}\n"
     action: notify.gHA
-- id: '1721934389584'
-  alias: Lw2 On/Off
-  description: ''
-  trigger:
-  - type: occupied
-    platform: device
-    device_id: 71b1cd644912d7d9dcabc4da61bd258a
-    entity_id: f4892b5c7432477ac56fc7d22745307d
-    domain: binary_sensor
-  condition:
-  - condition: state
-    entity_id: binary_sensor.ms2_occupancy
-    state: 'on'
-  action:
-  - if:
-    - condition: state
-      entity_id: binary_sensor.tod_foll_night
-      state: 'on'
-    then:
-    - metadata: {}
-      data:
-        brightness_pct: 1
-        rgb_color:
-        - 255
-        - 255
-        - 0
-      target:
-        entity_id: light.lampochka_2
-      action: light.turn_on
-  - if:
-    - condition: state
-      entity_id: binary_sensor.tod_foll_night
-      state: 'off'
-    then:
-    - metadata: {}
-      data:
-        brightness_pct: 50
-        rgb_color:
-        - 0
-        - 255
-        - 255
-      target:
-        entity_id: light.lampochka_2
-      action: light.turn_on
-  - if:
-    - condition: device
-      type: is_on
-      device_id: 1aabce343509ada8a0cf550f5252a8a0
-      entity_id: 21516f28455701cf8f2c30283f9224f5
-      domain: light
-    then:
-    - data: {}
-      target:
-        entity_id: timer.lw02
-      action: timer.cancel
-    - data: {}
-      target:
-        entity_id: timer.lw02
-      action: timer.start
-  - action: timer.cancel
-    metadata: {}
-    data: {}
-    target:
-      entity_id: timer.ms2
-  - action: timer.start
-    metadata: {}
-    data: {}
-    target:
-      entity_id: timer.ms2
-  mode: single
 - id: '1721934904885'
   alias: lw02 tim
   description: ''
@@ -715,35 +645,27 @@
     state: 'on'
   action:
   - action: automation.trigger
-    metadata: {}
     data:
       skip_condition: false
     target:
-      entity_id: automation.pir01_l2_on
+      entity_id: automation.lw2_on_off
   mode: single
 - id: '1721935764273'
-  alias: lw02 on - tim
+  alias: Lw02 On - tim
   description: ''
   trigger:
-  - platform: device
-    type: turned_on
-    device_id: 1aabce343509ada8a0cf550f5252a8a0
-    entity_id: 21516f28455701cf8f2c30283f9224f5
-    domain: light
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
+  - platform: state
+    entity_id:
+    - light.lampochka_2
+    to: 'on'
   condition: []
   action:
-  - data: {}
+  - action: timer.cancel
     target:
       entity_id: timer.lw02
-    action: timer.cancel
-  - data: {}
+  - action: timer.start
     target:
       entity_id: timer.lw02
-    action: timer.start
   mode: single
 - id: '1722072867693'
   alias: Etk2 On
@@ -1912,6 +1834,7 @@
           entity_id: automation.etk2
         action: automation.trigger
         enabled: true
+      enabled: true
     - metadata: {}
       data: {}
       target:
@@ -3325,7 +3248,8 @@
     data:
       skip_condition: true
     target:
-      entity_id: automation.ms3_lw2_on
+      entity_id:
+      - automation.pir01_l2_on
   mode: single
 - id: '1725723937021'
   alias: Ms1 - Run
@@ -3443,4 +3367,146 @@
         entity_id:
         - light.lampochka_3
       data: {}
+  mode: single
+- id: '1725777969740'
+  alias: Ms2 tim
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.ms2
+    to: idle
+    from: active
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  condition:
+  - condition: state
+    entity_id: timer.ms2
+    state: active
+  action:
+  - action: timer.cancel
+    target:
+      entity_id:
+      - timer.ms2
+  - action: timer.start
+    target:
+      entity_id:
+      - timer.ms2
+  mode: single
+- id: '1725778075643'
+  alias: Ms2 - tim
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 71b1cd644912d7d9dcabc4da61bd258a
+    entity_id: f4892b5c7432477ac56fc7d22745307d
+    domain: binary_sensor
+  condition: []
+  action:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.ms2_run
+  - action: timer.cancel
+    target:
+      entity_id: timer.ms2
+    data: {}
+  - action: timer.start
+    target:
+      entity_id: timer.ms2
+    data: {}
+  mode: single
+- id: '1725814008200'
+  alias: Lw2 On/Off
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: device
+        type: is_off
+        device_id: 1aabce343509ada8a0cf550f5252a8a0
+        entity_id: 21516f28455701cf8f2c30283f9224f5
+        domain: light
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: timer.lw02
+            state: active
+          sequence:
+          - data: {}
+            target:
+              entity_id: timer.lw02
+            action: timer.cancel
+        - conditions:
+          - condition: state
+            entity_id: binary_sensor.tod_foll_night
+            state: 'on'
+          - condition: state
+            entity_id: timer.ms2
+            state: active
+          sequence:
+          - target:
+              entity_id: light.lampochka_2
+            action: light.turn_on
+            data:
+              brightness_pct: 1
+              rgb_color:
+              - 255
+              - 255
+              - 0
+        - conditions:
+          - condition: state
+            entity_id: binary_sensor.tod_foll_night
+            state: 'off'
+          - condition: state
+            entity_id: timer.ms2
+            state: active
+          sequence:
+          - target:
+              entity_id: light.lampochka_2
+            action: light.turn_on
+            data:
+              brightness_pct: 50
+              rgb_color:
+              - 0
+              - 255
+              - 255
+    - conditions:
+      - condition: device
+        type: is_on
+        device_id: 1aabce343509ada8a0cf550f5252a8a0
+        entity_id: 21516f28455701cf8f2c30283f9224f5
+        domain: light
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: timer.ms2
+            state: active
+          sequence:
+          - action: timer.cancel
+            target:
+              entity_id: timer.lw02
+            data: {}
+          - action: timer.start
+            target:
+              entity_id: timer.lw02
+            data: {}
+        - conditions:
+          - condition: state
+            entity_id: timer.ms2
+            state: idle
+          sequence:
+          - action: light.turn_off
+            target:
+              entity_id: light.lampochka_2
+            data: {}
   mode: single
