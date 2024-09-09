@@ -3390,3 +3390,23 @@
               entity_id: light.lampochka_3
             data: {}
   mode: single
+- id: '1725850665772'
+  alias: Theme
+  description: Смена темы Home Assistant для дня и ночи
+  trigger:
+  - platform: homeassistant
+    event: start
+  - platform: state
+    entity_id: sun.sun
+    to: above_horizon
+  - platform: state
+    entity_id: sun.sun
+    to: below_horizon
+  condition: []
+  action:
+  - action: frontend.set_theme
+    data:
+      mode: dark
+      name: "{% if states.sun.sun.state == \"above_horizon\" %}\n  solarized_light\n{%
+        else %}\n  night\n{% endif %}\n"
+  mode: single

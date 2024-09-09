@@ -640,6 +640,16 @@
                           "entity": "switch.sw_ts54",
                           "name": "TS54",
                           "secondary_info": "last-changed"
+                        },
+                        {
+                          "entity": "switch.switch_gist_tsa",
+                          "secondary_info": "last-changed",
+                          "name": "HotSan"
+                        },
+                        {
+                          "entity": "input_number.in_box_tsa",
+                          "secondary_info": "last-changed",
+                          "name": "HotSan"
                         }
                       ],
                       "state_color": true,
@@ -2048,7 +2058,6 @@
           "title": "Гараж",
           "path": "garage",
           "icon": "mdi:garage",
-          "theme": "my_theme",
           "cards": [
             {
               "type": "vertical-stack",
@@ -2329,8 +2338,7 @@
               "type": "light",
               "entity": "light.lz01"
             }
-          ],
-          "theme": "my_theme"
+          ]
         },
         {
           "title": "Камера",
@@ -2764,7 +2772,6 @@
               ]
             }
           ],
-          "theme": "my_theme",
           "visible": [
             {
               "user": "027dd16451b0484db8461edd2acd679a"
@@ -2786,7 +2793,6 @@
         {
           "title": "Розетки",
           "path": "Rozetki",
-          "theme": "my_theme",
           "cards": [
             {
               "chart_type": "line",
@@ -3046,8 +3052,7 @@
               ]
             }
           ],
-          "title": "Батарейки",
-          "theme": "my_theme"
+          "title": "Батарейки"
         },
         {
           "icon": "mdi:calendar-today",
@@ -3116,8 +3121,7 @@
                 }
               ]
             }
-          ],
-          "theme": "my_theme"
+          ]
         },
         {
           "title": "Tel",
@@ -3209,8 +3213,7 @@
             }
           ],
           "title": "Пол",
-          "path": "User",
-          "theme": "my_theme"
+          "path": "User"
         },
         {
           "title": "His0",

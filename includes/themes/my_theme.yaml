@@ -1,0 +1,70 @@
+#   includes/themes/solarized.yaml
+#frontend:
+  #themes:
+# Brand Colours (values): Some of these referenced directly, others can be referenced by other values #
+#    https://community.home-assistant.io/t/dark-theme-or-night-mode-theme/446/39
+#    https://g.co/kgs/jLghHsS
+my_theme:
+  primary-color: '#4b009c' # Primary (most of the UI)
+  dark-primary-color: '#0f001f' # Reference
+  light-primary-color: '#B3E5FC' # Reference
+  accent-color: '#0040ff' # Reference
+  
+  primary-background-color: '#2d0040' # Primary background colour (dialogs, e.t.c)
+  secondary-background-color: '#000040' # Secondary background colour (main UI background)
+  divider-color: 'rgba(0, 0, 0, .12)' # Divider
+  
+  primary-text-color: '#80ffff' #'var(--dark-primary-color)' # Primary text colour, here is referencing dark-primary-color
+  text-primary-color: '#00f500' #'var(--primary-text-color)' # Primary text colour
+  secondary-text-color: '#f4e003' # For secondary titles in more info boxes etc.
+  disabled-text-color: '#805100' # Disabled text colour #523232
+  
+  label-badge-border-color: '#ff0000' # Label badge border, just a reference value
+  
+  paper-grey-50: '#014242'
+  paper-grey-200: '#008080'
+  
+  # Applied colours (references) #
+  
+  # Paper card #
+  paper-card-header-color: 'var(--secondary-background-color)' # Card header text colour
+  paper-card-background-color: 'var(--primary-background-color)' # Card background colour
+  
+  paper-dialog-background-color: 'var(--primary-background-color)'
+  
+  paper-item-icon-color: 'var(--primary-color)' # Icon colour
+  paper-item-icon-active-color: '#ffff00' #'var(--accent-color)' # Icon colour
+  paper-item-icon_-_color: 'var(--primary-color)'
+  paper-item-selected_-_background-color: 'var(--secondary-background-color)'
+  paper-tabs-selection-bar-color: 'var(--paper-grey-50)'
+  
+  # Labels #
+  label-badge-red: 'var(--label-badge-border-color)' # References the brand colour label badge border
+  label-badge-text-color: 'var(--label-badge-border-color)' # Now same as label badge border but that's a matter of taste
+  label-badge-background-color: 'var(--secondary-background-color)' # Same, but can also be set to transparent here
+  
+  # Nav Menu #
+  paper-listbox-color: 'var(--primary-text-color)'
+  paper-listbox-background-color: 'var(--primary-background-color)'
+  
+  # Table rows #
+  table-row-background-color: 'var(--primary-background-color)'
+  table-row-alternative-background-color: 'var(--secondary-background-color)'
+  
+  # Sliders #
+  paper-slider-knob-color: 'var(--accent-color)'
+  paper-slider-knob-start-color: 'var(--accent-color)'
+  paper-slider-pin-color: 'var(--accent-color)'
+  paper-slider-active-color: 'var(--accent-color)'
+  paper-slider-container-color: 'linear-gradient(var(--primary-background-color), var(--secondary-background-color)) no-repeat'
+  paper-slider-secondary-color: 'var(--secondary-background-color)'
+  paper-slider-disabled-active-color: 'var(--disabled-text-color)'
+  paper-slider-disabled-secondary-color: 'var(--disabled-text-color)'
+  
+  # Switches #
+  paper-toggle-button-checked-button-color: 'var(--accent-color)'
+  paper-toggle-button-checked-bar-color: 'var(--accent-color)'
+  paper-toggle-button-checked-ink-color: 'var(--accent-color)'
+  paper-toggle-button-unchecked-button-color: 'var(--secondary-background-color)'
+  paper-toggle-button-unchecked-bar-color: 'var(--secondary-background-color)'
+  paper-toggle-button-unchecked-ink-color: 'var(--secondary-background-color)'
