@@ -30,6 +30,7 @@ binary_sensor: !include_dir_merge_list includes/bin_sensors
 input_boolean: !include_dir_merge_named includes/input_booleans
 input_number: !include_dir_merge_named includes/input_numbers
 input_select: !include_dir_merge_named includes/input_selects
+input_datetime: !include_dir_merge_named includes/input_datetime
 
 switch: !include_dir_merge_list includes/switchs
 template: !include_dir_merge_list includes/templates

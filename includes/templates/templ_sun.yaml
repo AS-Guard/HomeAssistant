@@ -1,0 +1,17 @@
+#   includes/templates/templ_sun.yaml
+#template:
+  - binary_sensor:
+      - name: "after_sun_rising"
+        state: "{{ now().timestamp() > (as_timestamp(state_attr('sun.sun', 'next_rising')) + 30*60) }}"
+
+  - binary_sensor:
+      - name: "before_sun_setting"
+        state: "{{ now().timestamp() < (as_timestamp(state_attr('sun.sun', 'next_setting')) - 30*60) }}"
+
+  - binary_sensor:
+      - name: "before_sun_rising"
+        state: "{{ now().timestamp() > (as_timestamp(state_attr('sun.sun', 'next_rising')) - 30*60) }}"
+
+  - binary_sensor:
+      - name: "after_sun_setting"
+        state: "{{ now().timestamp() < (as_timestamp(state_attr('sun.sun', 'next_setting')) + 30*60) }}"

@@ -1,0 +1,5 @@
+#input_datetime: !include_dir_merge_named includes/input_datetime
+  tsa_time:
+    name: tsa_pause_time
+    has_date: false
+    has_time: true
