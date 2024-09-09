@@ -1,0 +1,17 @@
+# themes: !include themes.yaml
+    happy:
+      primary-color: pink
+      accent-color: orange
+    sad:
+      primary-color: steelblue
+      accent-color: darkred
+    my_theme:
+      state-cover-garage_door-open-color: "#ff0000"
+      state-media_player-inactive-color: "#795548"
+    day_and_night:
+      primary-color: coral
+      modes:
+        light:
+          secondary-text-color: olive
+        dark:
+          secondary-text-color: slategray

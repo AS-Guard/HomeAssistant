@@ -6,6 +6,7 @@ cd /config
 
 #Add all files to the repository with respect to .gitignore rules 
 git add README
+git add surse_lnk
 git add .gitignore
 git add ha_gitpush.sh
 git add automations.yaml

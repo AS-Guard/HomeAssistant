@@ -156,10 +156,11 @@ git push -u origin main
 
 #   Help str
 
+# https://simple-ha.ru/posts/408
 # https://git-scm.com/book/ru/v2/
 # https://www.youtube.com/watch?v=9-OG3bCQFFQ
 # https://www.home-assistant.io/integrations/shell_command
-
+# https://github.com/maartenpaauw/home-assistant-community-themes
 
 git branch -M main
 

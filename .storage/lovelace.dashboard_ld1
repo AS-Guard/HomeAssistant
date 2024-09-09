@@ -760,6 +760,26 @@
                   "hide_legend": true
                 }
               ]
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "timer.tsa",
+                  "state_not": "idle"
+                }
+              ],
+              "card": {
+                "type": "entities",
+                "entities": [
+                  {
+                    "entity": "timer.tsa"
+                  }
+                ],
+                "state_color": true,
+                "show_header_toggle": false
+              }
             }
           ],
           "theme": "my_theme"

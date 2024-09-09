@@ -922,7 +922,8 @@
   action:
   - action: automation.trigger
     target:
-      entity_id: automation.ms3_lw3_on
+      entity_id:
+      - automation.lw3_on_off
     data:
       skip_condition: false
   mode: single
@@ -3050,7 +3051,7 @@
   - action: automation.trigger
     metadata: {}
     data:
-      skip_condition: true
+      skip_condition: false
     target:
       entity_id:
       - automation.lw3_on_off
@@ -3064,7 +3065,7 @@
   - action: automation.trigger
     metadata: {}
     data:
-      skip_condition: true
+      skip_condition: false
     target:
       entity_id:
       - automation.ms4_xs7_on_off

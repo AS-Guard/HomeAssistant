@@ -6,7 +6,7 @@
 
 # You can whitelist files/folders with !, these will not be ignored.
 !README
-
+!surse_lnk
 !*.yaml
 !.gitignore
 !*.md
