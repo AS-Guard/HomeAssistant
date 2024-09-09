@@ -269,7 +269,8 @@
               "aspect_ratio": "16:1"
             }
           ],
-          "icon": "mdi:greenhouse"
+          "icon": "mdi:greenhouse",
+          "theme": "amoled"
         },
         {
           "title": "Boiler",
@@ -883,7 +884,9 @@
                       {
                         "entity": "timer.ds01"
                       }
-                    ]
+                    ],
+                    "state_color": true,
+                    "show_header_toggle": false
                   }
                 },
                 {
@@ -901,7 +904,9 @@
                       {
                         "entity": "timer.ds01_2"
                       }
-                    ]
+                    ],
+                    "state_color": true,
+                    "show_header_toggle": false
                   }
                 }
               ]

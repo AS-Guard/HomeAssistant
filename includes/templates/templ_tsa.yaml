@@ -2,4 +2,4 @@
 #template:
   - binary_sensor:
       - name: "tsa_gist"
-        state: "{{ states('sensor.temperature_ts1') | float > states('input_number.in_box_tsa') | float  }}"
+        state: "{{ states('sensor.kotel_ulitsa_k') | float > states('input_number.in_box_tsa') | float  }}"

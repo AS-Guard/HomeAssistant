@@ -5,7 +5,7 @@
 #    https://community.home-assistant.io/t/dark-theme-or-night-mode-theme/446/39
 #    https://g.co/kgs/jLghHsS
 my_theme:
-  primary-color: '#4b009c' # Primary (most of the UI)
+  primary-color: '#270042' # Primary (most of the UI)
   dark-primary-color: '#0f001f' # Reference
   light-primary-color: '#B3E5FC' # Reference
   accent-color: '#0040ff' # Reference
@@ -14,14 +14,14 @@ my_theme:
   secondary-background-color: '#000040' # Secondary background colour (main UI background)
   divider-color: 'rgba(0, 0, 0, .12)' # Divider
   
-  primary-text-color: '#80ffff' #'var(--dark-primary-color)' # Primary text colour, here is referencing dark-primary-color
-  text-primary-color: '#00f500' #'var(--primary-text-color)' # Primary text colour
-  secondary-text-color: '#f4e003' # For secondary titles in more info boxes etc.
-  disabled-text-color: '#805100' # Disabled text colour #523232
+  primary-text-color: '#00ffff' #'var(--dark-primary-color)' # Primary text colour, here is referencing dark-primary-color
+  text-primary-color: '#00ff00' #'var(--primary-text-color)' # Primary text colour
+  secondary-text-color: '#ffff00' # For secondary titles in more info boxes etc.
+  disabled-text-color: '#804000' # Disabled text colour #523232
   
   label-badge-border-color: '#ff0000' # Label badge border, just a reference value
   
-  paper-grey-50: '#014242'
+  paper-grey-50: '#012626'
   paper-grey-200: '#008080'
   
   # Applied colours (references) #

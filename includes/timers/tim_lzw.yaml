@@ -6,15 +6,15 @@
 
 # Лампа WiFi 1    
   lw01:
-    duration: "00:03:00"
+    duration: "00:04:00"
 
 # Лампа WiFi 2    
   lw02:
-    duration: "00:02:00"
+    duration: "00:04:00"
 
 # Лампа WiFi 3   
   lw03:
-    duration: "00:03:00"
+    duration: "00:04:00"
 
 # Выключатель ZigBee 4
   sw4k1:

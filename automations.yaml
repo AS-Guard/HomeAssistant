@@ -137,7 +137,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: switch.xs3
@@ -338,7 +338,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: light.lz01
@@ -351,36 +351,6 @@
     target:
       entity_id: automation.lz01_on_off
   mode: single
-- id: '1716569525045'
-  alias: Ds01 - Xs7 On
-  description: Включим свет при открытии двери ночью
-  trigger:
-  - type: opened
-    platform: device
-    device_id: f100d4ef0ff487cdafc78596c3a9409a
-    entity_id: 454108d80a1d713e866dd31760c27605
-    domain: binary_sensor
-  condition: []
-  action:
-  - if:
-    - condition: state
-      entity_id: binary_sensor.tod_foll_night
-      state: 'on'
-    then:
-    - action: switch.turn_on
-      metadata: {}
-      data: {}
-      target:
-        entity_id: switch.xs7
-    - data: {}
-      target:
-        entity_id: timer.xs7
-      action: timer.cancel
-    - data: {}
-      target:
-        entity_id: timer.xs7
-      action: timer.start
-  mode: single
 - id: '1716571681246'
   alias: xs7 tim
   description: ''
@@ -392,7 +362,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: switch.xs7
@@ -404,80 +374,6 @@
       skip_condition: false
     target:
       entity_id: automation.ms4_xs7_on_off
-  mode: single
-- id: '1716636755990'
-  alias: ds01_2 tim - Tg msg
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - timer.ds01_2
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-    to: idle
-    from: active
-  condition:
-  - condition: state
-    entity_id: binary_sensor.tod_foll_day
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-    state: 'on'
-  action:
-  - service: notify.gHA
-    data:
-      message: Датчик двери неактивен {{ relative_time(states.binary_sensor.ds01_contact.last_changed)
-        }}
-  - service: timer.cancel
-    data: {}
-    target:
-      entity_id: timer.ds01_2
-  - service: timer.start
-    data: {}
-    target:
-      entity_id: timer.ds01_2
-  mode: single
-- id: '1716706660950'
-  alias: Ds01 Open - ds01 tim
-  description: запуск таймера при открытии двери
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.ds01_contact
-    from: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-    to: 'on'
-  condition: []
-  action:
-  - data: {}
-    target:
-      entity_id: timer.ds01
-    action: timer.cancel
-  - data: {}
-    target:
-      entity_id: timer.ds01
-    action: timer.start
-  - if:
-    - condition: state
-      entity_id: timer.ms4
-      state: active
-    then:
-    - metadata: {}
-      data: {}
-      target:
-        entity_id: input_boolean.userplace
-      action: input_boolean.turn_off
-  - metadata: {}
-    data: {}
-    target:
-      entity_id: counter.ds01
-    action: counter.increment
   mode: single
 - id: '1716729511804'
   alias: Xs1 LI - Xs1 Off
@@ -564,58 +460,14 @@
     to: idle
     from: active
   condition:
-  - type: is_open
-    condition: device
-    device_id: f100d4ef0ff487cdafc78596c3a9409a
-    entity_id: 454108d80a1d713e866dd31760c27605
-    domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 1
+  - condition: state
+    entity_id: binary_sensor.ds01_contact
+    state: 'on'
   action:
   - data:
       message: Дверь открыта больше 3 мин. -  {{ states('sensor.kotel_otopleniia')
         }}  - холод/мухи
     action: notify.gHA
-  mode: single
-- id: '1717391611201'
-  alias: Ds01 or Tod - ds01_2 tim
-  description: Перезапустить таймер неактивности двери
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.ds01_contact
-    from: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-    to: 'off'
-  - platform: state
-    entity_id:
-    - binary_sensor.tod_foll_day
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-  condition:
-  - condition: state
-    entity_id: binary_sensor.tod_foll_day
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-    state: 'on'
-  action:
-  - service: timer.cancel
-    data: {}
-    target:
-      entity_id: timer.ds01_2
-  - service: timer.start
-    data: {}
-    target:
-      entity_id: timer.ds01_2
   mode: single
 - id: '1719765793495'
   alias: Boiler Oshibka - Tg msg
@@ -758,7 +610,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   - platform: state
     entity_id:
     - sensor.kotel_gorelka
@@ -767,7 +619,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition: []
   action:
   - if:
@@ -1075,90 +927,6 @@
       skip_condition: false
     target:
       entity_id: automation.kotel_test_otklika
-  mode: single
-- id: '1723466003363'
-  alias: Ds02 Open\Close - Tim Tg msg
-  description: запуск таймера при открытии ворот
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.ds02_contact
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 1
-    to: 'on'
-    from: 'off'
-  - platform: state
-    entity_id:
-    - binary_sensor.ds02_contact
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 1
-    from: 'on'
-  condition: []
-  action:
-  - if:
-    - condition: state
-      entity_id: binary_sensor.ds02_contact
-      state: 'on'
-    then:
-    - data:
-        title: Врота
-        message: '⛩ открываются
-
-          '
-      action: notify.gHA
-    - data: {}
-      target:
-        entity_id: timer.ds02
-      action: timer.cancel
-    - data: {}
-      target:
-        entity_id: timer.ds02
-      action: timer.start
-    - metadata: {}
-      data: {}
-      action: counter.increment
-      target:
-        entity_id: counter.ds02
-    - data: {}
-      target:
-        entity_id: timer.ds02_lx
-      action: timer.cancel
-    - data: {}
-      target:
-        entity_id: timer.ds02_lx
-      action: timer.start
-    - action: switch.turn_on
-      metadata: {}
-      data: {}
-      target:
-        entity_id: switch.xs5
-  - if:
-    - condition: state
-      entity_id: binary_sensor.ds02_contact
-      state: 'off'
-    then:
-    - data:
-        title: Врота
-        message: "\U0001F9E4 Закрыты\n"
-      action: notify.gHA
-    - data: {}
-      target:
-        entity_id: timer.ds02_lx
-      action: timer.cancel
-    - data: {}
-      target:
-        entity_id: timer.ds02_lx
-      action: timer.start
-    - action: switch.turn_on
-      metadata: {}
-      data: {}
-      target:
-        entity_id: switch.xs5
   mode: single
 - id: '1723484792938'
   alias: Boiler GVS Sens On/Off - Tg msg
@@ -1998,6 +1766,30 @@
     - condition: state
       entity_id: switch.sw4k_l2
       state: 'off'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: timer.ms4
+        state: active
+      - condition: state
+        entity_id: timer.ds01
+        state: active
+    then:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.sw4k_l2
+  - if:
+    - condition: state
+      entity_id: switch.sw4k_l2
+      state: 'off'
+    - condition: state
+      entity_id: timer.ms4
+      state: idle
+    - condition: state
+      entity_id: timer.ds01
+      state: idle
     then:
     - action: timer.cancel
       data: {}
@@ -2126,7 +1918,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: switch.sw4k_l1
@@ -2151,7 +1943,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: switch.sw4k_l2
@@ -2176,7 +1968,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: switch.sw4k_l3
@@ -2451,6 +2243,7 @@
       minutes: 0
       seconds: 3
     to: 'on'
+    enabled: false
   - platform: state
     entity_id:
     - switch.xs7
@@ -2459,6 +2252,7 @@
       minutes: 0
       seconds: 3
     to: 'off'
+    enabled: false
   condition: []
   action:
   - if:
@@ -2550,7 +2344,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: timer.ms1
@@ -2693,7 +2487,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: switch.xs5
@@ -2717,7 +2511,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition: []
   action:
   - action: automation.trigger
@@ -2861,7 +2655,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition: []
   action:
   - action: automation.trigger
@@ -3104,7 +2898,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition:
   - condition: state
     entity_id: binary_sensor.ms4_occupancy
@@ -3409,4 +3203,189 @@
       mode: dark
       name: "{% if states.sun.sun.state == \"above_horizon\" %}\n  solarized_light\n{%
         else %}\n  night\n{% endif %}\n"
+  mode: single
+- id: '1725899439701'
+  alias: Ds01 - tim
+  description: запуск таймера при открытии двери
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.ds01_contact
+    from: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    to: 'on'
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: timer.ds01
+      state: idle
+    - condition: state
+      entity_id: timer.ms4
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+      state: active
+    - condition: state
+      entity_id: binary_sensor.tod_early_night
+      state: 'on'
+    then:
+    - action: automation.trigger
+      metadata: {}
+      data:
+        skip_condition: true
+      target:
+        entity_id: automation.sw4k2_on_off
+  - data: {}
+    target:
+      entity_id: timer.ds01
+    action: timer.cancel
+  - data: {}
+    target:
+      entity_id: timer.ds01
+    action: timer.start
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: counter.ds01
+    action: counter.increment
+  - if:
+    - condition: state
+      entity_id: timer.ms4
+      state: active
+    then:
+    - metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.userplace
+      action: input_boolean.turn_off
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.pris_tim
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.ms4_xs7_on_off
+  - if:
+    - condition: state
+      entity_id: binary_sensor.ds02_contact
+      state: 'off'
+    then:
+    - data:
+        title: Врота
+        message: "\U0001F9E4 Закрыты\n"
+      action: notify.gHA
+    - data: {}
+      target:
+        entity_id: timer.ds02_lx
+      action: timer.cancel
+    - data: {}
+      target:
+        entity_id: timer.ds02_lx
+      action: timer.start
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.xs5
+    enabled: false
+  - choose:
+    - conditions: []
+      sequence: []
+  mode: single
+- id: '1725901994293'
+  alias: pris tim
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.pris
+    to: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  condition: []
+  action:
+  - action: timer.cancel
+    target:
+      entity_id: timer.pris
+    data: {}
+  - action: timer.start
+    target:
+      entity_id: timer.pris
+    data: {}
+  mode: single
+- id: '1725906105791'
+  alias: Pris -tim
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - action: timer.cancel
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.pris
+  - action: timer.start
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.pris
+  mode: single
+- id: '1725906503582'
+  alias: ds01 tim
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.ds01
+    to: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  condition:
+  - condition: state
+    entity_id: binary_sensor.ds01_contact
+    state: 'on'
+  action:
+  - action: timer.cancel
+    target:
+      entity_id: timer.ds01
+    data: {}
+  - action: timer.start
+    target:
+      entity_id: timer.ds01
+    data: {}
+  mode: single
+- id: '1725906873444'
+  alias: Pris - Tg msg
+  description: мало движения в пространстве
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.pris
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    to: idle
+    from: active
+  condition: []
+  action:
+  - data:
+      message: Датчики неактивены {{ relative_time(states.binary_sensor.ds01_contact.last_changed)
+        }}
+    action: notify.gHA
   mode: single
