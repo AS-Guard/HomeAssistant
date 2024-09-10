@@ -29,7 +29,7 @@
                       "area": "teplitsa",
                       "navigation_path": "/dashboard-ld1/tsa",
                       "theme": "my_theme",
-                      "aspect_ratio": "20:4",
+                      "aspect_ratio": "22:2",
                       "show_camera": false
                     },
                     {
@@ -43,9 +43,9 @@
                       ],
                       "type": "area",
                       "area": "lodzhiia",
-                      "aspect_ratio": "20:4",
                       "navigation_path": "/dashboard-ld1/Cam",
-                      "theme": "my_theme"
+                      "theme": "my_theme",
+                      "aspect_ratio": "25:1"
                     }
                   ]
                 },
@@ -65,7 +65,8 @@
                       ],
                       "type": "area",
                       "area": "ulitsa",
-                      "navigation_path": "/dashboard-ld1/boiler"
+                      "navigation_path": "/dashboard-ld1/boiler",
+                      "aspect_ratio": "16:13"
                     },
                     {
                       "alert_classes": [
@@ -118,7 +119,8 @@
                           ],
                           "type": "area",
                           "area": "seni",
-                          "navigation_path": "/dashboard-ld1/Sen"
+                          "navigation_path": "/dashboard-ld1/Sen",
+                          "aspect_ratio": "16:11"
                         },
                         {
                           "alert_classes": [
@@ -131,7 +133,8 @@
                           ],
                           "type": "area",
                           "area": "koridor",
-                          "navigation_path": "/dashboard-ld1/Rozetki"
+                          "navigation_path": "/dashboard-ld1/Rozetki",
+                          "aspect_ratio": "16:11"
                         }
                       ]
                     }
@@ -267,16 +270,19 @@
               "navigation_path": "/lovelace",
               "theme": "my_theme",
               "aspect_ratio": "16:1"
+            },
+            {
+              "type": "iframe",
+              "url": "https://g.co/kgs/jLghHsS",
+              "aspect_ratio": "50%"
             }
           ],
-          "icon": "mdi:greenhouse",
-          "theme": "amoled"
+          "icon": "mdi:greenhouse"
         },
         {
           "title": "Boiler",
           "path": "boiler",
           "icon": "mdi:water-boiler",
-          "theme": "my_theme",
           "cards": [
             {
               "type": "entities",
@@ -645,12 +651,12 @@
                         {
                           "entity": "switch.switch_gist_tsa",
                           "secondary_info": "last-changed",
-                          "name": "HotSan"
+                          "name": "HotSun"
                         },
                         {
                           "entity": "input_number.in_box_tsa",
                           "secondary_info": "last-changed",
-                          "name": "HotSan"
+                          "name": "HotSun"
                         }
                       ],
                       "state_color": true,
@@ -792,8 +798,7 @@
                 "show_header_toggle": false
               }
             }
-          ],
-          "theme": "my_theme"
+          ]
         },
         {
           "title": "Сени",
@@ -894,7 +899,7 @@
                   "conditions": [
                     {
                       "condition": "state",
-                      "entity": "timer.ds01_2",
+                      "entity": "timer.pris",
                       "state_not": "idle"
                     }
                   ],
@@ -902,7 +907,7 @@
                     "type": "entities",
                     "entities": [
                       {
-                        "entity": "timer.ds01_2"
+                        "entity": "timer.pris"
                       }
                     ],
                     "state_color": true,
@@ -1049,8 +1054,7 @@
               ]
             }
           ],
-          "icon": "mdi:door-closed-lock",
-          "theme": "my_theme"
+          "icon": "mdi:door-closed-lock"
         },
         {
           "title": "Кухня",
@@ -1436,8 +1440,7 @@
               "theme": "my_theme"
             }
           ],
-          "icon": "mdi:countertop-outline",
-          "theme": "my_theme"
+          "icon": "mdi:countertop-outline"
         },
         {
           "title": "Зал",
@@ -1520,8 +1523,7 @@
                 {
                   "entity": "sensor.xs2_energy"
                 }
-              ],
-              "theme": "my_theme"
+              ]
             },
             {
               "type": "entities",
@@ -1816,8 +1818,7 @@
               ]
             }
           ],
-          "icon": "mdi:sofa-outline",
-          "theme": "my_theme"
+          "icon": "mdi:sofa-outline"
         },
         {
           "title": "Спальня",
@@ -2056,8 +2057,7 @@
               ]
             }
           ],
-          "icon": "mdi:bed-outline",
-          "theme": "my_theme"
+          "icon": "mdi:bed-outline"
         },
         {
           "title": "Гараж",
@@ -2252,6 +2252,18 @@
                   "days_to_show": 1
                 }
               ]
+            },
+            {
+              "title": "История",
+              "type": "history-graph",
+              "entities": [
+                "sensor.xs1_voltage",
+                "sensor.xs3_voltage",
+                "sensor.xs5_voltage"
+              ],
+              "min_y_axis": 210,
+              "max_y_axis": 260,
+              "hours_to_show": 3
             }
           ]
         },
@@ -3224,7 +3236,6 @@
           "title": "His0",
           "path": "his0",
           "type": "panel",
-          "theme": "my_theme",
           "cards": [
             {
               "type": "history-graph",
@@ -3249,7 +3260,6 @@
           "title": "His1",
           "path": "his1",
           "type": "panel",
-          "theme": "my_theme",
           "cards": [
             {
               "type": "history-graph",
@@ -3274,7 +3284,6 @@
           "title": "His2",
           "path": "his2",
           "type": "panel",
-          "theme": "my_theme",
           "cards": [
             {
               "type": "history-graph",

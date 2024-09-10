@@ -806,19 +806,23 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 5
+      seconds: 1
     to: idle
     from: active
   condition:
-  - type: is_open
-    condition: device
-    device_id: dc540e71118bca0ea3a68f32bbe2793b
-    entity_id: af1adae2ce7ab79727be0884f3487533
-    domain: binary_sensor
+  - condition: state
+    entity_id: binary_sensor.ds02_contact
+    state: 'on'
   action:
   - data:
-      message: 'Ворота открыты больше положенного времени {{ states(''sensor.ds02_illuminance'')
-        }}
+      title: ⛩ Ворота
+      message: 'открыты больше положенного времени
+
+        {{ relative_time(state_attr(''automation.ds02_lx_tg'', ''last_triggered''))
+        | replace("hour", "час.", 1)  |  replace("hours", "час.", 1)  | replace("minutes",
+        "мин.", 1) }}
+
+        {{ states(''sensor.ds02_illuminance'') }}
 
         '
     action: notify.gHA
@@ -1151,6 +1155,10 @@
   - platform: state
     entity_id:
     - sensor.ds02_illuminance
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
   condition:
   - condition: numeric_state
     entity_id: sensor.ds02_illuminance
@@ -2720,6 +2728,13 @@
       skip_condition: false
     target:
       entity_id: automation.ms3_run
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.pris_tim
   mode: single
 - id: '1725700702051'
   alias: Sw4k4 On - tim
@@ -2849,6 +2864,13 @@
     target:
       entity_id:
       - automation.lw3_on_off
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.pris_tim
   mode: single
 - id: '1725721729930'
   alias: Ms4 - Run
@@ -2863,6 +2885,13 @@
     target:
       entity_id:
       - automation.ms4_xs7_on_off
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.pris_tim
   mode: single
 - id: '1725721982578'
   alias: Xs7 - tim
@@ -2936,6 +2965,13 @@
     data: {}
     target:
       entity_id: timer.ms1
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.pris_tim
   mode: single
 - id: '1725723902553'
   alias: Ms2 - Run
@@ -3001,15 +3037,23 @@
     to: 'on'
   condition: []
   action:
-  - action: timer.cancel
-    target:
-      entity_id: timer.ms2
-  - action: timer.start
-    target:
-      entity_id: timer.ms2
   - action: automation.trigger
     target:
       entity_id: automation.ms2_run
+    data:
+      skip_condition: false
+  - action: timer.cancel
+    target:
+      entity_id: timer.ms2
+    data: {}
+  - action: timer.start
+    target:
+      entity_id: timer.ms2
+    data: {}
+  - action: automation.trigger
+    target:
+      entity_id:
+      - automation.pris_tim
     data:
       skip_condition: false
   mode: single
@@ -3276,72 +3320,24 @@
       skip_condition: false
     target:
       entity_id: automation.ms4_xs7_on_off
-  - if:
-    - condition: state
-      entity_id: binary_sensor.ds02_contact
-      state: 'off'
-    then:
-    - data:
-        title: Врота
-        message: "\U0001F9E4 Закрыты\n"
-      action: notify.gHA
-    - data: {}
-      target:
-        entity_id: timer.ds02_lx
-      action: timer.cancel
-    - data: {}
-      target:
-        entity_id: timer.ds02_lx
-      action: timer.start
-    - action: switch.turn_on
-      metadata: {}
-      data: {}
-      target:
-        entity_id: switch.xs5
-    enabled: false
   - choose:
     - conditions: []
       sequence: []
   mode: single
-- id: '1725901994293'
-  alias: pris tim
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - timer.pris
-    to: idle
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 1
-  condition: []
-  action:
-  - action: timer.cancel
-    target:
-      entity_id: timer.pris
-    data: {}
-  - action: timer.start
-    target:
-      entity_id: timer.pris
-    data: {}
-  mode: single
 - id: '1725906105791'
-  alias: Pris -tim
+  alias: Pris - tim
   description: ''
   trigger: []
   condition: []
   action:
   - action: timer.cancel
-    metadata: {}
-    data: {}
     target:
       entity_id: timer.pris
+    data: {}
   - action: timer.start
-    metadata: {}
-    data: {}
     target:
       entity_id: timer.pris
+    data: {}
   mode: single
 - id: '1725906503582'
   alias: ds01 tim
@@ -3382,10 +3378,140 @@
       seconds: 1
     to: idle
     from: active
+  - platform: sun
+    event: sunrise
+    offset: -00:30:00
+    enabled: false
   condition: []
   action:
-  - data:
-      message: Датчики неактивены {{ relative_time(states.binary_sensor.ds01_contact.last_changed)
-        }}
-    action: notify.gHA
+  - action: timer.cancel
+    target:
+      entity_id: timer.pris
+    data: {}
+  - action: timer.start
+    target:
+      entity_id: timer.pris
+    data: {}
+  - if:
+    - condition: sun
+      after: sunrise
+      after_offset: 00:00:01
+      enabled: true
+      before: sunset
+      before_offset: 02:00:00
+    then:
+    - data:
+        title: ⛑ Датчики
+        message: "неактивны  \n{{ relative_time(state_attr('automation.pris_tim',
+          'last_triggered')) | replace(\"hour\", \"час.\", 1)  | replace(\"hours\",
+          \"час.\", 1)  | replace(\"minutes\", \"мин.\", 1) }}\n"
+      action: notify.gHA
+  mode: single
+- id: '1725968402669'
+  alias: Ds02 - tim
+  description: запуск таймера при открытии ворот
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.ds02_contact
+    from: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    to: 'on'
+  condition: []
+  action:
+  - action: automation.trigger
+    target:
+      entity_id: automation.ds02_tim_2
+    data:
+      skip_condition: true
+  - action: automation.trigger
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.xs5_on_off
+  - action: counter.increment
+    target:
+      entity_id: counter.ds02
+    data: {}
+  mode: single
+- id: '1725968744725'
+  alias: ds02 tim
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.ds02
+    to: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  condition:
+  - condition: state
+    entity_id: binary_sensor.ds02_contact
+    state: 'on'
+  action:
+  - action: timer.cancel
+    target:
+      entity_id: timer.ds02
+    data: {}
+  - action: timer.start
+    target:
+      entity_id: timer.ds02
+    data: {}
+  mode: single
+- id: '1725970937211'
+  alias: Ds02 - Tg msg
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.ds02_contact
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.ds02_contact
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.ds02_contact
+      state: 'on'
+    then:
+    - data:
+        title: ⛩ Ворота
+        message: 'открываются
+
+          '
+      action: notify.gHA
+  - if:
+    - condition: state
+      entity_id: binary_sensor.ds02_contact
+      state: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 1
+    then:
+    - data:
+        title: "\U0001F9E4 Ворота"
+        message: 'закрыты
+
+          '
+      action: notify.gHA
+  - action: timer.cancel
+    target:
+      entity_id: timer.ds02_lx
+    data: {}
+  - action: timer.start
+    target:
+      entity_id: timer.ds02_lx
+    data: {}
   mode: single

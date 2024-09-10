@@ -5,14 +5,14 @@
 #    https://community.home-assistant.io/t/dark-theme-or-night-mode-theme/446/39
 #    https://g.co/kgs/jLghHsS
 my_theme:
-  primary-color: '#270042' # Primary (most of the UI)
+  primary-color: '#23013b' # Primary (most of the UI)
   dark-primary-color: '#0f001f' # Reference
   light-primary-color: '#B3E5FC' # Reference
   accent-color: '#0040ff' # Reference
   
-  primary-background-color: '#2d0040' # Primary background colour (dialogs, e.t.c)
-  secondary-background-color: '#000040' # Secondary background colour (main UI background)
-  divider-color: 'rgba(0, 0, 0, .12)' # Divider
+  primary-background-color: '#09000f' # Primary background colour (dialogs, e.t.c)
+  secondary-background-color: '#09000f' # Secondary background colour (main UI background)
+  divider-color: 'rgba(254, 40, 145, .8)' # Divider - разделитель
   
   primary-text-color: '#00ffff' #'var(--dark-primary-color)' # Primary text colour, here is referencing dark-primary-color
   text-primary-color: '#00ff00' #'var(--primary-text-color)' # Primary text colour
@@ -28,9 +28,9 @@ my_theme:
   
   # Paper card #
   paper-card-header-color: 'var(--secondary-background-color)' # Card header text colour
-  paper-card-background-color: 'var(--primary-background-color)' # Card background colour
+  paper-card-background-color: '#09000f' #'var(--primary-background-color)' # Card background colour
   
-  paper-dialog-background-color: 'var(--primary-background-color)'
+  paper-dialog-background-color: '#09000f' #'var(--primary-background-color)'
   
   paper-item-icon-color: 'var(--primary-color)' # Icon colour
   paper-item-icon-active-color: '#ffff00' #'var(--accent-color)' # Icon colour
@@ -65,6 +65,16 @@ my_theme:
   paper-toggle-button-checked-button-color: 'var(--accent-color)'
   paper-toggle-button-checked-bar-color: 'var(--accent-color)'
   paper-toggle-button-checked-ink-color: 'var(--accent-color)'
-  paper-toggle-button-unchecked-button-color: 'var(--secondary-background-color)'
+  paper-toggle-button-unchecked-button-color: '#485775' #'var(--secondary-background-color)'
   paper-toggle-button-unchecked-bar-color: 'var(--secondary-background-color)'
   paper-toggle-button-unchecked-ink-color: 'var(--secondary-background-color)'
+  
+  # Google colors
+  google-red-500: 'red'
+  google-green-500: 'lime'
+
+  # Date picker
+  lumo-primary-text-color: 'var(--primary-color)'
+  lumo-body-text-color: 'var(--primary-color)'
+  lumo-primary-color: 'var(--primary-color)'
+  paper-grey-200: 'var(--paper-card-background-color)'
