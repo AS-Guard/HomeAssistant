@@ -272,9 +272,8 @@
               "aspect_ratio": "16:1"
             },
             {
-              "type": "iframe",
-              "url": "https://g.co/kgs/jLghHsS",
-              "aspect_ratio": "50%"
+              "type": "markdown",
+              "content": "https://g.co/kgs/jLghHsS\n\n"
             }
           ],
           "icon": "mdi:greenhouse"
@@ -490,6 +489,9 @@
                     {
                       "entity": "sensor.kotel_otoplenie",
                       "name": "СО"
+                    },
+                    {
+                      "entity": "switch.kotel_otoplenie"
                     },
                     {
                       "entity": "switch.switch_tsa"
@@ -858,71 +860,6 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.ds01_contact"
-                    }
-                  ],
-                  "hours_to_show": 4
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.ds01_contact",
-                      "secondary_info": "last-changed"
-                    }
-                  ],
-                  "show_header_toggle": false,
-                  "state_color": true
-                },
-                {
-                  "type": "conditional",
-                  "conditions": [
-                    {
-                      "condition": "state",
-                      "entity": "timer.ds01",
-                      "state_not": "idle"
-                    }
-                  ],
-                  "card": {
-                    "type": "entities",
-                    "entities": [
-                      {
-                        "entity": "timer.ds01"
-                      }
-                    ],
-                    "state_color": true,
-                    "show_header_toggle": false
-                  }
-                },
-                {
-                  "type": "conditional",
-                  "conditions": [
-                    {
-                      "condition": "state",
-                      "entity": "timer.pris",
-                      "state_not": "idle"
-                    }
-                  ],
-                  "card": {
-                    "type": "entities",
-                    "entities": [
-                      {
-                        "entity": "timer.pris"
-                      }
-                    ],
-                    "state_color": true,
-                    "show_header_toggle": false
-                  }
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
                       "entity": "binary_sensor.ms4_occupancy"
                     }
                   ],
@@ -985,11 +922,87 @@
               ]
             },
             {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ds01_contact"
+                    }
+                  ],
+                  "hours_to_show": 4
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.ds01_contact",
+                      "secondary_info": "last-changed"
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "state_color": true
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.ds01",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.ds01"
+                      }
+                    ],
+                    "state_color": true,
+                    "show_header_toggle": false
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.pris",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.pris"
+                      }
+                    ],
+                    "state_color": true,
+                    "show_header_toggle": false
+                  }
+                }
+              ]
+            },
+            {
               "type": "tile",
               "entity": "input_boolean.userplace",
               "show_entity_picture": true,
               "vertical": false,
               "state_content": "last-changed"
+            },
+            {
+              "type": "entity",
+              "entity": "counter.ds01",
+              "visibility": [
+                {
+                  "condition": "numeric_state",
+                  "entity": "counter.ds01",
+                  "above": 0
+                }
+              ]
             },
             {
               "type": "entities",
@@ -1012,17 +1025,6 @@
                 }
               ],
               "title": "B6k"
-            },
-            {
-              "type": "entity",
-              "entity": "counter.ds01",
-              "visibility": [
-                {
-                  "condition": "numeric_state",
-                  "entity": "counter.ds01",
-                  "above": 0
-                }
-              ]
             },
             {
               "type": "history-graph",
@@ -1052,6 +1054,30 @@
                   "entity": "binary_sensor.tod_early_night"
                 }
               ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.xs7",
+                  "secondary_info": "last-changed",
+                  "name": "Лампа сени"
+                },
+                {
+                  "entity": "sensor.xs7_voltage"
+                },
+                {
+                  "entity": "sensor.xs7_current"
+                },
+                {
+                  "entity": "sensor.xs7_power"
+                },
+                {
+                  "entity": "sensor.xs7_energy"
+                }
+              ],
+              "state_color": true,
+              "show_header_toggle": false
             }
           ],
           "icon": "mdi:door-closed-lock"
@@ -1818,7 +1844,9 @@
               ]
             }
           ],
-          "icon": "mdi:sofa-outline"
+          "icon": "mdi:sofa-outline",
+          "theme": "my_theme",
+          "background": {}
         },
         {
           "title": "Спальня",
@@ -2264,6 +2292,57 @@
               "min_y_axis": 210,
               "max_y_axis": 260,
               "hours_to_show": 3
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": false,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "number.set_value",
+                    "target": {
+                      "entity_id": "number.b1r_countdown"
+                    },
+                    "data": {
+                      "value": "15"
+                    }
+                  },
+                  "entity": "number.b1r_countdown",
+                  "name": "15"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.b1r"
+                    },
+                    {
+                      "entity": "number.b1r_countdown"
+                    },
+                    {
+                      "entity": "select.b1r_switch_type"
+                    },
+                    {
+                      "entity": "select.b1r_power_on_behavior"
+                    },
+                    {
+                      "entity": "sensor.b1r_linkquality"
+                    }
+                  ]
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "switch.b1r"
+                    }
+                  ],
+                  "hours_to_show": 1
+                }
+              ]
             }
           ]
         },
@@ -2273,19 +2352,29 @@
           "icon": "mdi:hand-wash-outline",
           "cards": [
             {
-              "type": "entities",
-              "entities": [
+              "type": "vertical-stack",
+              "cards": [
                 {
+                  "type": "light",
                   "entity": "light.lz01"
                 },
                 {
-                  "entity": "sensor.lz01_device_temperature"
-                },
-                {
-                  "entity": "switch.lz01_power_outage_memory"
-                },
-                {
-                  "entity": "timer.lz01"
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.lz01",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.lz01"
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -2334,26 +2423,21 @@
               ]
             },
             {
-              "type": "conditional",
-              "conditions": [
+              "type": "entities",
+              "entities": [
                 {
-                  "condition": "state",
-                  "entity": "timer.lz01",
-                  "state": "active"
+                  "entity": "light.lz01"
+                },
+                {
+                  "entity": "sensor.lz01_device_temperature"
+                },
+                {
+                  "entity": "switch.lz01_power_outage_memory"
+                },
+                {
+                  "entity": "timer.lz01"
                 }
-              ],
-              "card": {
-                "type": "entities",
-                "entities": [
-                  {
-                    "entity": "timer.lz01"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "light",
-              "entity": "light.lz01"
+              ]
             }
           ]
         },

@@ -5,20 +5,22 @@
 #    https://community.home-assistant.io/t/dark-theme-or-night-mode-theme/446/39
 #    https://g.co/kgs/jLghHsS
 my_theme:
+  # Main colors #5294E2 #363941
   primary-color: '#23013b' # Primary (most of the UI)
   dark-primary-color: '#0f001f' # Reference
   light-primary-color: '#B3E5FC' # Reference
   accent-color: '#0040ff' # Reference
   
+  # Background colors
   primary-background-color: '#09000f' # Primary background colour (dialogs, e.t.c)
   secondary-background-color: '#09000f' # Secondary background colour (main UI background)
   divider-color: 'rgba(254, 40, 145, .8)' # Divider - разделитель
   
+  # Text colors
   primary-text-color: '#00ffff' #'var(--dark-primary-color)' # Primary text colour, here is referencing dark-primary-color
   text-primary-color: '#00ff00' #'var(--primary-text-color)' # Primary text colour
   secondary-text-color: '#ffff00' # For secondary titles in more info boxes etc.
   disabled-text-color: '#804000' # Disabled text colour #523232
-  
   label-badge-border-color: '#ff0000' # Label badge border, just a reference value
   
   paper-grey-50: '#012626'
@@ -29,14 +31,16 @@ my_theme:
   # Paper card #
   paper-card-header-color: 'var(--secondary-background-color)' # Card header text colour
   paper-card-background-color: '#09000f' #'var(--primary-background-color)' # Card background colour
-  
-  paper-dialog-background-color: '#09000f' #'var(--primary-background-color)'
-  
+  ha-card-background: '#434954'
+  markdown-code-background-color: '#434954'
+  paper-dialog-background-color: '#150d1c' # '#09000f' 'var(--primary-background-color)'
   paper-item-icon-color: 'var(--primary-color)' # Icon colour
   paper-item-icon-active-color: '#ffff00' #'var(--accent-color)' # Icon colour
   paper-item-icon_-_color: 'var(--primary-color)'
   paper-item-selected_-_background-color: 'var(--secondary-background-color)'
+  
   paper-tabs-selection-bar-color: 'var(--paper-grey-50)'
+  ha-card-border-radius: 5px
   
   # Labels #
   label-badge-red: 'var(--label-badge-border-color)' # References the brand colour label badge border
@@ -65,9 +69,17 @@ my_theme:
   paper-toggle-button-checked-button-color: 'var(--accent-color)'
   paper-toggle-button-checked-bar-color: 'var(--accent-color)'
   paper-toggle-button-checked-ink-color: 'var(--accent-color)'
-  paper-toggle-button-unchecked-button-color: '#485775' #'var(--secondary-background-color)'
+  paper-toggle-button-unchecked-button-color: 'var(--secondary-background-color)'
   paper-toggle-button-unchecked-bar-color: 'var(--secondary-background-color)'
   paper-toggle-button-unchecked-ink-color: 'var(--secondary-background-color)'
+  
+  #Sidebar
+  sidebar-background-color: '#b0b0b0'
+  sidebar-icon-color: var(--state-icon-color)
+  sidebar-text-color: var(--sidebar-icon-color)
+  sidebar-selected-background-color: var(--app-header-background-color)
+  sidebar-selected-icon-color: 'var(--accent-color)'
+  sidebar-selected-text-color: 'var(--accent-color)'
   
   # Google colors
   google-red-500: 'red'
@@ -77,4 +89,3 @@ my_theme:
   lumo-primary-text-color: 'var(--primary-color)'
   lumo-body-text-color: 'var(--primary-color)'
   lumo-primary-color: 'var(--primary-color)'
-  paper-grey-200: 'var(--paper-card-background-color)'

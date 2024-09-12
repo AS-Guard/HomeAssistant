@@ -174,7 +174,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 5
+      seconds: 3
     to: ✅
   - platform: state
     entity_id:
@@ -183,7 +183,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 5
+      seconds: 3
     to: ➖
   action:
   - if:
@@ -213,6 +213,8 @@
             Задано {{ states(''switch.kotel_otoplenie'') }}
 
             '
+          data:
+            disable_notification: false
         action: notify.gHA
   - if:
     - condition: state
@@ -241,6 +243,8 @@
             Задано {{ states(''switch.kotel_otoplenie'') }}
 
             '
+          data:
+            disable_notification: false
         action: notify.gHA
 - id: '1715770066650'
   alias: tg temp_kotel_h
@@ -624,16 +628,20 @@
   action:
   - if:
     - condition: state
+      entity_id: light.lz01
+      state: 'on'
+    - condition: state
       entity_id: sensor.kotel_gorelka
       state: "\U0001F525работает"
     - condition: state
       entity_id: sensor.kotel_goriachaia_voda
       state: 'on'
     then:
-    - target:
-        entity_id: timer.lz01
+    - action: timer.pause
+      metadata: {}
       data: {}
-      action: timer.pause
+      target:
+        entity_id: timer.lz01
     - action: light.turn_on
       metadata: {}
       data:
@@ -643,11 +651,14 @@
         device_id: b719ed1e31d7c898470e7fc10d438b3e
   - if:
     - condition: state
+      entity_id: light.lz01
+      state: 'on'
+    - condition: state
       entity_id: sensor.kotel_gorelka
       state: ➖
     - condition: state
-      state: 'on'
       entity_id: sensor.kotel_goriachaia_voda
+      state: 'on'
     then:
     - action: light.turn_on
       metadata: {}
@@ -656,10 +667,44 @@
         brightness_pct: 80
       target:
         device_id: b719ed1e31d7c898470e7fc10d438b3e
-    - entity_id: timer.lz01
-      action: timer.cancel
-    - entity_id: timer.lz01
-      action: timer.start
+    - action: timer.finish
+      metadata: {}
+      data: {}
+      target:
+        entity_id: timer.lz01
+    - action: timer.start
+      metadata: {}
+      data: {}
+      target:
+        entity_id: timer.lz01
+  - if:
+    - condition: state
+      entity_id: light.lz01
+      state: 'on'
+    - condition: state
+      entity_id: sensor.kotel_gorelka
+      state: ➖
+    - condition: state
+      entity_id: sensor.kotel_goriachaia_voda
+      state: 'off'
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        kelvin: 2000
+        brightness_pct: 50
+      target:
+        device_id: b719ed1e31d7c898470e7fc10d438b3e
+    - action: timer.finish
+      metadata: {}
+      data: {}
+      target:
+        entity_id: timer.lz01
+    - action: timer.start
+      metadata: {}
+      data: {}
+      target:
+        entity_id: timer.lz01
   mode: single
 - id: '1722107322243'
   alias: Tr01 Err - Tg msg
@@ -1584,11 +1629,16 @@
       seconds: 3
   condition: []
   action:
-  - action: timer.cancel
-    metadata: {}
-    data: {}
-    target:
+  - if:
+    - condition: state
       entity_id: timer.tsa
+      state: active
+    then:
+    - action: timer.pause
+      target:
+        entity_id:
+        - timer.tsa
+      data: {}
   - if:
     - condition: state
       entity_id: switch.switch_tsa
@@ -1629,6 +1679,11 @@
       target:
         entity_id: switch.klimat_gist
       action: switch.turn_off
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 1
+        milliseconds: 0
     - if:
       - condition: not
         conditions:
@@ -1656,6 +1711,11 @@
       target:
         entity_id: switch.klimat_gist
       action: switch.turn_on
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 1
+        milliseconds: 0
     - if:
       - condition: not
         conditions:
@@ -2379,14 +2439,13 @@
     to: 'on'
   condition: []
   action:
-  - action: timer.cancel
-    data: {}
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
     target:
-      entity_id: timer.ms4
-  - action: timer.start
-    data: {}
-    target:
-      entity_id: timer.ms4
+      entity_id:
+      - automation.ms4_tim_2
   - action: automation.trigger
     metadata: {}
     data:
@@ -2420,8 +2479,8 @@
       entity_id: timer.ms3
   mode: single
 - id: '1725211449544'
-  alias: Xs5 on\off
-  description: ''
+  alias: Xs5 On/Off
+  description: Включим свет
   trigger:
   - platform: state
     entity_id:
@@ -2431,19 +2490,73 @@
       minutes: 0
       seconds: 3
     to: 'on'
-  condition:
-  - condition: state
-    entity_id: switch.xs5
-    state: 'on'
+    enabled: false
+  - platform: state
+    entity_id:
+    - switch.xs5
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    to: 'off'
+    enabled: false
+  condition: []
   action:
-  - data: {}
-    target:
+  - if:
+    - condition: state
+      entity_id: switch.xs5
+      state: 'off'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: timer.ds02
+        state: active
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: timer.ms4
+          state: active
+        - condition: time
+          after: 06:00:00
+          before: 06:30:00
+    then:
+    - action: switch.turn_on
+      target:
+        entity_id: switch.xs5
+      data: {}
+  - if:
+    - condition: state
+      entity_id: switch.xs5
+      state: 'on'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: timer.ds02
+        state: active
+    then:
+    - action: timer.cancel
+      target:
+        entity_id:
+        - timer.xs5
+      data: {}
+    - action: timer.start
+      target:
+        entity_id:
+        - timer.xs5
+      data: {}
+  - if:
+    - condition: state
+      entity_id: switch.xs5
+      state: 'on'
+    - condition: state
       entity_id: timer.xs5
-    action: timer.cancel
-  - data: {}
-    target:
-      entity_id: timer.xs5
-    action: timer.start
+      state: idle
+    then:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.xs5
   mode: single
 - id: '1725212162865'
   alias: Ms4 il int
@@ -2490,7 +2603,6 @@
   - platform: state
     entity_id:
     - timer.xs5
-    from: active
     to: idle
     for:
       hours: 0
@@ -2501,11 +2613,13 @@
     entity_id: switch.xs5
     state: 'on'
   action:
-  - action: switch.turn_off
+  - action: automation.trigger
     metadata: {}
-    data: {}
+    data:
+      skip_condition: false
     target:
-      entity_id: switch.xs5
+      entity_id:
+      - automation.xs5_on_off
   mode: single
 - id: '1725335684916'
   alias: tsa tim
@@ -2712,16 +2826,13 @@
       seconds: 1
   condition: []
   action:
-  - action: timer.cancel
+  - action: automation.trigger
     metadata: {}
-    data: {}
+    data:
+      skip_condition: false
     target:
-      entity_id: timer.ms3
-  - action: timer.start
-    metadata: {}
-    data: {}
-    target:
-      entity_id: timer.ms3
+      entity_id:
+      - automation.ms3_tim
   - action: automation.trigger
     metadata: {}
     data:
@@ -2770,7 +2881,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 2
   condition: []
   action:
   - action: timer.cancel
@@ -2892,6 +3003,13 @@
     target:
       entity_id:
       - automation.pris_tim
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.xs5_on_off
   mode: single
 - id: '1725721982578'
   alias: Xs7 - tim
@@ -2956,15 +3074,14 @@
       skip_condition: false
     target:
       entity_id:
+      - automation.ms1_tim
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
       - automation.ms1_run
-  - action: timer.cancel
-    data: {}
-    target:
-      entity_id: timer.ms1
-  - action: timer.start
-    data: {}
-    target:
-      entity_id: timer.ms1
   - action: automation.trigger
     metadata: {}
     data:
@@ -3039,17 +3156,15 @@
   action:
   - action: automation.trigger
     target:
+      entity_id:
+      - automation.ms2_tim
+    data:
+      skip_condition: false
+  - action: automation.trigger
+    target:
       entity_id: automation.ms2_run
     data:
       skip_condition: false
-  - action: timer.cancel
-    target:
-      entity_id: timer.ms2
-    data: {}
-  - action: timer.start
-    target:
-      entity_id: timer.ms2
-    data: {}
   - action: automation.trigger
     target:
       entity_id:
@@ -3473,39 +3588,21 @@
     - binary_sensor.ds02_contact
     from: 'off'
     to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
   - platform: state
     entity_id:
     - binary_sensor.ds02_contact
     from: 'on'
     to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
   condition: []
   action:
-  - if:
-    - condition: state
-      entity_id: binary_sensor.ds02_contact
-      state: 'on'
-    then:
-    - data:
-        title: ⛩ Ворота
-        message: 'открываются
-
-          '
-      action: notify.gHA
-  - if:
-    - condition: state
-      entity_id: binary_sensor.ds02_contact
-      state: 'off'
-      for:
-        hours: 0
-        minutes: 0
-        seconds: 1
-    then:
-    - data:
-        title: "\U0001F9E4 Ворота"
-        message: 'закрыты
-
-          '
-      action: notify.gHA
   - action: timer.cancel
     target:
       entity_id: timer.ds02_lx
@@ -3513,5 +3610,83 @@
   - action: timer.start
     target:
       entity_id: timer.ds02_lx
+    data: {}
+  - if:
+    - condition: state
+      entity_id: binary_sensor.ds02_contact
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+    then:
+    - action: notify.gHA
+      data:
+        title: ⛩ Ворота
+        message: "открываются  \n"
+        data:
+          disable_notification: false
+  - if:
+    - condition: state
+      entity_id: binary_sensor.ds02_contact
+      state: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+    then:
+    - action: notify.gHA
+      data:
+        title: "\U0001F9E4 Ворота"
+        message: 'закрыты
+
+          '
+        data:
+          disable_notification: true
+  mode: single
+- id: '1726022098684'
+  alias: B1r - Tim
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.b1r
+    to: 'on'
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.b1r
+  mode: single
+- id: '1726108773621'
+  alias: Xs5 - tim
+  description: Включим свет
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.xs5
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    to: 'on'
+  condition: []
+  action:
+  - action: timer.cancel
+    target:
+      entity_id:
+      - timer.xs5
+    data: {}
+  - action: timer.start
+    target:
+      entity_id:
+      - timer.xs5
     data: {}
   mode: single
