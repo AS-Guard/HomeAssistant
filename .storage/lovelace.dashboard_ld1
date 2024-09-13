@@ -562,6 +562,46 @@
               "min_y_axis": 0.32,
               "max_y_axis": 0.72,
               "fit_y_data": false
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "automation.trigger",
+                    "target": {
+                      "entity_id": "automation.boller_test"
+                    },
+                    "data": {
+                      "skip_condition": false
+                    }
+                  },
+                  "entity": "binary_sensor.st32",
+                  "name": "Test"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "automation.trigger",
+                    "target": {
+                      "entity_id": "automation.boiler_reset"
+                    },
+                    "data": {
+                      "skip_condition": false
+                    }
+                  },
+                  "entity": "sensor.kotel_kotel",
+                  "name": "Reset",
+                  "icon": "mdi:air-filter"
+                }
+              ]
             }
           ]
         },
@@ -672,7 +712,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.tsa",
-                      "state": "active"
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -779,26 +819,6 @@
                   "hide_legend": true
                 }
               ]
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "condition": "state",
-                  "entity": "timer.tsa",
-                  "state_not": "idle"
-                }
-              ],
-              "card": {
-                "type": "entities",
-                "entities": [
-                  {
-                    "entity": "timer.tsa"
-                  }
-                ],
-                "state_color": true,
-                "show_header_toggle": false
-              }
             }
           ]
         },
@@ -1054,30 +1074,6 @@
                   "entity": "binary_sensor.tod_early_night"
                 }
               ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "switch.xs7",
-                  "secondary_info": "last-changed",
-                  "name": "Лампа сени"
-                },
-                {
-                  "entity": "sensor.xs7_voltage"
-                },
-                {
-                  "entity": "sensor.xs7_current"
-                },
-                {
-                  "entity": "sensor.xs7_power"
-                },
-                {
-                  "entity": "sensor.xs7_energy"
-                }
-              ],
-              "state_color": true,
-              "show_header_toggle": false
             }
           ],
           "icon": "mdi:door-closed-lock"
@@ -2452,7 +2448,7 @@
               "columns": 1,
               "cards": [
                 {
-                  "show_state": false,
+                  "show_state": true,
                   "show_name": false,
                   "camera_view": "auto",
                   "type": "picture-entity",
@@ -2466,34 +2462,39 @@
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "call-service",
-                        "service": "onvif.ptz",
+                        "action": "perform-action",
                         "target": {
-                          "entity_id": "camera.cam8_profile_0"
+                          "entity_id": [
+                            "camera.cam8_profile_1"
+                          ]
                         },
                         "data": {
                           "preset": "1",
                           "move_mode": "GotoPreset"
-                        }
+                        },
+                        "perform_action": "onvif.ptz"
                       },
                       "hold_action": {
                         "action": "none"
-                      }
+                      },
+                      "name": "1"
                     },
                     {
                       "show_name": true,
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "call-service",
-                        "service": "onvif.ptz",
+                        "action": "perform-action",
                         "target": {
-                          "entity_id": "camera.cam8_profile_0"
+                          "entity_id": [
+                            "camera.cam8_profile_1"
+                          ]
                         },
                         "data": {
                           "move_mode": "ContinuousMove",
                           "tilt": "UP"
-                        }
+                        },
+                        "perform_action": "onvif.ptz"
                       },
                       "entity": "input_button.camup",
                       "hold_action": {
@@ -2505,19 +2506,22 @@
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "call-service",
-                        "service": "onvif.ptz",
+                        "action": "perform-action",
                         "target": {
-                          "entity_id": "camera.cam8_profile_0"
+                          "entity_id": [
+                            "camera.cam8_profile_1"
+                          ]
                         },
                         "data": {
                           "preset": "2",
                           "move_mode": "GotoPreset"
-                        }
+                        },
+                        "perform_action": "onvif.ptz"
                       },
                       "hold_action": {
                         "action": "none"
-                      }
+                      },
+                      "name": "2"
                     }
                   ]
                 },
@@ -2529,16 +2533,18 @@
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "call-service",
-                        "service": "onvif.ptz",
+                        "action": "perform-action",
                         "target": {
-                          "entity_id": "camera.cam8_profile_0"
+                          "entity_id": [
+                            "camera.cam8_profile_1"
+                          ]
                         },
                         "data": {
                           "move_mode": "ContinuousMove",
-                          "pan": "RIGHT",
+                          "pan": "LEFT",
                           "distance": 0.5
-                        }
+                        },
+                        "perform_action": "onvif.ptz"
                       },
                       "entity": "input_button.caml",
                       "hold_action": {
@@ -2550,15 +2556,17 @@
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "call-service",
-                        "service": "onvif.ptz",
+                        "action": "perform-action",
                         "target": {
-                          "entity_id": "camera.cam8_profile_0"
+                          "entity_id": [
+                            "camera.cam8_profile_1"
+                          ]
                         },
                         "data": {
                           "move_mode": "ContinuousMove",
                           "tilt": "DOWN"
-                        }
+                        },
+                        "perform_action": "onvif.ptz"
                       },
                       "entity": "input_button.camdwn",
                       "hold_action": {
@@ -2570,16 +2578,18 @@
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "call-service",
-                        "service": "onvif.ptz",
+                        "action": "perform-action",
                         "target": {
-                          "entity_id": "camera.cam8_profile_0"
+                          "entity_id": [
+                            "camera.cam8_profile_1"
+                          ]
                         },
                         "data": {
                           "distance": 0.5,
                           "move_mode": "ContinuousMove",
-                          "pan": "LEFT"
-                        }
+                          "pan": "RIGHT"
+                        },
+                        "perform_action": "onvif.ptz"
                       },
                       "entity": "input_button.camr",
                       "hold_action": {
@@ -2608,15 +2618,27 @@
                       },
                       "hold_action": {
                         "action": "none"
-                      }
+                      },
+                      "name": "3"
                     },
                     {
                       "show_name": true,
                       "show_icon": true,
                       "type": "button",
                       "tap_action": {
-                        "action": "toggle"
-                      }
+                        "action": "perform-action",
+                        "perform_action": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_1"
+                        },
+                        "data": {
+                          "speed": 0.5,
+                          "move_mode": "Stop"
+                        }
+                      },
+                      "name": "0",
+                      "entity": "camera.cam8",
+                      "icon": ""
                     },
                     {
                       "show_name": true,
@@ -2635,7 +2657,8 @@
                       },
                       "hold_action": {
                         "action": "none"
-                      }
+                      },
+                      "name": "4"
                     }
                   ]
                 },

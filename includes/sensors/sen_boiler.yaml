@@ -1,0 +1,15 @@
+#   sensor: !include_dir_merge_list includes/sensors
+#   includes/sensors/sen_boiler.yaml
+
+#sensor:
+  - platform: template
+    sensors:
+      gorelka_st:
+        friendly_name: "Gorelka status"
+        #device_class: heat
+        value_template: >
+          {% if is_state('sensor.kotel_gorelka', '🔥работает') %}
+            on
+          {% elif is_state('sensor.kotel_gorelka', '➖') %}
+            off
+          {% endif %}

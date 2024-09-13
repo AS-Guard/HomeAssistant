@@ -630,81 +630,78 @@
     - condition: state
       entity_id: light.lz01
       state: 'on'
-    - condition: state
-      entity_id: sensor.kotel_gorelka
-      state: "\U0001F525работает"
-    - condition: state
-      entity_id: sensor.kotel_goriachaia_voda
-      state: 'on'
     then:
-    - action: timer.pause
-      metadata: {}
-      data: {}
-      target:
-        entity_id: timer.lz01
-    - action: light.turn_on
-      metadata: {}
-      data:
-        kelvin: 6500
-        brightness_pct: 80
-      target:
-        device_id: b719ed1e31d7c898470e7fc10d438b3e
-  - if:
-    - condition: state
-      entity_id: light.lz01
-      state: 'on'
-    - condition: state
-      entity_id: sensor.kotel_gorelka
-      state: ➖
-    - condition: state
-      entity_id: sensor.kotel_goriachaia_voda
-      state: 'on'
-    then:
-    - action: light.turn_on
-      metadata: {}
-      data:
-        kelvin: 2000
-        brightness_pct: 80
-      target:
-        device_id: b719ed1e31d7c898470e7fc10d438b3e
-    - action: timer.finish
-      metadata: {}
-      data: {}
-      target:
-        entity_id: timer.lz01
-    - action: timer.start
-      metadata: {}
-      data: {}
-      target:
-        entity_id: timer.lz01
-  - if:
-    - condition: state
-      entity_id: light.lz01
-      state: 'on'
-    - condition: state
-      entity_id: sensor.kotel_gorelka
-      state: ➖
-    - condition: state
-      entity_id: sensor.kotel_goriachaia_voda
-      state: 'off'
-    then:
-    - action: light.turn_on
-      metadata: {}
-      data:
-        kelvin: 2000
-        brightness_pct: 50
-      target:
-        device_id: b719ed1e31d7c898470e7fc10d438b3e
-    - action: timer.finish
-      metadata: {}
-      data: {}
-      target:
-        entity_id: timer.lz01
-    - action: timer.start
-      metadata: {}
-      data: {}
-      target:
-        entity_id: timer.lz01
+    - if:
+      - condition: state
+        entity_id: sensor.kotel_goriachaia_voda
+        state: 'on'
+      then:
+      - if:
+        - condition: state
+          entity_id: sensor.kotel_gorelka
+          state: "\U0001F525работает"
+        then:
+        - action: timer.pause
+          metadata: {}
+          data: {}
+          target:
+            entity_id: timer.lz01
+        - action: light.turn_on
+          metadata: {}
+          data:
+            kelvin: 6500
+            brightness_pct: 80
+            transition: 3
+          target:
+            device_id: b719ed1e31d7c898470e7fc10d438b3e
+      - if:
+        - condition: state
+          entity_id: sensor.kotel_gorelka
+          state: ➖
+        then:
+        - action: light.turn_on
+          metadata: {}
+          data:
+            kelvin: 2000
+            brightness_pct: 80
+            transition: 3
+          target:
+            device_id: b719ed1e31d7c898470e7fc10d438b3e
+        - action: timer.finish
+          metadata: {}
+          data: {}
+          target:
+            entity_id: timer.lz01
+        - action: timer.start
+          metadata: {}
+          data: {}
+          target:
+            entity_id: timer.lz01
+    - if:
+      - condition: state
+        entity_id: sensor.kotel_goriachaia_voda
+        state: 'off'
+      - condition: state
+        entity_id: sensor.kotel_gorelka
+        state: ➖
+      then:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          kelvin: 2000
+          brightness_pct: 50
+        target:
+          device_id: b719ed1e31d7c898470e7fc10d438b3e
+      - action: timer.finish
+        metadata: {}
+        data: {}
+        target:
+          entity_id: timer.lz01
+      - action: timer.start
+        metadata: {}
+        data: {}
+        target:
+          entity_id: timer.lz01
   mode: single
 - id: '1722107322243'
   alias: Tr01 Err - Tg msg
@@ -1478,6 +1475,9 @@
         hours: 0
         minutes: 0
         seconds: 0
+    - condition: state
+      entity_id: timer.lw01
+      state: idle
     then:
     - action: automation.trigger
       metadata: {}
@@ -1494,6 +1494,9 @@
         hours: 0
         minutes: 0
         seconds: 1
+    - condition: state
+      entity_id: timer.lw02
+      state: idle
     then:
     - action: automation.trigger
       metadata: {}
@@ -1509,6 +1512,9 @@
         hours: 0
         minutes: 0
         seconds: 1
+    - condition: state
+      entity_id: timer.lw03
+      state: idle
     then:
     - action: automation.trigger
       metadata: {}
@@ -1516,6 +1522,25 @@
         skip_condition: true
       target:
         entity_id: automation.lw03_on
+  - if:
+    - condition: state
+      entity_id: light.lz01
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 1
+    - condition: state
+      entity_id: timer.lz01
+      state: idle
+    then:
+    - action: automation.trigger
+      metadata: {}
+      data:
+        skip_condition: true
+      target:
+        entity_id:
+        - automation.lz01_on_off
   mode: single
 - id: '1724328582716'
   alias: 8-min
