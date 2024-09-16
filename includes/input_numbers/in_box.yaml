@@ -2,7 +2,7 @@
 #input_number:
   in_box_tsa:
     name: box_tsa
-    initial: 20
+    initial: 18
     min: -20
     max: 35
     step: 1

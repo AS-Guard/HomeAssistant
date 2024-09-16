@@ -2,7 +2,7 @@
 #input_number:
   sl_ts54:
     name: Ts54
-    initial: 23.05 
+    initial: 23.45 
     min: 9 
     max: 31 
     step: 0.05 

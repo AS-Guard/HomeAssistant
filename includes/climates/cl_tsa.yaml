@@ -5,10 +5,10 @@
     unique_id: TS00
     heater: switch.heater_ts0
     target_sensor: sensor.temperature_ts0
-    min_temp: 14 
-    max_temp: 26 
+    min_temp: 15 
+    max_temp: 25 
     ac_mode: false 
-    target_temp: 20.0 
+    target_temp: 22.2 
     cold_tolerance: 0.1 
     hot_tolerance: 0.1 
     min_cycle_duration: 
@@ -30,10 +30,10 @@
     unique_id: TS01
     heater: switch.heater_ts1
     target_sensor: sensor.temperature_ts1
-    min_temp: 14 
-    max_temp: 26 
+    min_temp: 15 
+    max_temp: 25 
     ac_mode: false 
-    target_temp: 23.0 
+    target_temp: 22.2 
     cold_tolerance: 0.1 
     hot_tolerance: 0.1 
     min_cycle_duration: 
@@ -55,10 +55,10 @@
     unique_id: TS02
     heater: switch.heater_ts2
     target_sensor: sensor.temperature_ts2
-    min_temp: 11 
-    max_temp: 19 
+    min_temp: 15 
+    max_temp: 25 
     ac_mode: false 
-    target_temp: 15.5 
+    target_temp: 23.4 
     cold_tolerance: 0.1 
     hot_tolerance: 0.1 
     min_cycle_duration: 

@@ -455,7 +455,8 @@
                     "sensor.klimat_etk_termostat",
                     "sensor.klimat_etk2_termostat",
                     "sensor.ha_asg_v_realfeel_temperature"
-                  ]
+                  ],
+                  "title": "Statistic"
                 },
                 {
                   "chart_type": "line",
@@ -1003,6 +1004,12 @@
                     "state_color": true,
                     "show_header_toggle": false
                   }
+                },
+                {
+                  "type": "logbook",
+                  "entities": [
+                    "automation.pris_tg_msg"
+                  ]
                 }
               ]
             },
@@ -3361,7 +3368,7 @@
               ]
             }
           ],
-          "subview": true
+          "subview": false
         },
         {
           "title": "His1",
@@ -3385,7 +3392,7 @@
               ]
             }
           ],
-          "subview": true
+          "subview": false
         },
         {
           "title": "His2",
@@ -3409,7 +3416,7 @@
               ]
             }
           ],
-          "subview": true
+          "subview": false
         }
       ]
     }

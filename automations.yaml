@@ -536,14 +536,20 @@
     entity_id:
     - light.lampochka_2
     to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
   condition: []
   action:
   - action: timer.cancel
     target:
       entity_id: timer.lw02
+    data: {}
   - action: timer.start
     target:
       entity_id: timer.lw02
+    data: {}
   mode: single
 - id: '1722072867693'
   alias: Etk2 On
@@ -3215,6 +3221,15 @@
         - conditions:
           - condition: state
             entity_id: timer.ms2
+            state: idle
+          sequence:
+          - data: {}
+            target:
+              entity_id: timer.lw02
+            action: timer.cancel
+        - conditions:
+          - condition: state
+            entity_id: timer.ms2
             state: active
           sequence:
           - choose:
@@ -3246,15 +3261,6 @@
                   - 0
                   - 255
                   - 255
-        - conditions:
-          - condition: state
-            entity_id: timer.ms2
-            state: idle
-          sequence:
-          - data: {}
-            target:
-              entity_id: timer.lw02
-            action: timer.cancel
     - conditions:
       - condition: device
         type: is_on
@@ -3279,6 +3285,9 @@
         - conditions:
           - condition: state
             entity_id: timer.ms2
+            state: idle
+          - condition: state
+            entity_id: timer.lw02
             state: idle
           sequence:
           - action: light.turn_off
@@ -3543,8 +3552,8 @@
     - data:
         title: ⛑ Датчики
         message: "неактивны  \n{{ relative_time(state_attr('automation.pris_tim',
-          'last_triggered')) | replace(\"hour\", \"час.\", 1)  | replace(\"hours\",
-          \"час.\", 1)  | replace(\"minutes\", \"мин.\", 1) }}\n"
+          'last_triggered')) | replace(\"hours\", \"час.\", 1) | replace(\"hour\",
+          \"час.\", 1) |  replace(\"minutes\", \"мин.\", 1) }}\n"
       action: notify.gHA
   mode: single
 - id: '1725968402669'
@@ -3647,7 +3656,8 @@
     then:
     - action: notify.gHA
       data:
-        title: ⛩ Ворота
+        title: "\U0001F980\U0001F35F\U0001F6F7\U0001F3D3\U0001F3AF\U0001F692\U0001F6A8⛽️\U0001F9F0\U0001F534⛩
+          Ворота"
         message: "открываются  \n"
         data:
           disable_notification: false
