@@ -1,0 +1,22 @@
+
+{{ state_attr('light.lampochka_3', 'rgb_color') }}
+{{ is_state_attr('light.lampochka_3', 'rgb_color', (255, 0, 255) ) }}
+
+{{ state_attr('light.lampochka_3', 'color_temp') }}
+{{ is_state_attr('light.lampochka_3', 'color_temp', "None" ) }}
+
+{{ state_attr('light.lampochka_3', 'color_mode') }}
+{{ is_state_attr('light.lampochka_3', 'color_mode', "hs" ) }}
+{{ is_state_attr('light.lampochka_3', 'color_mode', "color_temp" ) }}
+
+{{ state_attr('light.lampochka_3', 'brightness') }}
+{{ is_state_attr('light.lampochka_3', 'brightness', (255) ) }}
+
+{{ as_timestamp(state_attr('sun.sun', 'next_dawn')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+{{ as_timestamp(state_attr('sun.sun', 'next_noon')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+{{ as_timestamp(state_attr('sun.sun', 'next_dusk')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+
+{{ as_timestamp(state_attr('sun.sun', 'next_rising')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+{{ as_timestamp(state_attr('sun.sun', 'next_setting')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+
+{{ states.sun.sun.attributes['next_rising']| as_timestamp | timestamp_custom('%H:%M') }}
