@@ -44,11 +44,25 @@
   action:
   - choose:
     - conditions:
-      - condition: device
-        type: is_off
-        device_id: 2519fe869b93b107ae307fed766beb9f
-        entity_id: 45e4e03ecee12bea76a563c6149bdbc7
-        domain: light
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: light.lampochka_3
+          state: 'off'
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: light.lampochka_3
+            state: 'on'
+          - condition: state
+            entity_id: light.lampochka_3
+            attribute: color_mode
+            state: hs
+          - condition: numeric_state
+            entity_id: light.lampochka_3
+            attribute: brightness
+            below: 17
+            enabled: true
       sequence:
       - action: light.turn_on
         target:
@@ -107,25 +121,6 @@
           kelvin: 6500
           brightness_pct: 100
   mode: single
-- id: '1714652428640'
-  alias: Xs3 on\off
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - switch.xs3
-    to: 'on'
-  condition: []
-  action:
-  - data: {}
-    target:
-      entity_id: timer.xs3
-    action: timer.cancel
-  - data: {}
-    target:
-      entity_id: timer.xs3
-    action: timer.start
-  mode: single
 - id: '1714653788410'
   alias: xs3 tim
   description: ''
@@ -148,7 +143,7 @@
     data:
       skip_condition: false
     target:
-      entity_id: automation.xs02_off
+      entity_id: automation.xs3_on_off
   mode: single
 - id: Температура_на_бойлера_телеграм
   alias: tg temp_kotel_u
@@ -708,6 +703,103 @@
         data: {}
         target:
           entity_id: timer.lz01
+  - if:
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: light.lampochka_3
+        state: 'off'
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: light.lampochka_3
+          state: 'on'
+        - condition: state
+          entity_id: light.lampochka_3
+          attribute: color_mode
+          state: hs
+        - condition: numeric_state
+          entity_id: light.lampochka_3
+          attribute: brightness
+          below: 17
+          enabled: true
+    then:
+    - if:
+      - condition: state
+        state: ✅
+        entity_id: sensor.kotel_otoplenie
+        enabled: true
+      then:
+      - if:
+        - condition: state
+          entity_id: sensor.kotel_gorelka
+          state: "\U0001F525работает"
+        then:
+        - action: light.turn_on
+          metadata: {}
+          data:
+            brightness_pct: 5
+            transition: 3
+            rgb_color:
+            - 225
+            - 0
+            - 255
+          target:
+            entity_id: light.lampochka_3
+      - if:
+        - condition: state
+          entity_id: sensor.kotel_gorelka
+          state: ➖
+        then:
+        - action: light.turn_on
+          metadata: {}
+          data:
+            brightness_pct: 5
+            transition: 3
+            rgb_color:
+            - 0
+            - 255
+            - 0
+          target:
+            entity_id: light.lampochka_3
+    - if:
+      - condition: state
+        state: ➖
+        entity_id: sensor.kotel_otoplenie
+        enabled: true
+      then:
+      - if:
+        - condition: state
+          entity_id: sensor.kotel_gorelka
+          state: "\U0001F525работает"
+        then:
+        - action: light.turn_on
+          metadata: {}
+          data:
+            brightness_pct: 5
+            transition: 3
+            rgb_color:
+            - 225
+            - 255
+            - 0
+          target:
+            entity_id: light.lampochka_3
+      - if:
+        - condition: state
+          entity_id: sensor.kotel_gorelka
+          state: ➖
+        then:
+        - action: light.turn_on
+          metadata: {}
+          data:
+            brightness_pct: 5
+            transition: 3
+            rgb_color:
+            - 0
+            - 0
+            - 255
+          target:
+            entity_id: light.lampochka_3
   mode: single
 - id: '1722107322243'
   alias: Tr01 Err - Tg msg
@@ -828,21 +920,27 @@
       skip_condition: false
   mode: single
 - id: '1723319608529'
-  alias: Lw03 On - tim
+  alias: Lw3 - tim
   description: ''
   trigger:
   - platform: state
     entity_id:
     - light.lampochka_3
     to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
   condition: []
   action:
   - action: timer.cancel
     target:
       entity_id: timer.lw03
+    data: {}
   - action: timer.start
     target:
       entity_id: timer.lw03
+    data: {}
   mode: single
 - id: '1723394894780'
   alias: ds02 LongOpen - Tg msg
@@ -2548,8 +2646,8 @@
           entity_id: timer.ms4
           state: active
         - condition: time
-          after: 06:00:00
-          before: 06:30:00
+          after: 06:06:06
+          before: 06:45:00
     then:
     - action: switch.turn_on
       target:
@@ -2870,13 +2968,6 @@
       skip_condition: false
     target:
       entity_id: automation.ms3_run
-  - action: automation.trigger
-    metadata: {}
-    data:
-      skip_condition: false
-    target:
-      entity_id:
-      - automation.pris_tim
   mode: single
 - id: '1725700702051'
   alias: Sw4k4 On - tim
@@ -3261,6 +3352,17 @@
                   - 0
                   - 255
                   - 255
+            - conditions:
+              - condition: state
+                entity_id: binary_sensor.tod_day
+                state: 'on'
+              sequence:
+              - target:
+                  entity_id: light.lampochka_2
+                action: light.turn_on
+                data:
+                  brightness_pct: 20
+                  kelvin: 2505
     - conditions:
       - condition: device
         type: is_on
@@ -3656,8 +3758,7 @@
     then:
     - action: notify.gHA
       data:
-        title: "\U0001F980\U0001F35F\U0001F6F7\U0001F3D3\U0001F3AF\U0001F692\U0001F6A8⛽️\U0001F9F0\U0001F534⛩
-          Ворота"
+        title: "\U0001F9F0 Ворота"
         message: "открываются  \n"
         data:
           disable_notification: false
@@ -3724,4 +3825,69 @@
       entity_id:
       - timer.xs5
     data: {}
+  mode: single
+- id: '1726499498860'
+  alias: Xs3 - tim
+  description: Включим свет
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.xs3
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    to: 'on'
+  condition: []
+  action:
+  - action: timer.cancel
+    target:
+      entity_id:
+      - timer.xs3
+    data: {}
+  - action: timer.start
+    target:
+      entity_id:
+      - timer.xs3
+    data: {}
+  mode: single
+- id: '1726499704476'
+  alias: Xs3 On/Off
+  description: Включим свет
+  trigger: []
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: switch.xs3
+      state: 'on'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: timer.ms3
+        state: idle
+    then:
+    - action: timer.cancel
+      target:
+        entity_id:
+        - timer.xs3
+      data: {}
+    - action: timer.start
+      target:
+        entity_id:
+        - timer.xs3
+      data: {}
+  - if:
+    - condition: state
+      entity_id: switch.xs3
+      state: 'on'
+    - condition: state
+      entity_id: timer.xs3
+      state: idle
+    then:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.xs3
   mode: single

@@ -223,31 +223,19 @@
                       "entity": "sensor.ha_asg_v_realfeel_temperature"
                     },
                     {
-                      "entity": "sensor.ha_asg_v_precipitation"
-                    },
-                    {
-                      "entity": "sensor.ha_asg_v_wind_speed"
-                    },
-                    {
-                      "entity": "sensor.ha_asg_v_hours_of_sun_today"
-                    },
-                    {
-                      "entity": "sensor.ha_asg_v_uv_index"
-                    },
-                    {
-                      "entity": "sensor.ha_asg_v_cloud_ceiling"
+                      "entity": "sensor.ha_asg_v_realfeel_temperature_max_today"
                     },
                     {
                       "entity": "sensor.ha_asg_v_realfeel_temperature_min_today"
                     },
                     {
-                      "entity": "sensor.ha_asg_v_realfeel_temperature_max_today"
+                      "entity": "sensor.ha_asg_v_wind_speed"
                     },
                     {
-                      "entity": "sensor.ha_asg_v_air_quality_today"
+                      "entity": "sensor.ha_asg_v_precipitation"
                     },
                     {
-                      "entity": "sensor.ha_asg_v_condition_today"
+                      "entity": "sensor.ha_asg_v_hours_of_sun_today"
                     },
                     {
                       "entity": "sensor.ha_asg_v_condition_tonight"
@@ -800,6 +788,12 @@
                     {
                       "entity": "switch.switch_tsa",
                       "name": "TSA"
+                    },
+                    {
+                      "entity": "switch.heater_ts1"
+                    },
+                    {
+                      "entity": "switch.heater_ts2"
                     }
                   ],
                   "hours_to_show": 2.2
@@ -1445,25 +1439,6 @@
               ]
             },
             {
-              "show_name": true,
-              "show_icon": true,
-              "type": "button",
-              "tap_action": {
-                "action": "perform-action",
-                "perform_action": "mqtt.publish",
-                "target": {},
-                "data": {
-                  "evaluate_payload": false,
-                  "qos": 0,
-                  "retain": false,
-                  "topic": "test",
-                  "payload": "12"
-                }
-              },
-              "entity": "sensor.b6k_action",
-              "show_state": true
-            },
-            {
               "type": "media-control",
               "entity": "media_player.yandex_station_r109xd000fzvhy",
               "theme": "my_theme"
@@ -2086,6 +2061,24 @@
                   "theme": "my_theme"
                 }
               ]
+            },
+            {
+              "title": "История",
+              "type": "history-graph",
+              "hours_to_show": 0.4,
+              "entities": [
+                "binary_sensor.ms2_occupancy",
+                "timer.lw02"
+              ]
+            },
+            {
+              "title": "История",
+              "type": "history-graph",
+              "hours_to_show": 0,
+              "entities": [
+                "binary_sensor.ms2_occupancy",
+                "timer.lw02"
+              ]
             }
           ],
           "icon": "mdi:bed-outline"
@@ -2455,7 +2448,7 @@
               "columns": 1,
               "cards": [
                 {
-                  "show_state": true,
+                  "show_state": false,
                   "show_name": false,
                   "camera_view": "auto",
                   "type": "picture-entity",
@@ -2630,7 +2623,7 @@
                     },
                     {
                       "show_name": true,
-                      "show_icon": true,
+                      "show_icon": false,
                       "type": "button",
                       "tap_action": {
                         "action": "perform-action",
@@ -3161,25 +3154,71 @@
             {
               "type": "glance",
               "entities": [
-                "sensor.ms1_battery",
-                "sensor.ms2_battery",
-                "sensor.ms3_battery",
-                "sensor.tr01_battery",
-                "sensor.tr2_battery",
-                "sensor.ds01_battery",
-                "sensor.ds02_battery"
+                {
+                  "entity": "sensor.ms1_battery"
+                },
+                {
+                  "entity": "sensor.ms2_battery"
+                },
+                {
+                  "entity": "sensor.ms3_battery"
+                },
+                {
+                  "entity": "sensor.ms4_battery"
+                },
+                {
+                  "entity": "sensor.tr01_battery"
+                },
+                {
+                  "entity": "sensor.tr2_battery"
+                },
+                {
+                  "entity": "sensor.ds01_battery"
+                },
+                {
+                  "entity": "sensor.ds02_battery"
+                },
+                {
+                  "entity": "sensor.b1k_battery"
+                },
+                {
+                  "entity": "sensor.b6k_battery"
+                }
               ]
             },
             {
               "type": "glance",
               "entities": [
-                "sensor.ms1_voltage",
-                "sensor.ms2_voltage",
-                "sensor.ms3_voltage",
-                "sensor.tr01_voltage",
-                "sensor.tr2_voltage",
-                "sensor.ds01_voltage",
-                "sensor.ds02_voltage"
+                {
+                  "entity": "sensor.ms1_voltage"
+                },
+                {
+                  "entity": "sensor.ms2_voltage"
+                },
+                {
+                  "entity": "sensor.ms3_voltage"
+                },
+                {
+                  "entity": "sensor.ms4_voltage"
+                },
+                {
+                  "entity": "sensor.tr01_voltage"
+                },
+                {
+                  "entity": "sensor.tr2_voltage"
+                },
+                {
+                  "entity": "sensor.ds01_voltage"
+                },
+                {
+                  "entity": "sensor.ds02_voltage"
+                },
+                {
+                  "entity": "sensor.b1k_voltage"
+                },
+                {
+                  "entity": "sensor.b6k_voltage"
+                }
               ]
             }
           ],
