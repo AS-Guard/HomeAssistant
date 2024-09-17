@@ -1,0 +1,12 @@
+#binary_sensor:
+  - platform: template
+    sensors:
+      boiler_status:
+        device_class: power
+        value_template: "{{ is_state('sensor.kotel_kotel', '✅') }}"
+
+  - platform: template
+    sensors:
+      boiler_gorelka:
+        device_class: power
+        value_template: "{{ is_state('sensor.kotel_gorelka', '🔥работает') }}"

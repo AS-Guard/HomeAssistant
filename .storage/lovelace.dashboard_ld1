@@ -851,7 +851,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.xs7",
-                      "state": "active"
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -1251,8 +1251,7 @@
                       }
                     ],
                     "state_color": true,
-                    "show_header_toggle": false,
-                    "theme": "my_theme"
+                    "show_header_toggle": false
                   }
                 }
               ]
@@ -1294,7 +1293,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.sw4k1",
-                      "state": "active"
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -1314,7 +1313,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.sw4k2",
-                      "state": "active"
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -1334,7 +1333,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.sw4k3",
-                      "state": "active"
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -1354,7 +1353,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.sw4k4",
-                      "state": "active"
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -1422,7 +1421,7 @@
                     {
                       "condition": "state",
                       "entity": "timer.ms3",
-                      "state": "active"
+                      "state_not": "idle"
                     }
                   ],
                   "card": {
@@ -2659,6 +2658,65 @@
                         "action": "none"
                       },
                       "name": "4"
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": false,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_1"
+                        },
+                        "data": {
+                          "move_mode": "ContinuousMove"
+                        },
+                        "perform_action": "onvif.ptz"
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      },
+                      "name": "5",
+                      "entity": "camera.cam8",
+                      "show_state": false
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": false,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "camera.disable_motion_detection",
+                        "target": {}
+                      },
+                      "name": "6",
+                      "entity": "camera.cam8",
+                      "icon": ""
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "onvif.ptz",
+                        "target": {
+                          "entity_id": "camera.cam8_profile_0"
+                        },
+                        "data": {
+                          "preset": "7",
+                          "move_mode": "GotoPreset"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      },
+                      "name": "7"
                     }
                   ]
                 },

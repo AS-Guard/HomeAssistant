@@ -241,6 +241,57 @@
           data:
             disable_notification: false
         action: notify.gHA
+  - if:
+    - condition: state
+      state: ➖
+      entity_id: sensor.kotel_otoplenie
+      enabled: true
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: light.lampochka_3
+        state: 'off'
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: light.lampochka_3
+          state: 'on'
+        - condition: state
+          entity_id: light.lampochka_3
+          attribute: color_mode
+          state: hs
+        - condition: numeric_state
+          entity_id: light.lampochka_3
+          attribute: brightness
+          below: 17
+          enabled: true
+    then:
+    - if:
+      - condition: state
+        entity_id: sensor.kotel_gorelka
+        state: ➖
+      then:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 5
+          transition: 3
+          rgb_color:
+          - 0
+          - 0
+          - 255
+        target:
+          entity_id: light.lampochka_3
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 4
+          milliseconds: 0
+      - action: timer.start
+        target:
+          entity_id:
+          - timer.lw03
+        data: {}
 - id: '1715770066650'
   alias: tg temp_kotel_h
   description: ''
@@ -746,6 +797,16 @@
             - 255
           target:
             entity_id: light.lampochka_3
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 4
+            milliseconds: 0
+        - action: timer.pause
+          metadata: {}
+          data: {}
+          target:
+            entity_id: timer.lw03
       - if:
         - condition: state
           entity_id: sensor.kotel_gorelka
@@ -762,6 +823,16 @@
             - 0
           target:
             entity_id: light.lampochka_3
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 4
+            milliseconds: 0
+        - action: timer.pause
+          metadata: {}
+          data: {}
+          target:
+            entity_id: timer.lw03
     - if:
       - condition: state
         state: ➖
@@ -784,6 +855,16 @@
             - 0
           target:
             entity_id: light.lampochka_3
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 4
+            milliseconds: 0
+        - action: timer.pause
+          metadata: {}
+          data: {}
+          target:
+            entity_id: timer.lw03
       - if:
         - condition: state
           entity_id: sensor.kotel_gorelka
@@ -800,6 +881,16 @@
             - 255
           target:
             entity_id: light.lampochka_3
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 4
+            milliseconds: 0
+        - action: timer.start
+          target:
+            entity_id:
+            - timer.lw03
+          data: {}
   mode: single
 - id: '1722107322243'
   alias: Tr01 Err - Tg msg
@@ -2044,23 +2135,7 @@
 - id: '1724783387194'
   alias: Sw4k4 On/Off
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - switch.sw4k_l4
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-  - platform: state
-    entity_id:
-    - switch.sw4k_l4
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
+  trigger: []
   condition: []
   action:
   - if:
@@ -2970,7 +3045,7 @@
       entity_id: automation.ms3_run
   mode: single
 - id: '1725700702051'
-  alias: Sw4k4 On - tim
+  alias: Sw4k4 - tim
   description: Запуск таймера при включении выключателя
   trigger:
   - platform: state
