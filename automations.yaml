@@ -3544,6 +3544,33 @@
             target:
               entity_id: timer.lw03
             data: {}
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: binary_sensor.tod_night
+                state: 'on'
+              sequence:
+              - target:
+                  entity_id: light.lampochka_3
+                action: light.turn_on
+                data:
+                  brightness_pct: 10
+                  rgb_color:
+                  - 0
+                  - 255
+                  - 255
+                enabled: false
+            - conditions:
+              - condition: state
+                entity_id: binary_sensor.tod_foll_night
+                state: 'on'
+              sequence:
+              - target:
+                  entity_id: light.lampochka_3
+                action: light.turn_on
+                data:
+                  brightness_pct: 30
+                  kelvin: 4200
         - conditions:
           - condition: state
             entity_id: timer.ms3
@@ -3551,7 +3578,7 @@
           sequence:
           - action: light.turn_off
             target:
-              entity_id: light.lampochka_3
+              device_id: 2519fe869b93b107ae307fed766beb9f
             data: {}
   mode: single
 - id: '1725850665772'

@@ -1,42 +1,84 @@
 - platform: workday
   country: RU
 
+# стандартная ночь
 - platform: tod
   name: tod_night
-  after: '22:00'
+  after: '22:30'
   before: '05:00'
 
+# стандартное утро
 - platform: tod
   name: tod_morning
   after: '05:00'
   before: '09:00'
 
+# стандартный день
 - platform: tod
   name: tod_day
   after: '09:00'
   before: '20:00'
 
+# стандартный вечер
 - platform: tod
   name: tod_evening
   after: '20:00'
-  before: '22:00'
+  before: '22:30'
 
+# длинный день
 - platform: tod
   name: tod_long_day
   after: '05:00'
   before: '21:30'
 
+# длинная ночь
 - platform: tod
   name: tod_early_night
   after: '21:30'
   before: '05:00'
 
+# световой день
 - platform: tod
   name: tod_foll_day
   after: sunrise
   before: sunset
 
+# световая ночь
 - platform: tod
   name: tod_foll_night
   after: sunset
   before: sunrise
+
+# от времени до рассвета со смещением
+- platform: tod
+  name: tod_morning_os
+  after: '05:00'
+  before: sunrise
+  before_offset: '00:30'
+  unique_id: later_morning
+
+# от заката со смещением до времени
+- platform: tod
+  name: tod_evening_os
+  after: sunset
+  after_offset: '-00:30'
+  before: '22:30'
+  unique_id: early_evening
+
+# световой день со смещениями
+- platform: tod
+  name: tod_foll_day_os
+  after: sunrise
+  after_offset: '00:30'
+  before: sunset
+  before_offset: '-00:30'
+  unique_id: short_sun_day
+  
+# световая ночь со смещениями
+- platform: tod
+  name: tod_foll_night_os
+  after: sunset
+  after_offset: '-00:30'
+  before: sunrise
+  before_offset: '00:30'
+  unique_id: long_sun_night

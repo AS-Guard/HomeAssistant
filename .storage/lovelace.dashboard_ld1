@@ -1073,6 +1073,24 @@
                 },
                 {
                   "entity": "binary_sensor.tod_early_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_morning_os"
+                },
+                {
+                  "entity": "binary_sensor.tod_morning_os_2"
+                },
+                {
+                  "entity": "binary_sensor.tod_evening_os"
+                },
+                {
+                  "entity": "binary_sensor.tod_evening_os_2"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_day_os"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_night_os"
                 }
               ]
             }
