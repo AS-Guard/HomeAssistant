@@ -1,5 +1,10 @@
 #   includes/timers/tim_tsa.yaml
 #Timers:
+
+# Горелка
+  gorelka:
+    duration: "00:30:30"
+
 # TSA
   tsa:
     duration: "00:02:00"

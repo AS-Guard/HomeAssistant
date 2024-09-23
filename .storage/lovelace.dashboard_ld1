@@ -603,7 +603,7 @@
               "type": "vertical-stack",
               "cards": [
                 {
-                  "type": "horizontal-stack",
+                  "type": "vertical-stack",
                   "cards": [
                     {
                       "type": "thermostat",
@@ -639,23 +639,26 @@
                   ]
                 },
                 {
-                  "type": "horizontal-stack",
-                  "cards": [
+                  "type": "conditional",
+                  "conditions": [
                     {
-                      "type": "thermostat",
-                      "entity": "climate.ts54",
-                      "features": [
-                        {
-                          "type": "climate-hvac-modes"
-                        },
-                        {
-                          "type": "climate-preset-modes",
-                          "style": "dropdown"
-                        }
-                      ],
-                      "name": "TS54",
-                      "theme": "happy"
-                    },
+                      "condition": "state",
+                      "entity": "timer.tsa",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.tsa"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
                     {
                       "type": "entities",
                       "entities": [
@@ -692,26 +695,23 @@
                       ],
                       "state_color": true,
                       "show_header_toggle": false
+                    },
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.ts54",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        },
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "name": "TS54",
+                      "theme": "happy"
                     }
                   ]
-                },
-                {
-                  "type": "conditional",
-                  "conditions": [
-                    {
-                      "condition": "state",
-                      "entity": "timer.tsa",
-                      "state_not": "idle"
-                    }
-                  ],
-                  "card": {
-                    "type": "entities",
-                    "entities": [
-                      {
-                        "entity": "timer.tsa"
-                      }
-                    ]
-                  }
                 }
               ]
             },
@@ -1054,6 +1054,9 @@
                   "entity": "binary_sensor.tod_morning"
                 },
                 {
+                  "entity": "binary_sensor.tod_morning_os_2"
+                },
+                {
                   "entity": "binary_sensor.tod_day"
                 },
                 {
@@ -1063,10 +1066,19 @@
                   "entity": "binary_sensor.tod_foll_day"
                 },
                 {
+                  "entity": "binary_sensor.tod_foll_day_os"
+                },
+                {
                   "entity": "binary_sensor.tod_evening"
                 },
                 {
+                  "entity": "binary_sensor.tod_evening_os"
+                },
+                {
                   "entity": "binary_sensor.tod_foll_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_night_os"
                 },
                 {
                   "entity": "binary_sensor.tod_night"
@@ -1076,21 +1088,6 @@
                 },
                 {
                   "entity": "binary_sensor.tod_morning_os"
-                },
-                {
-                  "entity": "binary_sensor.tod_morning_os_2"
-                },
-                {
-                  "entity": "binary_sensor.tod_evening_os"
-                },
-                {
-                  "entity": "binary_sensor.tod_evening_os_2"
-                },
-                {
-                  "entity": "binary_sensor.tod_foll_day_os"
-                },
-                {
-                  "entity": "binary_sensor.tod_foll_night_os"
                 }
               ]
             }
@@ -1840,7 +1837,6 @@
             }
           ],
           "icon": "mdi:sofa-outline",
-          "theme": "my_theme",
           "background": {}
         },
         {
@@ -3309,31 +3305,56 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "binary_sensor.workday_sensor"
+                  "entity": "binary_sensor.workday_sensor",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.tod_morning"
+                  "entity": "binary_sensor.tod_morning",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.tod_day"
+                  "entity": "binary_sensor.tod_morning_os_2",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.tod_long_day"
+                  "entity": "binary_sensor.tod_day",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.tod_foll_day"
+                  "entity": "binary_sensor.tod_long_day",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.tod_evening"
+                  "entity": "binary_sensor.tod_foll_day",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.tod_foll_night"
+                  "entity": "binary_sensor.tod_foll_day_os",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.tod_night"
+                  "entity": "binary_sensor.tod_evening",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.tod_early_night"
+                  "entity": "binary_sensor.tod_evening_os",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_night",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_night_os",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.tod_night",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.tod_early_night",
+                  "secondary_info": "last-changed"
                 }
               ],
               "title": "Workday Sensor"
@@ -3342,7 +3363,13 @@
               "type": "history-graph",
               "entities": [
                 {
+                  "entity": "binary_sensor.workday_sensor"
+                },
+                {
                   "entity": "binary_sensor.tod_morning"
+                },
+                {
+                  "entity": "binary_sensor.tod_morning_os_2"
                 },
                 {
                   "entity": "binary_sensor.tod_day"
@@ -3354,10 +3381,19 @@
                   "entity": "binary_sensor.tod_foll_day"
                 },
                 {
+                  "entity": "binary_sensor.tod_foll_day_os"
+                },
+                {
                   "entity": "binary_sensor.tod_evening"
                 },
                 {
+                  "entity": "binary_sensor.tod_evening_os"
+                },
+                {
                   "entity": "binary_sensor.tod_foll_night"
+                },
+                {
+                  "entity": "binary_sensor.tod_foll_night_os"
                 },
                 {
                   "entity": "binary_sensor.tod_night"

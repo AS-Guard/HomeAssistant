@@ -1,15 +1,16 @@
 #   includes/timers/tim_ds.yaml
 #Timers:
+
 # Датчик двери 1
   ds01:
-    duration: "00:03:00"
+    duration: "00:03:03"
 
 # Датчик двери 2
   ds02:
-    duration: "00:05:00"
+    duration: "00:05:05"
 
   ds02_lx:
-    duration: "00:05:00"
+    duration: "00:05:05"
 
 # Датчик обнаружения 1
   ms1:
