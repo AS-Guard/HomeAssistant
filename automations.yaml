@@ -4014,7 +4014,15 @@
       minutes: 0
       seconds: 5
     below: 21
-  condition: []
+  condition:
+  - condition: or
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.tr2_temperature
+      above: 25
+    - condition: numeric_state
+      entity_id: sensor.tr2_temperature
+      below: 21
   action:
   - data:
       title: ⁉️ Датчик за пределами
@@ -4027,6 +4035,17 @@
         - {{ states('switch.kotel_otoplenie') }}\n\U0001F39B Горячая вода - {{ states('switch.kotel_gvs')
         }}\n"
     action: notify.gHA
+  - delay:
+      hours: 0
+      minutes: 30
+      seconds: 0
+      milliseconds: 0
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.tr2_21_25_tg_msg
   mode: single
 - id: '1727231101949'
   alias: Tr2 Err - Tg msg
