@@ -4008,7 +4008,7 @@
     above: 25
   - platform: numeric_state
     entity_id:
-    - sensor.tr01_temperature
+    - sensor.tr2_temperature
     for:
       hours: 0
       minutes: 0
@@ -4026,5 +4026,32 @@
         Отопление -  {{ states('sensor.kotel_otoplenie') }}\n\U0001F39B Отопление
         - {{ states('switch.kotel_otoplenie') }}\n\U0001F39B Горячая вода - {{ states('switch.kotel_gvs')
         }}\n"
+    action: notify.gHA
+  mode: single
+- id: '1727231101949'
+  alias: Tr2 Err - Tg msg
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.tr2_temperature
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 5
+  - platform: state
+    entity_id:
+    - sensor.tr2_temperature
+    to: unknown
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 5
+  condition: []
+  action:
+  - data:
+      title: Датчик температуры
+      message: 'состояние - {{ states(''sensor.tr2_temperature'') }} '
     action: notify.gHA
   mode: single

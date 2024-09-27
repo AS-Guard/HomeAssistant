@@ -2,9 +2,9 @@
 #input_number:
   in_box_tsa:
     name: box_tsa
-    initial: 18
-    min: -20
-    max: 35
+    initial: 16
+    min: 10
+    max: 20
     step: 1
     mode: box
 

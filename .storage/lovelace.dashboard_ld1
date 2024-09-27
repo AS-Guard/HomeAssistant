@@ -262,6 +262,15 @@
             {
               "type": "markdown",
               "content": "https://g.co/kgs/jLghHsS\n\n"
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "type": "button",
+              "tap_action": {
+                "action": "more-info"
+              },
+              "entity": "light.lz12"
             }
           ],
           "icon": "mdi:greenhouse"
@@ -3520,15 +3529,36 @@
               "title": "История",
               "hours_to_show": 12,
               "entities": [
-                "sensor.kotel_otoplenie",
-                "sensor.kotel_gorelka",
-                "sensor.tr01_temperature",
-                "sensor.tr2_temperature",
-                "sensor.kotel_otopleniia",
-                "sensor.klimat_etk_termostat",
-                "sensor.klimat_etk2_termostat",
-                "number.kotel_otoplenie_35_78",
-                "sensor.kotel_moshchnost_gorelki"
+                {
+                  "entity": "sensor.kotel_gorelka"
+                },
+                {
+                  "entity": "sensor.kotel_otoplenie"
+                },
+                {
+                  "entity": "switch.switch_tsa"
+                },
+                {
+                  "entity": "sensor.tr01_temperature"
+                },
+                {
+                  "entity": "sensor.tr2_temperature"
+                },
+                {
+                  "entity": "sensor.kotel_otopleniia"
+                },
+                {
+                  "entity": "sensor.klimat_etk_termostat"
+                },
+                {
+                  "entity": "sensor.klimat_etk2_termostat"
+                },
+                {
+                  "entity": "number.kotel_otoplenie_35_78"
+                },
+                {
+                  "entity": "sensor.kotel_moshchnost_gorelki"
+                }
               ]
             }
           ],
@@ -3544,15 +3574,36 @@
               "title": "История",
               "hours_to_show": 24,
               "entities": [
-                "sensor.kotel_otoplenie",
-                "sensor.kotel_gorelka",
-                "sensor.tr01_temperature",
-                "sensor.tr2_temperature",
-                "sensor.kotel_otopleniia",
-                "sensor.klimat_etk_termostat",
-                "sensor.klimat_etk2_termostat",
-                "number.kotel_otoplenie_35_78",
-                "sensor.kotel_moshchnost_gorelki"
+                {
+                  "entity": "sensor.kotel_gorelka"
+                },
+                {
+                  "entity": "sensor.kotel_otoplenie"
+                },
+                {
+                  "entity": "switch.switch_tsa"
+                },
+                {
+                  "entity": "sensor.tr01_temperature"
+                },
+                {
+                  "entity": "sensor.tr2_temperature"
+                },
+                {
+                  "entity": "sensor.kotel_otopleniia"
+                },
+                {
+                  "entity": "sensor.klimat_etk_termostat"
+                },
+                {
+                  "entity": "sensor.klimat_etk2_termostat"
+                },
+                {
+                  "entity": "number.kotel_otoplenie_35_78"
+                },
+                {
+                  "entity": "sensor.kotel_moshchnost_gorelki"
+                }
               ]
             }
           ],
@@ -3568,15 +3619,36 @@
               "title": "История",
               "hours_to_show": 48,
               "entities": [
-                "sensor.kotel_otoplenie",
-                "sensor.kotel_gorelka",
-                "sensor.tr01_temperature",
-                "sensor.tr2_temperature",
-                "sensor.kotel_otopleniia",
-                "sensor.klimat_etk_termostat",
-                "sensor.klimat_etk2_termostat",
-                "number.kotel_otoplenie_35_78",
-                "sensor.kotel_moshchnost_gorelki"
+                {
+                  "entity": "sensor.kotel_gorelka"
+                },
+                {
+                  "entity": "sensor.kotel_otoplenie"
+                },
+                {
+                  "entity": "switch.switch_tsa"
+                },
+                {
+                  "entity": "sensor.tr01_temperature"
+                },
+                {
+                  "entity": "sensor.tr2_temperature"
+                },
+                {
+                  "entity": "sensor.kotel_otopleniia"
+                },
+                {
+                  "entity": "sensor.klimat_etk_termostat"
+                },
+                {
+                  "entity": "sensor.klimat_etk2_termostat"
+                },
+                {
+                  "entity": "number.kotel_otoplenie_35_78"
+                },
+                {
+                  "entity": "sensor.kotel_moshchnost_gorelki"
+                }
               ]
             }
           ],
