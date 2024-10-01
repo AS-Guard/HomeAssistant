@@ -2136,7 +2136,16 @@
 - id: '1724783387194'
   alias: Sw4k4 On/Off
   description: ''
-  trigger: []
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.sw4k_l4
+    to: 'off'
+    from: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
   condition: []
   action:
   - if:
@@ -3508,14 +3517,17 @@
                   - 255
             - conditions:
               - condition: state
-                entity_id: binary_sensor.tod_foll_night
+                entity_id: binary_sensor.tod_foll_night_os
                 state: 'on'
+              - condition: state
+                entity_id: timer.sw4k4
+                state: idle
               sequence:
               - target:
                   entity_id: light.lampochka_3
                 action: light.turn_on
                 data:
-                  brightness_pct: 30
+                  brightness_pct: 20
                   kelvin: 4200
         - conditions:
           - condition: state
@@ -3563,8 +3575,11 @@
                 enabled: false
             - conditions:
               - condition: state
-                entity_id: binary_sensor.tod_foll_night
+                entity_id: binary_sensor.tod_foll_night_os
                 state: 'on'
+              - condition: state
+                entity_id: timer.sw4k4
+                state: idle
               sequence:
               - target:
                   entity_id: light.lampochka_3
@@ -4073,4 +4088,15 @@
       title: Датчик температуры
       message: 'состояние - {{ states(''sensor.tr2_temperature'') }} '
     action: notify.gHA
+  mode: single
+- id: '1727717389334'
+  alias: b1kr1
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.0x8c65a3fffe56402d_action
+    to:
+  condition: []
+  action: []
   mode: single
