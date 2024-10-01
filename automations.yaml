@@ -1055,8 +1055,8 @@
       title: ⛩ Ворота
       message: 'открыты больше положенного времени
 
-        {{ relative_time(state_attr(''automation.ds02_lx_tg'', ''last_triggered''))
-        | replace("hour", "час.", 1)  |  replace("hours", "час.", 1)  | replace("minutes",
+        {{ relative_time(state_attr(''automation.ds02_tg_msg_3'', ''last_triggered''))
+        | replace("hours", "час.", 1) | replace("hour", "час.", 1) | replace("minutes",
         "мин.", 1) }}
 
         {{ states(''sensor.ds02_illuminance'') }}

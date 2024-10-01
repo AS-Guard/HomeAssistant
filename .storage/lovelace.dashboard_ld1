@@ -3693,6 +3693,12 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
+                  "entity": "sensor.klimat_seni1_t1"
+                },
+                {
+                  "entity": "sensor.klimat_seni2_t2"
+                },
+                {
                   "entity": "sensor.klimat_etk_termostat"
                 },
                 {
@@ -3738,6 +3744,12 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
+                  "entity": "sensor.klimat_seni1_t1"
+                },
+                {
+                  "entity": "sensor.klimat_seni2_t2"
+                },
+                {
                   "entity": "sensor.klimat_etk_termostat"
                 },
                 {
@@ -3757,7 +3769,6 @@
         {
           "title": "His2",
           "path": "his2",
-          "type": "panel",
           "cards": [
             {
               "type": "history-graph",
@@ -3783,6 +3794,12 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
+                  "entity": "sensor.klimat_seni1_t1"
+                },
+                {
+                  "entity": "sensor.klimat_seni2_t2"
+                },
+                {
                   "entity": "sensor.klimat_etk_termostat"
                 },
                 {
@@ -3797,7 +3814,58 @@
               ]
             }
           ],
-          "subview": false
+          "subview": false,
+          "type": "panel"
+        },
+        {
+          "title": "His4",
+          "path": "his4",
+          "type": "panel",
+          "cards": [
+            {
+              "type": "history-graph",
+              "title": "История",
+              "hours_to_show": 96,
+              "entities": [
+                {
+                  "entity": "sensor.kotel_gorelka"
+                },
+                {
+                  "entity": "sensor.kotel_otoplenie"
+                },
+                {
+                  "entity": "switch.switch_tsa"
+                },
+                {
+                  "entity": "sensor.tr01_temperature"
+                },
+                {
+                  "entity": "sensor.tr2_temperature"
+                },
+                {
+                  "entity": "sensor.kotel_otopleniia"
+                },
+                {
+                  "entity": "sensor.klimat_seni1_t1"
+                },
+                {
+                  "entity": "sensor.klimat_seni2_t2"
+                },
+                {
+                  "entity": "sensor.klimat_etk_termostat"
+                },
+                {
+                  "entity": "sensor.klimat_etk2_termostat"
+                },
+                {
+                  "entity": "number.kotel_otoplenie_35_78"
+                },
+                {
+                  "entity": "sensor.kotel_moshchnost_gorelki"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
