@@ -643,6 +643,82 @@
                       ],
                       "name": "TS2",
                       "theme": "happy"
+                    },
+                    {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_2"
+                            },
+                            "data": {
+                              "preset_mode": "none"
+                            }
+                          },
+                          "entity": "climate.termostate_2",
+                          "name": "None"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_2"
+                            },
+                            "data": {
+                              "preset_mode": "comfort"
+                            }
+                          },
+                          "entity": "climate.termostate_2",
+                          "show_state": false,
+                          "name": "Comfort"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_2"
+                            },
+                            "data": {
+                              "preset_mode": "away"
+                            }
+                          },
+                          "entity": "climate.termostate_2",
+                          "show_state": false,
+                          "name": "Away"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_2"
+                            },
+                            "data": {
+                              "preset_mode": "eco"
+                            }
+                          },
+                          "entity": "climate.termostate_2",
+                          "show_state": false,
+                          "name": "Eco"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -824,15 +900,96 @@
               ]
             },
             {
-              "type": "thermostat",
-              "entity": "climate.termostate_0",
-              "features": [
+              "type": "vertical-stack",
+              "cards": [
                 {
-                  "type": "climate-hvac-modes"
+                  "type": "thermostat",
+                  "entity": "climate.termostate_0",
+                  "features": [
+                    {
+                      "type": "climate-hvac-modes"
+                    },
+                    {
+                      "type": "climate-preset-modes",
+                      "style": "dropdown"
+                    }
+                  ]
                 },
                 {
-                  "type": "climate-preset-modes",
-                  "style": "dropdown"
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": false,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "climate.set_preset_mode",
+                        "target": {
+                          "entity_id": "climate.termostate_0"
+                        },
+                        "data": {
+                          "preset_mode": "none"
+                        }
+                      },
+                      "entity": "climate.termostate_0",
+                      "name": "None"
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": false,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "climate.set_preset_mode",
+                        "target": {
+                          "entity_id": "climate.termostate_0"
+                        },
+                        "data": {
+                          "preset_mode": "comfort"
+                        }
+                      },
+                      "entity": "climate.termostate_0",
+                      "show_state": false,
+                      "name": "Comfort"
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": false,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "climate.set_preset_mode",
+                        "target": {
+                          "entity_id": "climate.termostate_0"
+                        },
+                        "data": {
+                          "preset_mode": "away"
+                        }
+                      },
+                      "entity": "climate.termostate_0",
+                      "show_state": false,
+                      "name": "Away"
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": false,
+                      "type": "button",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "climate.set_preset_mode",
+                        "target": {
+                          "entity_id": "climate.termostate_0"
+                        },
+                        "data": {
+                          "preset_mode": "eco"
+                        }
+                      },
+                      "entity": "climate.termostate_0",
+                      "show_state": false,
+                      "name": "Eco"
+                    }
+                  ]
                 }
               ]
             }
@@ -1043,72 +1200,6 @@
                   "condition": "numeric_state",
                   "entity": "counter.ds01",
                   "above": 0
-                }
-              ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.b6k_battery",
-                  "name": "Батарея"
-                },
-                {
-                  "entity": "sensor.b6k_action"
-                },
-                {
-                  "entity": "sensor.b6k_5s"
-                },
-                {
-                  "entity": "sensor.b6k_5d"
-                },
-                {
-                  "entity": "sensor.b6k_5h"
-                }
-              ],
-              "title": "B6k"
-            },
-            {
-              "type": "history-graph",
-              "entities": [
-                {
-                  "entity": "binary_sensor.tod_morning"
-                },
-                {
-                  "entity": "binary_sensor.tod_morning_os_2"
-                },
-                {
-                  "entity": "binary_sensor.tod_day"
-                },
-                {
-                  "entity": "binary_sensor.tod_long_day"
-                },
-                {
-                  "entity": "binary_sensor.tod_foll_day"
-                },
-                {
-                  "entity": "binary_sensor.tod_foll_day_os"
-                },
-                {
-                  "entity": "binary_sensor.tod_evening"
-                },
-                {
-                  "entity": "binary_sensor.tod_evening_os"
-                },
-                {
-                  "entity": "binary_sensor.tod_foll_night"
-                },
-                {
-                  "entity": "binary_sensor.tod_foll_night_os"
-                },
-                {
-                  "entity": "binary_sensor.tod_night"
-                },
-                {
-                  "entity": "binary_sensor.tod_early_night"
-                },
-                {
-                  "entity": "binary_sensor.tod_morning_os"
                 }
               ]
             }
@@ -3693,6 +3784,9 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
+                  "entity": "sensor.kotel_ulitsa_k"
+                },
+                {
                   "entity": "sensor.klimat_seni1_t1"
                 },
                 {
@@ -3742,6 +3836,9 @@
                 },
                 {
                   "entity": "sensor.kotel_otopleniia"
+                },
+                {
+                  "entity": "sensor.kotel_ulitsa_k"
                 },
                 {
                   "entity": "sensor.klimat_seni1_t1"
@@ -3794,6 +3891,9 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
+                  "entity": "sensor.kotel_ulitsa_k"
+                },
+                {
                   "entity": "sensor.klimat_seni1_t1"
                 },
                 {
@@ -3844,6 +3944,9 @@
                 },
                 {
                   "entity": "sensor.kotel_otopleniia"
+                },
+                {
+                  "entity": "sensor.kotel_ulitsa_k"
                 },
                 {
                   "entity": "sensor.klimat_seni1_t1"

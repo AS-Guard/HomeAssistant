@@ -18,8 +18,8 @@
       minutes: 1 
     initial_hvac_mode: "heat" 
     precision: 0.1 
-    comfort_temp: 23 
-    home_temp: 21 
+    comfort_temp: 16.1 
+    home_temp: 14.1 
     sleep_temp: 20 
     activity_temp: 18 
     away_temp: 16 
@@ -43,10 +43,10 @@
       minutes: 1 
     initial_hvac_mode: "heat" 
     precision: 0.1 
-    comfort_temp: 23 
-    home_temp: 21 
+    comfort_temp: 24.4 
+    home_temp: 22.4 
     sleep_temp: 20 
-    activity_temp: 18 
+    activity_temp: 18.1 
     away_temp: 16 
     eco_temp: 12 
 

@@ -161,9 +161,8 @@
         }} '
 - id: Отопление_телеграм
   alias: Boiler Otoplenie Sens On/Off - Tg msg
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.kotel_otoplenie
     from: ➖
     for:
@@ -171,8 +170,8 @@
       minutes: 0
       seconds: 3
     to: ✅
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - sensor.kotel_otoplenie
     from: ✅
     for:
@@ -180,20 +179,33 @@
       minutes: 0
       seconds: 3
     to: ➖
-  action:
+    trigger: state
+  actions:
   - if:
     - condition: state
       entity_id: sensor.kotel_otoplenie
       state: ✅
     then:
+    - action: notify.me
+      data:
+        title: Отопление {{ states('sensor.kotel_otoplenie') }}
+        message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
+          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k')
+          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time')
+          }}    \n"
+        data:
+          disable_notification: true
+      enabled: true
     - data:
         title: Отопление {{ states('sensor.kotel_otoplenie') }}
         message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
           кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k')
-          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n"
+          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time')
+          }}   \n"
         data:
           disable_notification: true
       action: notify.gHA
+      enabled: false
     - if:
       - condition: state
         entity_id: switch.kotel_otoplenie
@@ -216,14 +228,26 @@
       entity_id: sensor.kotel_otoplenie
       state: ➖
     then:
+    - action: notify.me
+      data:
+        title: Отопление {{ states('sensor.kotel_otoplenie') }}
+        message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
+          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k')
+          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time')
+          }}    \n"
+        data:
+          disable_notification: true
+      enabled: true
     - data:
         title: Отопление {{ states('sensor.kotel_otoplenie') }}
         message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
           кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k')
-          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n"
+          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time')
+          }} \n"
         data:
           disable_notification: true
       action: notify.gHA
+      enabled: false
     - if:
       - condition: state
         entity_id: switch.kotel_otoplenie
@@ -959,6 +983,11 @@
       skip_condition: false
     target:
       entity_id: automation.lamptest
+  - action: automation.trigger
+    target:
+      entity_id: automation.ts54_on
+    data:
+      skip_condition: true
   mode: single
 - id: '1722581467485'
   alias: Cam ND - Tg msg
@@ -1312,9 +1341,9 @@
       enabled: false
   mode: single
 - id: '1723486104669'
-  alias: Tr01 17/22 - Tg msg
+  alias: Tr01 16/22 - Tg msg
   description: ''
-  trigger:
+  triggers:
   - platform: numeric_state
     entity_id:
     - sensor.tr01_temperature
@@ -1330,11 +1359,11 @@
       hours: 0
       minutes: 0
       seconds: 5
-    below: 17
-  condition: []
-  action:
+    below: 16
+  conditions: []
+  actions:
   - data:
-      title: ⁉️ Датчик за пределами
+      title: ⁉️ Датчик кор за пределами
       message: "\U0001F4DF Котёл - {{ states('sensor.kotel_kotel') }}\n\U0001F321
         зал - {{ states('sensor.tr2_temperature') }}\n\U0001F321 кор - {{ states('sensor.tr01_temperature')
         }}\n\U0001F321 ул - {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 ГВС
@@ -1385,6 +1414,16 @@
         data:
           disable_notification: true
       action: notify.gHA
+  - if:
+    - condition: state
+      entity_id: sensor.kotel_kotel
+      state: ✅
+    then:
+    - action: automation.trigger
+      target:
+        entity_id: automation.ts54_on
+      data:
+        skip_condition: true
   mode: single
 - id: '1723637212944'
   alias: Ds02 lx - Tg
@@ -3111,7 +3150,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 1
   condition: []
   action:
   - action: timer.cancel
@@ -4010,26 +4049,26 @@
         entity_id: switch.xs3
   mode: single
 - id: '1727086930213'
-  alias: Tr2 21/25 - Tg msg
+  alias: Tr2 22/24 - Tg msg
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.tr2_temperature
     for:
       hours: 0
       minutes: 0
       seconds: 5
-    above: 25
-  - platform: numeric_state
-    entity_id:
+    above: 24
+    trigger: numeric_state
+  - entity_id:
     - sensor.tr2_temperature
     for:
       hours: 0
       minutes: 0
       seconds: 5
-    below: 21
-  condition:
+    below: 22
+    trigger: numeric_state
+  conditions:
   - condition: or
     conditions:
     - condition: numeric_state
@@ -4038,9 +4077,9 @@
     - condition: numeric_state
       entity_id: sensor.tr2_temperature
       below: 21
-  action:
+  actions:
   - data:
-      title: ⁉️ Датчик за пределами
+      title: ⁉️ Датчик зал за пределами
       message: "\U0001F4DF Котёл - {{ states('sensor.kotel_kotel') }}\n\U0001F321
         зал - {{ states('sensor.tr2_temperature') }}\n\U0001F321 кор - {{ states('sensor.tr01_temperature')
         }}\n\U0001F321 ул - {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 ГВС
@@ -4099,4 +4138,45 @@
     to:
   condition: []
   action: []
+  mode: single
+- id: '1727879621879'
+  alias: HA_ReBoot
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - action: hassio.host_reboot
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1728236675771'
+  alias: Ts0 PreSet
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: none
+    target:
+      entity_id: climate.termostate_0
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: away
+    target:
+      entity_id: climate.termostate_0
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: away
+    target:
+      entity_id: climate.termostate_0
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: eco
+    target:
+      entity_id: climate.termostate_0
   mode: single
