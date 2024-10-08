@@ -946,17 +946,11 @@
 - id: '1722109190602'
   alias: 1-Start
   description: Сервер УД запущен
-  trigger:
-  - platform: homeassistant
-    event: start
-  condition: []
-  action:
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 11
-      milliseconds: 0
-    enabled: true
+  triggers:
+  - event: start
+    trigger: homeassistant
+  conditions: []
+  actions:
   - action: notify.me
     data:
       title: "\U0001F4E1 HA Start"
@@ -986,6 +980,12 @@
   - action: automation.trigger
     target:
       entity_id: automation.ts54_on
+    data:
+      skip_condition: true
+  - action: automation.trigger
+    target:
+      entity_id:
+      - automation.ts2_preset
     data:
       skip_condition: true
   mode: single
@@ -4179,4 +4179,71 @@
       preset_mode: eco
     target:
       entity_id: climate.termostate_0
+  mode: single
+- id: '1728239189433'
+  alias: Ts2 PreSet
+  description: ''
+  triggers:
+  - trigger: time
+    at: 06:33:00
+  - trigger: time
+    at: '10:33:00'
+  - trigger: time
+    at: '18:33:00'
+  - trigger: time
+    at: '22:33:00'
+  conditions: []
+  actions:
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: none
+    target:
+      entity_id: climate.termostate_2
+    enabled: false
+  - if:
+    - condition: time
+      after: '22:30:00'
+      before: 06:30:00
+    then:
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: comfort
+      target:
+        entity_id: climate.termostate_2
+  - if:
+    - condition: or
+      conditions:
+      - condition: time
+        after: 06:30:00
+        before: '10:30:00'
+      - condition: time
+        after: '18:30:00'
+        before: '22:30:00'
+    then:
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: home
+      target:
+        entity_id: climate.termostate_2
+  - if:
+    - condition: time
+      after: '10:30:00'
+      before: '18:30:00'
+    then:
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: away
+      target:
+        entity_id: climate.termostate_2
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: eco
+    target:
+      entity_id: climate.termostate_2
+    enabled: false
   mode: single
