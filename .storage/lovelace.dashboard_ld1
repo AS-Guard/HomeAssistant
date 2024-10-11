@@ -475,6 +475,17 @@
                   "entities": [
                     "sensor.klimat_seni1_t1",
                     "sensor.klimat_seni2_t2",
+                    "sensor.tr01_temperature",
+                    "sensor.tr2_temperature"
+                  ],
+                  "title": "Statistic"
+                },
+                {
+                  "type": "history-graph",
+                  "hours_to_show": 7,
+                  "entities": [
+                    "sensor.klimat_etk_termostat",
+                    "sensor.klimat_etk2_termostat",
                     "sensor.kotel_otopleniia"
                   ],
                   "title": "Statistic"
@@ -484,8 +495,6 @@
                   "hours_to_show": 7,
                   "entities": [
                     "sensor.kotel_ulitsa_k",
-                    "sensor.klimat_etk_termostat",
-                    "sensor.klimat_etk2_termostat",
                     "sensor.ha_asg_v_realfeel_temperature"
                   ],
                   "title": "Statistic"
@@ -494,32 +503,29 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "sensor.kotel_gorelka",
-                      "name": "Горелка"
-                    },
-                    {
                       "entity": "sensor.kotel_goriachaia_voda",
                       "name": "ГВС"
+                    },
+                    {
+                      "entity": "sensor.kotel_gorelka",
+                      "name": "Горелка"
                     },
                     {
                       "entity": "sensor.kotel_otoplenie",
                       "name": "СО"
                     },
                     {
-                      "entity": "switch.kotel_otoplenie"
+                      "entity": "switch.kotel_otoplenie",
+                      "name": "вкл СО"
+                    },
+                    {
+                      "entity": "switch.klimat_gist_nagrev"
                     },
                     {
                       "entity": "switch.switch_tsa"
                     }
                   ],
                   "hours_to_show": 7
-                },
-                {
-                  "type": "history-graph",
-                  "hours_to_show": 7,
-                  "entities": [
-                    "sensor.kotel_ulitsa_k"
-                  ]
                 }
               ]
             },
@@ -3772,6 +3778,9 @@
                   "entity": "sensor.kotel_otoplenie"
                 },
                 {
+                  "entity": "switch.klimat_gist_nagrev"
+                },
+                {
                   "entity": "switch.switch_tsa"
                 },
                 {
@@ -3824,6 +3833,9 @@
                 },
                 {
                   "entity": "sensor.kotel_otoplenie"
+                },
+                {
+                  "entity": "switch.klimat_gist_nagrev"
                 },
                 {
                   "entity": "switch.switch_tsa"
@@ -3879,6 +3891,9 @@
                   "entity": "sensor.kotel_otoplenie"
                 },
                 {
+                  "entity": "switch.klimat_gist_nagrev"
+                },
+                {
                   "entity": "switch.switch_tsa"
                 },
                 {
@@ -3932,6 +3947,9 @@
                 },
                 {
                   "entity": "sensor.kotel_otoplenie"
+                },
+                {
+                  "entity": "switch.klimat_gist_nagrev"
                 },
                 {
                   "entity": "switch.switch_tsa"

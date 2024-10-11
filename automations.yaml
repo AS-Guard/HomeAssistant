@@ -988,6 +988,12 @@
       - automation.ts2_preset
     data:
       skip_condition: true
+  - action: automation.trigger
+    target:
+      entity_id:
+      - automation.tr2_21_25_tg_msg
+    data:
+      skip_condition: true
   mode: single
 - id: '1722581467485'
   alias: Cam ND - Tg msg
@@ -1344,23 +1350,31 @@
   alias: Tr01 16/22 - Tg msg
   description: ''
   triggers:
-  - platform: numeric_state
-    entity_id:
+  - entity_id:
     - sensor.tr01_temperature
     for:
       hours: 0
       minutes: 0
       seconds: 5
     above: 22
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+  - entity_id:
     - sensor.tr01_temperature
     for:
       hours: 0
       minutes: 0
       seconds: 5
-    below: 16
-  conditions: []
+    below: 15
+    trigger: numeric_state
+  conditions:
+  - condition: or
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.tr01_temperature
+      above: 22
+    - condition: numeric_state
+      entity_id: sensor.tr01_temperature
+      below: 15
   actions:
   - data:
       title: ⁉️ Датчик кор за пределами
@@ -1373,6 +1387,17 @@
         - {{ states('switch.kotel_otoplenie') }}\n\U0001F39B Горячая вода - {{ states('switch.kotel_gvs')
         }}\n"
     action: notify.gHA
+  - delay:
+      hours: 0
+      minutes: 30
+      seconds: 0
+      milliseconds: 0
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.tr01_21_25_tg_mess
   mode: single
 - id: '1723531923222'
   alias: Boiler NA or Off - Tg msg
@@ -4049,7 +4074,7 @@
         entity_id: switch.xs3
   mode: single
 - id: '1727086930213'
-  alias: Tr2 22/24 - Tg msg
+  alias: Tr2 21/25 - Tg msg
   description: ''
   triggers:
   - entity_id:
@@ -4058,7 +4083,7 @@
       hours: 0
       minutes: 0
       seconds: 5
-    above: 24
+    above: 25
     trigger: numeric_state
   - entity_id:
     - sensor.tr2_temperature
@@ -4066,7 +4091,7 @@
       hours: 0
       minutes: 0
       seconds: 5
-    below: 22
+    below: 21
     trigger: numeric_state
   conditions:
   - condition: or
@@ -4129,15 +4154,22 @@
     action: notify.gHA
   mode: single
 - id: '1727717389334'
-  alias: b1kr1
+  alias: b1kr1 S
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.0x8c65a3fffe56402d_action
-    to:
-  condition: []
-  action: []
+  triggers:
+  - entity_id:
+    - sensor.b1kr1_action
+    trigger: state
+    attribute: action
+    to: single
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      device_id:
+      - 7200186a7aabfb3a8a39005a3897fc4e
   mode: single
 - id: '1727879621879'
   alias: HA_ReBoot
@@ -4185,26 +4217,19 @@
   description: ''
   triggers:
   - trigger: time
-    at: 06:33:00
+    at: 05:30:30
   - trigger: time
-    at: '10:33:00'
+    at: 08:30:30
   - trigger: time
-    at: '18:33:00'
+    at: '19:30:30'
   - trigger: time
-    at: '22:33:00'
+    at: '21:30:30'
   conditions: []
   actions:
-  - action: climate.set_preset_mode
-    metadata: {}
-    data:
-      preset_mode: none
-    target:
-      entity_id: climate.termostate_2
-    enabled: false
   - if:
     - condition: time
-      after: '22:30:00'
-      before: 06:30:00
+      after: '21:00:00'
+      before: 05:00:00
     then:
     - action: climate.set_preset_mode
       metadata: {}
@@ -4216,11 +4241,11 @@
     - condition: or
       conditions:
       - condition: time
-        after: 06:30:00
-        before: '10:30:00'
+        after: 05:00:00
+        before: 08:00:00
       - condition: time
-        after: '18:30:00'
-        before: '22:30:00'
+        after: '19:00:00'
+        before: '21:00:00'
     then:
     - action: climate.set_preset_mode
       metadata: {}
@@ -4230,8 +4255,8 @@
         entity_id: climate.termostate_2
   - if:
     - condition: time
-      after: '10:30:00'
-      before: '18:30:00'
+      after: 08:00:00
+      before: '19:00:00'
     then:
     - action: climate.set_preset_mode
       metadata: {}
@@ -4239,11 +4264,155 @@
         preset_mode: away
       target:
         entity_id: climate.termostate_2
-  - action: climate.set_preset_mode
-    metadata: {}
-    data:
-      preset_mode: eco
-    target:
-      entity_id: climate.termostate_2
-    enabled: false
+  mode: single
+- id: '1728392326854'
+  alias: b1kr1 D
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.b1kr1_action
+    trigger: state
+    attribute: action
+    to: double
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: light.lampochka_1
+        above: 3100
+        below: 3300
+        attribute: color_temp_kelvin
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          kelvin: 6500
+        target:
+          device_id: 7200186a7aabfb3a8a39005a3897fc4e
+    - conditions:
+      - condition: numeric_state
+        entity_id: light.lampochka_1
+        attribute: color_temp_kelvin
+        below: 3100
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          kelvin: 3200
+        target:
+          device_id: 7200186a7aabfb3a8a39005a3897fc4e
+    - conditions:
+      - condition: numeric_state
+        entity_id: light.lampochka_1
+        attribute: color_temp_kelvin
+        above: 3300
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          kelvin: 2000
+        target:
+          device_id: 7200186a7aabfb3a8a39005a3897fc4e
+  mode: single
+- id: '1728392359360'
+  alias: b1kr1 L
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.b1kr1_action
+    trigger: state
+    attribute: action
+    to: rotate_left
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: light.lampochka_1
+        above: 63
+        attribute: brightness
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.lampochka_1
+        data:
+          brightness_step_pct: -25
+          kelvin: 3202
+    - conditions:
+      - condition: numeric_state
+        entity_id: light.lampochka_1
+        attribute: brightness
+        below: 64
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.lampochka_1
+        data:
+          brightness_pct: 1
+          kelvin: 2000
+  mode: single
+- id: '1728392380117'
+  alias: b1kr1 R
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.b1kr1_action
+    trigger: state
+    attribute: action
+    to: rotate_right
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: light.lampochka_1
+        above: 190
+        attribute: brightness
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.lampochka_1
+        data:
+          brightness_pct: 100
+          kelvin: 6500
+    - conditions:
+      - condition: numeric_state
+        entity_id: light.lampochka_1
+        attribute: brightness
+        below: 191
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id:
+          - light.lampochka_1
+        data:
+          brightness_step_pct: 25
+          kelvin: 3202
+  mode: single
+- id: '1728392500894'
+  alias: b1kr1 H
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.b1kr1_action
+    trigger: state
+    attribute: action
+    to: hold
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: sensor.b1k_action
+      state: double
+    then:
+    - action: light.toggle
+      metadata: {}
+      data: {}
+      target:
+        device_id:
+        - 7200186a7aabfb3a8a39005a3897fc4e
   mode: single
