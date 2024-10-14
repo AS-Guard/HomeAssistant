@@ -190,18 +190,18 @@
       data:
         title: Отопление {{ states('sensor.kotel_otoplenie') }}
         message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
-          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k')
-          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time')
-          }}    \n"
+          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
+          }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
+          states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}    \n"
         data:
           disable_notification: true
       enabled: true
     - data:
         title: Отопление {{ states('sensor.kotel_otoplenie') }}
         message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
-          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k')
-          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time')
-          }}   \n"
+          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
+          }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
+          states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}   \n"
         data:
           disable_notification: true
       action: notify.gHA
@@ -232,18 +232,18 @@
       data:
         title: Отопление {{ states('sensor.kotel_otoplenie') }}
         message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
-          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k')
-          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time')
-          }}    \n"
+          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
+          }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
+          states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}    \n"
         data:
           disable_notification: true
       enabled: true
     - data:
         title: Отопление {{ states('sensor.kotel_otoplenie') }}
         message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
-          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k')
-          }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time')
-          }} \n"
+          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
+          }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
+          states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }} \n"
         data:
           disable_notification: true
       action: notify.gHA
@@ -1347,7 +1347,7 @@
       enabled: false
   mode: single
 - id: '1723486104669'
-  alias: Tr01 16/22 - Tg msg
+  alias: Tr01 14/22 - Tg msg
   description: ''
   triggers:
   - entity_id:
@@ -1364,7 +1364,7 @@
       hours: 0
       minutes: 0
       seconds: 5
-    below: 15
+    below: 14
     trigger: numeric_state
   conditions:
   - condition: or
@@ -1374,18 +1374,18 @@
       above: 22
     - condition: numeric_state
       entity_id: sensor.tr01_temperature
-      below: 15
+      below: 14
   actions:
   - data:
       title: ⁉️ Датчик кор за пределами
-      message: "\U0001F4DF Котёл - {{ states('sensor.kotel_kotel') }}\n\U0001F321
-        зал - {{ states('sensor.tr2_temperature') }}\n\U0001F321 кор - {{ states('sensor.tr01_temperature')
-        }}\n\U0001F321 ул - {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 ГВС
-        - {{ states('sensor.kotel_goriachei_vody') }}\n\U0001F321 СО - {{ states('sensor.kotel_otopleniia')
-        }}\n\U0001F6B0 Горячая вода - {{ states('sensor.kotel_goriachaia_voda') }}\n♻️
-        Отопление -  {{ states('sensor.kotel_otoplenie') }}\n\U0001F39B Отопление
-        - {{ states('switch.kotel_otoplenie') }}\n\U0001F39B Горячая вода - {{ states('switch.kotel_gvs')
-        }}\n"
+      message: "\U0001F4DF Котёл {{ states('sensor.kotel_kotel') }}\n\U0001F321 зал
+        {{ states('sensor.tr2_temperature') }}\n\U0001F321 кор {{ states('sensor.tr01_temperature')
+        }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1') }}\n\U0001F321 ул
+        {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 ГВС {{ states('sensor.kotel_goriachei_vody')
+        }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n\U0001F6B0 Горячая
+        вода {{ states('sensor.kotel_goriachaia_voda') }}\n♻️ Отопление {{ states('sensor.kotel_otoplenie')
+        }}\n\U0001F39B Отопление {{ states('switch.kotel_otoplenie') }}\n\U0001F39B
+        Горячая вода {{ states('switch.kotel_gvs') }}\n"
     action: notify.gHA
   - delay:
       hours: 0
@@ -4105,14 +4105,14 @@
   actions:
   - data:
       title: ⁉️ Датчик зал за пределами
-      message: "\U0001F4DF Котёл - {{ states('sensor.kotel_kotel') }}\n\U0001F321
-        зал - {{ states('sensor.tr2_temperature') }}\n\U0001F321 кор - {{ states('sensor.tr01_temperature')
-        }}\n\U0001F321 ул - {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 ГВС
-        - {{ states('sensor.kotel_goriachei_vody') }}\n\U0001F321 СО - {{ states('sensor.kotel_otopleniia')
-        }}\n\U0001F6B0 Горячая вода - {{ states('sensor.kotel_goriachaia_voda') }}\n♻️
-        Отопление -  {{ states('sensor.kotel_otoplenie') }}\n\U0001F39B Отопление
-        - {{ states('switch.kotel_otoplenie') }}\n\U0001F39B Горячая вода - {{ states('switch.kotel_gvs')
-        }}\n"
+      message: "\U0001F4DF Котёл {{ states('sensor.kotel_kotel') }}\n\U0001F321 зал
+        {{ states('sensor.tr2_temperature') }}\n\U0001F321 кор {{ states('sensor.tr01_temperature')
+        }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1') }}\n\U0001F321 ул
+        {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 ГВС {{ states('sensor.kotel_goriachei_vody')
+        }}\n\U0001F321 СО {{ states('sensor.kotel_otopleniia') }}\n\U0001F6B0 Горячая
+        вода {{ states('sensor.kotel_goriachaia_voda') }}\n♻️ Отопление {{ states('sensor.kotel_otoplenie')
+        }}\n\U0001F39B Отопление {{ states('switch.kotel_otoplenie') }}\n\U0001F39B
+        Горячая вода {{ states('switch.kotel_gvs') }}\n"
     action: notify.gHA
   - delay:
       hours: 0

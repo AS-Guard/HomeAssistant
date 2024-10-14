@@ -523,6 +523,15 @@
                     },
                     {
                       "entity": "switch.switch_tsa"
+                    },
+                    {
+                      "entity": "switch.heater_ts0"
+                    },
+                    {
+                      "entity": "switch.heater_ts1"
+                    },
+                    {
+                      "entity": "switch.heater_ts2"
                     }
                   ],
                   "hours_to_show": 7
@@ -3784,6 +3793,15 @@
                   "entity": "switch.switch_tsa"
                 },
                 {
+                  "entity": "switch.heater_ts0"
+                },
+                {
+                  "entity": "switch.heater_ts1"
+                },
+                {
+                  "entity": "switch.heater_ts2"
+                },
+                {
                   "entity": "sensor.tr01_temperature"
                 },
                 {
@@ -3839,6 +3857,15 @@
                 },
                 {
                   "entity": "switch.switch_tsa"
+                },
+                {
+                  "entity": "switch.heater_ts0"
+                },
+                {
+                  "entity": "switch.heater_ts1"
+                },
+                {
+                  "entity": "switch.heater_ts2"
                 },
                 {
                   "entity": "sensor.tr01_temperature"
@@ -3897,6 +3924,15 @@
                   "entity": "switch.switch_tsa"
                 },
                 {
+                  "entity": "switch.heater_ts0"
+                },
+                {
+                  "entity": "switch.heater_ts1"
+                },
+                {
+                  "entity": "switch.heater_ts2"
+                },
+                {
                   "entity": "sensor.tr01_temperature"
                 },
                 {
@@ -3953,6 +3989,15 @@
                 },
                 {
                   "entity": "switch.switch_tsa"
+                },
+                {
+                  "entity": "switch.heater_ts0"
+                },
+                {
+                  "entity": "switch.heater_ts1"
+                },
+                {
+                  "entity": "switch.heater_ts2"
                 },
                 {
                   "entity": "sensor.tr01_temperature"
