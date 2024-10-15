@@ -612,6 +612,16 @@
                       "entity": "sensor.xs9_energy"
                     }
                   ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.xs6",
+                      "name": "ДТК",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
                 }
               ]
             }

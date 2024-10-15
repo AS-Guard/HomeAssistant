@@ -1402,16 +1402,16 @@
 - id: '1723531923222'
   alias: Boiler NA or Off - Tg msg
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.kotel_kotel
     for:
       hours: 0
       minutes: 5
       seconds: 5
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: or
       conditions:
@@ -1437,7 +1437,7 @@
         title: Котёл
         message: "статус: {{ states('sensor.kotel_kotel') }} \n"
         data:
-          disable_notification: true
+          disable_notification: false
       action: notify.gHA
   - if:
     - condition: state
@@ -1448,7 +1448,7 @@
       target:
         entity_id: automation.ts54_on
       data:
-        skip_condition: true
+        skip_condition: false
   mode: single
 - id: '1723637212944'
   alias: Ds02 lx - Tg
@@ -4213,22 +4213,18 @@
       entity_id: climate.termostate_0
   mode: single
 - id: '1728239189433'
-  alias: Ts2 PreSet
+  alias: Ts PreSet
   description: ''
   triggers:
   - trigger: time
     at: 05:30:30
   - trigger: time
-    at: 08:30:30
-  - trigger: time
     at: '19:30:30'
-  - trigger: time
-    at: '21:30:30'
   conditions: []
   actions:
   - if:
     - condition: time
-      after: '21:00:00'
+      after: '19:00:00'
       before: 05:00:00
     then:
     - action: climate.set_preset_mode
@@ -4238,24 +4234,8 @@
       target:
         entity_id: climate.termostate_2
   - if:
-    - condition: or
-      conditions:
-      - condition: time
-        after: 05:00:00
-        before: 08:00:00
-      - condition: time
-        after: '19:00:00'
-        before: '21:00:00'
-    then:
-    - action: climate.set_preset_mode
-      metadata: {}
-      data:
-        preset_mode: home
-      target:
-        entity_id: climate.termostate_2
-  - if:
     - condition: time
-      after: 08:00:00
+      after: 05:00:00
       before: '19:00:00'
     then:
     - action: climate.set_preset_mode
