@@ -6,5 +6,6 @@
       - Slider
       - Sensor1
       - Sensor2
+      - Sensor3
     initial: Slider
     icon: mdi:speaker-wireless

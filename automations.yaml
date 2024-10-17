@@ -160,162 +160,30 @@
       message: 'Температура улицы датчика котла -  {{ states(''sensor.kotel_ulitsa_k'')
         }} '
 - id: Отопление_телеграм
-  alias: Boiler Otoplenie Sens On/Off - Tg msg
-  triggers:
-  - entity_id:
-    - sensor.kotel_otoplenie
-    from: ➖
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-    to: ✅
-    trigger: state
-  - entity_id:
-    - sensor.kotel_otoplenie
-    from: ✅
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-    to: ➖
-    trigger: state
+  alias: Otoplenie - Tg msg
+  description: ''
+  triggers: []
   actions:
-  - if:
-    - condition: state
-      entity_id: sensor.kotel_otoplenie
-      state: ✅
-    then:
-    - action: notify.me
+  - action: notify.me
+    data:
+      title: Отопление {{ states('sensor.kotel_otoplenie') }}
+      message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
+        кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
+        }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
+        states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}    \n"
       data:
-        title: Отопление {{ states('sensor.kotel_otoplenie') }}
-        message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
-          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
-          }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
-          states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}    \n"
-        data:
-          disable_notification: true
-      enabled: true
-    - data:
-        title: Отопление {{ states('sensor.kotel_otoplenie') }}
-        message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
-          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
-          }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
-          states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}   \n"
-        data:
-          disable_notification: true
-      action: notify.gHA
-      enabled: false
-    - if:
-      - condition: state
-        entity_id: switch.kotel_otoplenie
-        state: 'off'
-      then:
-      - data:
-          title: ⁉️ Контроллер
-          message: 'Нет согласования, Отопление
-
-            Статус {{ states(''sensor.kotel_otoplenie'') }}
-
-            Задано {{ states(''switch.kotel_otoplenie'') }}
-
-            '
-          data:
-            disable_notification: false
-        action: notify.gHA
-  - if:
-    - condition: state
-      entity_id: sensor.kotel_otoplenie
-      state: ➖
-    then:
-    - action: notify.me
+        disable_notification: true
+    enabled: true
+  - data:
+      title: Отопление {{ states('sensor.kotel_otoplenie') }}
+      message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
+        кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
+        }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
+        states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}   \n"
       data:
-        title: Отопление {{ states('sensor.kotel_otoplenie') }}
-        message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
-          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
-          }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
-          states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}    \n"
-        data:
-          disable_notification: true
-      enabled: true
-    - data:
-        title: Отопление {{ states('sensor.kotel_otoplenie') }}
-        message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
-          кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
-          }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
-          states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }} \n"
-        data:
-          disable_notification: true
-      action: notify.gHA
-      enabled: false
-    - if:
-      - condition: state
-        entity_id: switch.kotel_otoplenie
-        state: 'on'
-      then:
-      - data:
-          title: ⁉️ Контроллер
-          message: 'Нет согласования, Отопление
-
-            Статус {{ states(''sensor.kotel_otoplenie'') }}
-
-            Задано {{ states(''switch.kotel_otoplenie'') }}
-
-            '
-          data:
-            disable_notification: false
-        action: notify.gHA
-  - if:
-    - condition: state
-      state: ➖
-      entity_id: sensor.kotel_otoplenie
-      enabled: true
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: light.lampochka_3
-        state: 'off'
-      - condition: and
-        conditions:
-        - condition: state
-          entity_id: light.lampochka_3
-          state: 'on'
-        - condition: state
-          entity_id: light.lampochka_3
-          attribute: color_mode
-          state: hs
-        - condition: numeric_state
-          entity_id: light.lampochka_3
-          attribute: brightness
-          below: 17
-          enabled: true
-    then:
-    - if:
-      - condition: state
-        entity_id: sensor.kotel_gorelka
-        state: ➖
-      then:
-      - action: light.turn_on
-        metadata: {}
-        data:
-          brightness_pct: 5
-          transition: 3
-          rgb_color:
-          - 0
-          - 0
-          - 255
-        target:
-          entity_id: light.lampochka_3
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 4
-          milliseconds: 0
-      - action: timer.start
-        target:
-          entity_id:
-          - timer.lw03
-        data: {}
+        disable_notification: true
+    action: notify.gHA
+    enabled: false
 - id: '1715770066650'
   alias: tg temp_kotel_h
   description: ''
@@ -4395,4 +4263,210 @@
       target:
         device_id:
         - 7200186a7aabfb3a8a39005a3897fc4e
+  mode: single
+- id: '1729161733298'
+  alias: Vs1 Sens
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.vs1_water_leak
+    to: 'on'
+  conditions: []
+  actions:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.protechka_tg_msg
+  - action: light.turn_on
+    metadata: {}
+    data:
+      kelvin: 6500
+      brightness_pct: 100
+    target:
+      entity_id: light.lampochka_3
+  mode: single
+- id: '1729162480061'
+  alias: Boiler Otoplenie Sens On/Off
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.kotel_otoplenie
+    from: ➖
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    to: ✅
+    trigger: state
+  - entity_id:
+    - sensor.kotel_otoplenie
+    from: ✅
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    to: ➖
+    trigger: state
+  actions:
+  - if:
+    - condition: state
+      entity_id: sensor.kotel_otoplenie
+      state: ✅
+    then:
+    - action: automation.trigger
+      metadata: {}
+      data:
+        skip_condition: true
+      target:
+        entity_id: automation.kotel_otoplenie_telegram
+    - if:
+      - condition: state
+        entity_id: switch.kotel_otoplenie
+        state: 'off'
+      then:
+      - data:
+          title: ⁉️ Контроллер
+          message: 'Нет согласования, Отопление
+
+            Статус {{ states(''sensor.kotel_otoplenie'') }}
+
+            Задано {{ states(''switch.kotel_otoplenie'') }}
+
+            '
+          data:
+            disable_notification: false
+        action: notify.gHA
+  - if:
+    - condition: state
+      entity_id: sensor.kotel_otoplenie
+      state: ➖
+    then:
+    - action: automation.trigger
+      metadata: {}
+      data:
+        skip_condition: true
+      target:
+        entity_id: automation.kotel_otoplenie_telegram
+    - if:
+      - condition: state
+        entity_id: switch.kotel_otoplenie
+        state: 'on'
+      then:
+      - data:
+          title: ⁉️ Контроллер
+          message: 'Нет согласования, Отопление
+
+            Статус {{ states(''sensor.kotel_otoplenie'') }}
+
+            Задано {{ states(''switch.kotel_otoplenie'') }}
+
+            '
+          data:
+            disable_notification: false
+        action: notify.gHA
+  - if:
+    - condition: state
+      state: ➖
+      entity_id: sensor.kotel_otoplenie
+      enabled: true
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: light.lampochka_3
+        state: 'off'
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: light.lampochka_3
+          state: 'on'
+        - condition: state
+          entity_id: light.lampochka_3
+          attribute: color_mode
+          state: hs
+        - condition: numeric_state
+          entity_id: light.lampochka_3
+          attribute: brightness
+          below: 17
+          enabled: true
+    then:
+    - if:
+      - condition: state
+        entity_id: sensor.kotel_gorelka
+        state: ➖
+      then:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 5
+          transition: 3
+          rgb_color:
+          - 0
+          - 0
+          - 255
+        target:
+          entity_id: light.lampochka_3
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 4
+          milliseconds: 0
+      - action: timer.start
+        target:
+          entity_id:
+          - timer.lw03
+        data: {}
+- id: '1729163076652'
+  alias: Protechka - Tg msg
+  description: ''
+  triggers: []
+  actions:
+  - action: notify.me
+    data:
+      title: Протечка {{ states('binary_sensor.vs1_water_leak') }}
+      message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
+        кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
+        }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
+        states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}    \n"
+      data:
+        disable_notification: false
+    enabled: true
+  - data:
+      title: Протечка {{ states('binary_sensor.vs1_water_leak') }}
+      message: "\U0001F321 зал {{ states('sensor.tr2_temperature') }}\n\U0001F321
+        кор {{ states('sensor.tr01_temperature') }}\n\U0001F321 сени {{ states('sensor.klimat_seni1_t1')
+        }}\n\U0001F321 ул {{ states('sensor.kotel_ulitsa_k') }}\n\U0001F321 СО {{
+        states('sensor.kotel_otopleniia') }}\n⌚️ {{ states('sensor.time') }}   \n"
+      data:
+        disable_notification: true
+    action: notify.gHA
+    enabled: false
+- id: '1729164239582'
+  alias: Ys - msg
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - action: yandex_station.send_command
+    metadata: {}
+    data:
+      command: setVolume
+      volume: 20
+    target:
+      entity_id: media_player.yandex_station_r109xd000fzvhy
+    enabled: false
+  - action: yandex_station.send_command
+    metadata: {}
+    data:
+      text: Время
+      command: sendText
+    target:
+      entity_id: media_player.yandex_station_r109xd000fzvhy
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
   mode: single

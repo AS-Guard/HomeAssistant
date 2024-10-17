@@ -1,16 +1,9 @@
 #   includes/input_numbers/in_box_1.yaml
 #input_number:
-  in_box_tsa:
-    name: box_tsa
-    initial: 16
-    min: 10
-    max: 20
-    step: 1
-    mode: box
 
   in_box1:
     name: Box_ts1
-    initial: 31
+    initial: 23
     min: -20
     max: 35
     step: 1
@@ -18,8 +11,24 @@
 
   in_box2:
     name: Box_ts2
-    initial: 32
+    initial: 23
     min: -20
     max: 35
+    step: 1
+    mode: box
+
+  in_box3:
+    name: Box_ts3
+    initial: 23
+    min: -20
+    max: 35
+    step: 1
+    mode: box
+
+  in_box_tsa:
+    name: box_tsa
+    initial: 16
+    min: 0
+    max: 20
     step: 1
     mode: box

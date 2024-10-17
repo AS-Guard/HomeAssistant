@@ -6,8 +6,15 @@
   temp_rele_ts2:
     initial: off
 
-  temp_rele_ts54:
+  temp_rele_ts3:
+    initial: off
+
+  temp_rele_ts0:
     initial: off
 
   temp_rele_tsa:
     initial: off
+
+  temp_rele_ts54:
+    initial: off
+

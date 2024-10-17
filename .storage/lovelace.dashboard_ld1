@@ -655,6 +655,87 @@
                       "theme": "happy"
                     },
                     {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_1"
+                            },
+                            "data": {
+                              "preset_mode": "none"
+                            }
+                          },
+                          "entity": "climate.termostate_1",
+                          "name": "None"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_1"
+                            },
+                            "data": {
+                              "preset_mode": "comfort"
+                            }
+                          },
+                          "entity": "climate.termostate_1",
+                          "show_state": false,
+                          "name": "Comfort"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_1"
+                            },
+                            "data": {
+                              "preset_mode": "away"
+                            }
+                          },
+                          "entity": "climate.termostate_1",
+                          "show_state": false,
+                          "name": "Away"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_1"
+                            },
+                            "data": {
+                              "preset_mode": "eco"
+                            }
+                          },
+                          "entity": "climate.termostate_1",
+                          "show_state": false,
+                          "name": "Eco"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
                       "type": "thermostat",
                       "entity": "climate.termostate_2",
                       "features": [
@@ -748,22 +829,98 @@
                   ]
                 },
                 {
-                  "type": "conditional",
-                  "conditions": [
+                  "type": "vertical-stack",
+                  "cards": [
                     {
-                      "condition": "state",
-                      "entity": "timer.tsa",
-                      "state_not": "idle"
+                      "type": "thermostat",
+                      "entity": "climate.termostate_3",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        },
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_3"
+                            },
+                            "data": {
+                              "preset_mode": "none"
+                            }
+                          },
+                          "entity": "climate.termostate_3",
+                          "name": "None"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_3"
+                            },
+                            "data": {
+                              "preset_mode": "comfort"
+                            }
+                          },
+                          "entity": "climate.termostate_3",
+                          "show_state": false,
+                          "name": "Comfort"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_3"
+                            },
+                            "data": {
+                              "preset_mode": "away"
+                            }
+                          },
+                          "entity": "climate.termostate_3",
+                          "show_state": false,
+                          "name": "Away"
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_3"
+                            },
+                            "data": {
+                              "preset_mode": "eco"
+                            }
+                          },
+                          "entity": "climate.termostate_3",
+                          "show_state": false,
+                          "name": "Eco"
+                        }
+                      ]
                     }
-                  ],
-                  "card": {
-                    "type": "entities",
-                    "entities": [
-                      {
-                        "entity": "timer.tsa"
-                      }
-                    ]
-                  }
+                  ]
                 },
                 {
                   "type": "vertical-stack",
@@ -787,6 +944,11 @@
                           "name": "TS2"
                         },
                         {
+                          "entity": "switch.heater_ts3",
+                          "secondary_info": "last-changed",
+                          "name": "TS3"
+                        },
+                        {
                           "entity": "switch.sw_ts54",
                           "name": "TS54",
                           "secondary_info": "last-changed"
@@ -804,81 +966,32 @@
                       ],
                       "state_color": true,
                       "show_header_toggle": false
-                    },
-                    {
-                      "type": "thermostat",
-                      "entity": "climate.ts54",
-                      "features": [
-                        {
-                          "type": "climate-hvac-modes"
-                        },
-                        {
-                          "type": "climate-preset-modes",
-                          "style": "dropdown"
-                        }
-                      ],
-                      "name": "TS54",
-                      "theme": "happy"
                     }
                   ]
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "timer.tsa",
+                      "state_not": "idle"
+                    }
+                  ],
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      {
+                        "entity": "timer.tsa"
+                      }
+                    ]
+                  }
                 }
               ]
             },
             {
               "type": "vertical-stack",
               "cards": [
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.ts54_st",
-                      "name": "Ts54 Ореентир",
-                      "icon": "mdi:thermometer-check",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.ts54_it",
-                      "name": "Ts54 Текущая",
-                      "icon": "mdi:thermometer-low",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "input_number.sl_ts54",
-                      "name": "Слайдер темп-ры"
-                    },
-                    {
-                      "entity": "input_select.is_ts54",
-                      "secondary_info": "last-changed",
-                      "icon": "mdi:selection-ellipse-arrow-inside",
-                      "name": "Сенсор для Ts54"
-                    },
-                    {
-                      "entity": "sensor.ts54_sent",
-                      "name": "Температура S",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.tr01_temperature",
-                      "secondary_info": "last-changed",
-                      "name": "Температура T1"
-                    },
-                    {
-                      "entity": "sensor.tr2_temperature",
-                      "secondary_info": "last-changed",
-                      "name": "Температура T2"
-                    },
-                    {
-                      "entity": "sensor.kotel_ulitsa_k",
-                      "secondary_info": "last-changed",
-                      "name": "Температура У"
-                    },
-                    {
-                      "entity": "sensor.kotel_otopleniia",
-                      "name": "Температура СО",
-                      "secondary_info": "last-changed"
-                    }
-                  ]
-                },
                 {
                   "type": "history-graph",
                   "entities": [
@@ -908,13 +1021,37 @@
                   "hours_to_show": 2.2
                 },
                 {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.tr01_temperature",
+                      "secondary_info": "last-changed",
+                      "name": "Температура T1"
+                    },
+                    {
+                      "entity": "sensor.tr2_temperature",
+                      "secondary_info": "last-changed",
+                      "name": "Температура T2"
+                    },
+                    {
+                      "entity": "sensor.kotel_ulitsa_k",
+                      "secondary_info": "last-changed",
+                      "name": "Температура У"
+                    },
+                    {
+                      "entity": "sensor.kotel_otopleniia",
+                      "name": "Температура СО",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
+                },
+                {
                   "chart_type": "line",
                   "period": "5minute",
                   "type": "statistics-graph",
                   "entities": [
                     "sensor.tr01_temperature",
-                    "sensor.tr2_temperature",
-                    "sensor.ts54_sent"
+                    "sensor.tr2_temperature"
                   ],
                   "stat_types": [
                     "max"
@@ -1013,6 +1150,63 @@
                       "entity": "climate.termostate_0",
                       "show_state": false,
                       "name": "Eco"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.ts54_st",
+                      "name": "Ts54 Ореентир",
+                      "icon": "mdi:thermometer-check",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ts54_it",
+                      "name": "Ts54 Текущая",
+                      "icon": "mdi:thermometer-low",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "input_number.sl_ts54",
+                      "name": "Слайдер темп-ры"
+                    },
+                    {
+                      "entity": "input_select.is_ts54",
+                      "secondary_info": "last-changed",
+                      "icon": "mdi:selection-ellipse-arrow-inside",
+                      "name": "Сенсор для Ts54"
+                    },
+                    {
+                      "entity": "sensor.ts54_sent",
+                      "name": "Температура S",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.ts54",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        },
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "name": "TS54",
+                      "theme": "happy"
                     }
                   ]
                 }
