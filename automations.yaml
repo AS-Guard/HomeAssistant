@@ -1772,16 +1772,16 @@
 - id: '1724610451944'
   alias: TSA On/Off
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - switch.switch_tsa
     for:
       hours: 0
       minutes: 0
       seconds: 3
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: state
       entity_id: timer.tsa
@@ -1811,7 +1811,7 @@
         target:
           entity_id: automation.etk_on
         enabled: false
-      enabled: false
+      enabled: true
     - if:
       - condition: not
         conditions:
@@ -1826,7 +1826,7 @@
           entity_id: automation.etk2
         action: automation.trigger
         enabled: true
-      enabled: true
+      enabled: false
     - metadata: {}
       data: {}
       target:
@@ -4100,7 +4100,28 @@
       data:
         preset_mode: comfort
       target:
+        entity_id:
+        - climate.termostate_1
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: comfort
+      target:
         entity_id: climate.termostate_2
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: comfort
+      target:
+        entity_id:
+        - climate.termostate_3
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: comfort
+      target:
+        entity_id:
+        - climate.termostate_0
   - if:
     - condition: time
       after: 05:00:00
@@ -4111,7 +4132,21 @@
       data:
         preset_mode: away
       target:
+        entity_id:
+        - climate.termostate_1
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: away
+      target:
         entity_id: climate.termostate_2
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: away
+      target:
+        entity_id:
+        - climate.termostate_3
   mode: single
 - id: '1728392326854'
   alias: b1kr1 D

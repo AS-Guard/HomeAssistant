@@ -532,6 +532,9 @@
                     },
                     {
                       "entity": "switch.heater_ts2"
+                    },
+                    {
+                      "entity": "switch.heater_ts3"
                     }
                   ],
                   "hours_to_show": 7
@@ -641,15 +644,6 @@
                     {
                       "type": "thermostat",
                       "entity": "climate.termostate_1",
-                      "features": [
-                        {
-                          "type": "climate-hvac-modes"
-                        },
-                        {
-                          "type": "climate-preset-modes",
-                          "style": "dropdown"
-                        }
-                      ],
                       "show_current_as_primary": false,
                       "name": "TS1",
                       "theme": "happy"
@@ -738,15 +732,6 @@
                     {
                       "type": "thermostat",
                       "entity": "climate.termostate_2",
-                      "features": [
-                        {
-                          "type": "climate-hvac-modes"
-                        },
-                        {
-                          "type": "climate-preset-modes",
-                          "style": "dropdown"
-                        }
-                      ],
                       "name": "TS2",
                       "theme": "happy"
                     },
@@ -834,15 +819,7 @@
                     {
                       "type": "thermostat",
                       "entity": "climate.termostate_3",
-                      "features": [
-                        {
-                          "type": "climate-hvac-modes"
-                        },
-                        {
-                          "type": "climate-preset-modes",
-                          "style": "dropdown"
-                        }
-                      ]
+                      "name": "TS3"
                     },
                     {
                       "type": "horizontal-stack",
@@ -949,19 +926,9 @@
                           "name": "TS3"
                         },
                         {
-                          "entity": "switch.sw_ts54",
-                          "name": "TS54",
-                          "secondary_info": "last-changed"
-                        },
-                        {
-                          "entity": "switch.switch_gist_tsa",
+                          "entity": "switch.heater_ts0",
                           "secondary_info": "last-changed",
-                          "name": "HotSun"
-                        },
-                        {
-                          "entity": "input_number.in_box_tsa",
-                          "secondary_info": "last-changed",
-                          "name": "HotSun"
+                          "name": "TS0"
                         }
                       ],
                       "state_color": true,
@@ -1016,6 +983,9 @@
                     },
                     {
                       "entity": "switch.heater_ts2"
+                    },
+                    {
+                      "entity": "switch.heater_ts3"
                     }
                   ],
                   "hours_to_show": 2.2
@@ -1023,6 +993,11 @@
                 {
                   "type": "entities",
                   "entities": [
+                    {
+                      "entity": "sensor.klimat_seni1_t1",
+                      "secondary_info": "last-changed",
+                      "icon": "mdi:thermometer"
+                    },
                     {
                       "entity": "sensor.tr01_temperature",
                       "secondary_info": "last-changed",
@@ -1150,63 +1125,6 @@
                       "entity": "climate.termostate_0",
                       "show_state": false,
                       "name": "Eco"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.ts54_st",
-                      "name": "Ts54 Ореентир",
-                      "icon": "mdi:thermometer-check",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.ts54_it",
-                      "name": "Ts54 Текущая",
-                      "icon": "mdi:thermometer-low",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "input_number.sl_ts54",
-                      "name": "Слайдер темп-ры"
-                    },
-                    {
-                      "entity": "input_select.is_ts54",
-                      "secondary_info": "last-changed",
-                      "icon": "mdi:selection-ellipse-arrow-inside",
-                      "name": "Сенсор для Ts54"
-                    },
-                    {
-                      "entity": "sensor.ts54_sent",
-                      "name": "Температура S",
-                      "secondary_info": "last-changed"
-                    }
-                  ]
-                },
-                {
-                  "type": "vertical-stack",
-                  "cards": [
-                    {
-                      "type": "thermostat",
-                      "entity": "climate.ts54",
-                      "features": [
-                        {
-                          "type": "climate-hvac-modes"
-                        },
-                        {
-                          "type": "climate-preset-modes",
-                          "style": "dropdown"
-                        }
-                      ],
-                      "name": "TS54",
-                      "theme": "happy"
                     }
                   ]
                 }
@@ -4006,6 +3924,9 @@
                   "entity": "switch.heater_ts2"
                 },
                 {
+                  "entity": "switch.heater_ts3"
+                },
+                {
                   "entity": "sensor.tr01_temperature"
                 },
                 {
@@ -4072,6 +3993,9 @@
                   "entity": "switch.heater_ts2"
                 },
                 {
+                  "entity": "switch.heater_ts3"
+                },
+                {
                   "entity": "sensor.tr01_temperature"
                 },
                 {
@@ -4135,6 +4059,9 @@
                 },
                 {
                   "entity": "switch.heater_ts2"
+                },
+                {
+                  "entity": "switch.heater_ts3"
                 },
                 {
                   "entity": "sensor.tr01_temperature"
@@ -4204,6 +4131,9 @@
                   "entity": "switch.heater_ts2"
                 },
                 {
+                  "entity": "switch.heater_ts3"
+                },
+                {
                   "entity": "sensor.tr01_temperature"
                 },
                 {
@@ -4232,6 +4162,101 @@
                 },
                 {
                   "entity": "sensor.kotel_moshchnost_gorelki"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "ts54",
+          "path": "ts54",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.ts54_st",
+                      "name": "Ts54 Ореентир",
+                      "icon": "mdi:thermometer-check",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ts54_it",
+                      "name": "Ts54 Текущая",
+                      "icon": "mdi:thermometer-low",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "input_number.sl_ts54",
+                      "name": "Слайдер темп-ры"
+                    },
+                    {
+                      "entity": "input_select.is_ts54",
+                      "secondary_info": "last-changed",
+                      "icon": "mdi:selection-ellipse-arrow-inside",
+                      "name": "Сенсор для Ts54"
+                    },
+                    {
+                      "entity": "sensor.ts54_sent",
+                      "name": "Температура S",
+                      "secondary_info": "last-changed"
+                    }
+                  ]
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.ts54",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        },
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "name": "TS54",
+                      "theme": "happy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "entity": "switch.sw_ts54",
+                          "name": "TS54",
+                          "secondary_info": "last-changed"
+                        },
+                        {
+                          "entity": "switch.switch_gist_tsa",
+                          "secondary_info": "last-changed",
+                          "name": "HotSun"
+                        },
+                        {
+                          "entity": "input_number.in_box_tsa",
+                          "secondary_info": "last-changed",
+                          "name": "HotSun"
+                        }
+                      ],
+                      "state_color": true,
+                      "show_header_toggle": false
+                    }
+                  ]
                 }
               ]
             }

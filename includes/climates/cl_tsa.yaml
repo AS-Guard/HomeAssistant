@@ -6,6 +6,31 @@
     unique_id: TS01
     heater: switch.heater_ts1
     target_sensor: sensor.temperature_ts1
+    min_temp: 9 
+    max_temp: 19 
+    ac_mode: false 
+    target_temp: 11.1 
+    cold_tolerance: 0.1 
+    hot_tolerance: 0.1 
+    min_cycle_duration: 
+      seconds: 5 
+    keep_alive: 
+      minutes: 1 
+    initial_hvac_mode: "heat" 
+    precision: 0.1 
+    comfort_temp: 11.1 
+    home_temp: 12.3 
+    sleep_temp: 14.7 
+    activity_temp: 11.1 
+    away_temp: 9 
+    eco_temp: 7 
+
+#climate:
+  - platform: generic_thermostat
+    name: TermoState_2
+    unique_id: TS02
+    heater: switch.heater_ts2
+    target_sensor: sensor.temperature_ts2
     min_temp: 10 
     max_temp: 20 
     ac_mode: false 
@@ -18,37 +43,12 @@
       minutes: 1 
     initial_hvac_mode: "heat" 
     precision: 0.1 
-    comfort_temp: 16.1 
-    home_temp: 14.1 
-    sleep_temp: 20 
-    activity_temp: 18 
-    away_temp: 16 
-    eco_temp: 12 
-
-#climate:
-  - platform: generic_thermostat
-    name: TermoState_2
-    unique_id: TS02
-    heater: switch.heater_ts2
-    target_sensor: sensor.temperature_ts2
-    min_temp: 15 
-    max_temp: 25 
-    ac_mode: false 
-    target_temp: 23.4 
-    cold_tolerance: 0.1 
-    hot_tolerance: 0.1 
-    min_cycle_duration: 
-      seconds: 5 
-    keep_alive: 
-      minutes: 1 
-    initial_hvac_mode: "heat" 
-    precision: 0.1 
-    comfort_temp: 24.4 
-    home_temp: 23.4 
+    comfort_temp: 15.3 
+    home_temp: 14.4 
     sleep_temp: 20.1 
     activity_temp: 18.1 
-    away_temp: 22.4 
-    eco_temp: 18.4 
+    away_temp: 13.5 
+    eco_temp: 9.0 
 
 #climate:
   - platform: generic_thermostat
@@ -56,8 +56,8 @@
     unique_id: TS03
     heater: switch.heater_ts3
     target_sensor: sensor.temperature_ts3
-    min_temp: 15 
-    max_temp: 25 
+    min_temp: 20 
+    max_temp: 27 
     ac_mode: false 
     target_temp: 23.4 
     cold_tolerance: 0.1 

@@ -4,7 +4,7 @@
     switches:
 
       switch_tsa:
-        value_template: "{{ (is_state('switch.heater_ts1', 'on') or is_state('switch.heater_ts2', 'on') or is_state('switch.sw_ts54', 'on') ) and is_state('switch.switch_gist_tsa', 'off') }}"
+        value_template: "{{ (is_state('switch.heater_ts1', 'on') or is_state('switch.heater_ts2', 'on') or is_state('switch.heater_ts3', 'on') ) and is_state('switch.heater_ts0', 'off') }}"
         turn_on:
           service: script.toggle
           data:

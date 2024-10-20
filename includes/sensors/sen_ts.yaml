@@ -2,22 +2,29 @@
 #sensor:
   - platform: template
     sensors:
+      temperature_ts0:
+        friendly_name: 'Температура улица К'
+        unit_of_measurement: 'ºC'
+        value_template: "{{ states('sensor.kotel_ulitsa_k') | float }}"
+
+  - platform: template
+    sensors:
       temperature_ts1:
-        friendly_name: 'Температура Т1'
+        friendly_name: 'Температура сени Т1'
+        unit_of_measurement: 'ºC'
+        value_template: "{{ states('sensor.klimat_seni1_t1') | float }}"
+
+  - platform: template
+    sensors:
+      temperature_ts2:
+        friendly_name: 'Температура коридр'
         unit_of_measurement: 'ºC'
         value_template: "{{ states('sensor.tr01_temperature') | float }}"
 
   - platform: template
     sensors:
-      temperature_ts2:
-        friendly_name: 'Температура Т2'
-        unit_of_measurement: 'ºC'
-        value_template: "{{ states('sensor.tr2_temperature') | float }}"
-
-  - platform: template
-    sensors:
-      temperature_tsk1:
-        friendly_name: 'Температура 1'
+      temperature_ts3:
+        friendly_name: 'Температура зал'
         unit_of_measurement: 'ºC'
         value_template: "{{ states('sensor.tr2_temperature') | float }}"
 
@@ -27,3 +34,4 @@
         friendly_name: 'Температура 2'
         unit_of_measurement: 'ºC'
         value_template: "{{ states('sensor.tr2_temperature') | float }}"
+
