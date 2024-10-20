@@ -939,9 +939,8 @@
 - id: '1723394894780'
   alias: ds02 LongOpen - Tg msg
   description: ворота открыты больше положенного времени
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - timer.ds02
     for:
       hours: 0
@@ -949,22 +948,18 @@
       seconds: 1
     to: idle
     from: active
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: binary_sensor.ds02_contact
     state: 'on'
-  action:
+  actions:
   - data:
       title: ⛩ Ворота
-      message: 'открыты больше положенного времени
-
-        {{ relative_time(state_attr(''automation.ds02_tg_msg_3'', ''last_triggered''))
-        | replace("hours", "час.", 1) | replace("hour", "час.", 1) | replace("minutes",
-        "мин.", 1) }}
-
-        {{ states(''sensor.ds02_illuminance'') }}
-
-        '
+      message: "открыты больше положенного времени\n{{ relative_time(state_attr('automation.ds02_tg_msg_3',
+        'last_triggered')) | replace(\"hours\", \"час.\", 1) | replace(\"hour\", \"час.\",
+        1) | replace(\"minutes\", \"мин.\", 1) }}\n{{ states('sensor.ds02_illuminance')
+        }} ⌚️ {{ states('sensor.time') }}   \n"
     action: notify.gHA
   mode: single
 - id: '1723397791958'
@@ -1321,15 +1316,15 @@
 - id: '1723637212944'
   alias: Ds02 lx - Tg
   description: Освещение поменялось
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.ds02_illuminance
     for:
       hours: 0
       minutes: 0
       seconds: 5
-  condition:
+    trigger: state
+  conditions:
   - condition: numeric_state
     entity_id: sensor.ds02_illuminance
     above: 0
@@ -1337,11 +1332,12 @@
   - condition: state
     entity_id: timer.ds02_lx
     state: idle
-  action:
+  actions:
   - action: notify.gHA
     data:
       title: Гараж
-      message: "\U0001F4A1 {{ states('sensor.ds02_illuminance') }} \n"
+      message: "\U0001F4A1 {{ states('sensor.ds02_illuminance') }}\n⌚️ {{ states('sensor.time')
+        }}\n"
       data:
         disable_notification: true
   mode: single
@@ -1810,7 +1806,7 @@
         action: automation.trigger
         target:
           entity_id: automation.etk_on
-        enabled: false
+        enabled: true
       enabled: true
     - if:
       - condition: not
@@ -4147,6 +4143,13 @@
       target:
         entity_id:
         - climate.termostate_3
+    - action: climate.set_preset_mode
+      metadata: {}
+      data:
+        preset_mode: away
+      target:
+        entity_id:
+        - climate.termostate_0
   mode: single
 - id: '1728392326854'
   alias: b1kr1 D

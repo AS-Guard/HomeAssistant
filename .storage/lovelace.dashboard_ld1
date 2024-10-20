@@ -1042,15 +1042,7 @@
                 {
                   "type": "thermostat",
                   "entity": "climate.termostate_0",
-                  "features": [
-                    {
-                      "type": "climate-hvac-modes"
-                    },
-                    {
-                      "type": "climate-preset-modes",
-                      "style": "dropdown"
-                    }
-                  ]
+                  "name": "TS0"
                 },
                 {
                   "type": "horizontal-stack",
