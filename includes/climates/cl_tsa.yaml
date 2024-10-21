@@ -6,14 +6,14 @@
     unique_id: TS01
     heater: switch.heater_ts1
     target_sensor: sensor.temperature_ts1
-    min_temp: 9 
-    max_temp: 19 
+    min_temp: 8 
+    max_temp: 16 
     ac_mode: false 
     target_temp: 11.1 
     cold_tolerance: 0.1 
     hot_tolerance: 0.1 
     min_cycle_duration: 
-      seconds: 5 
+      seconds: 15 
     keep_alive: 
       minutes: 1 
     initial_hvac_mode: "heat" 
@@ -38,7 +38,7 @@
     cold_tolerance: 0.1 
     hot_tolerance: 0.1 
     min_cycle_duration: 
-      seconds: 5 
+      seconds: 15 
     keep_alive: 
       minutes: 1 
     initial_hvac_mode: "heat" 
@@ -63,7 +63,7 @@
     cold_tolerance: 0.1 
     hot_tolerance: 0.1 
     min_cycle_duration: 
-      seconds: 5 
+      seconds: 15 
     keep_alive: 
       minutes: 1 
     initial_hvac_mode: "heat" 
@@ -88,7 +88,7 @@
     cold_tolerance: 0.1 
     hot_tolerance: 0.1 
     min_cycle_duration: 
-      seconds: 5 
+      seconds: 15 
     keep_alive: 
       minutes: 1 
     initial_hvac_mode: "cool" 

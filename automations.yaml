@@ -3665,9 +3665,8 @@
 - id: '1725906873444'
   alias: Pris - Tg msg
   description: мало движения в пространстве
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - timer.pris
     for:
       hours: 0
@@ -3675,12 +3674,13 @@
       seconds: 1
     to: idle
     from: active
-  - platform: sun
-    event: sunrise
+    trigger: state
+  - event: sunrise
     offset: -00:30:00
     enabled: false
-  condition: []
-  action:
+    trigger: sun
+  conditions: []
+  actions:
   - action: timer.cancel
     target:
       entity_id: timer.pris
@@ -3701,7 +3701,8 @@
         title: ⛑ Датчики
         message: "неактивны  \n{{ relative_time(state_attr('automation.pris_tim',
           'last_triggered')) | replace(\"hours\", \"час.\", 1) | replace(\"hour\",
-          \"час.\", 1) |  replace(\"minutes\", \"мин.\", 1) }}\n"
+          \"час.\", 1) |  replace(\"minutes\", \"мин.\", 1) }} ⌚️ {{ states('sensor.time')
+          }} \n"
       action: notify.gHA
   mode: single
 - id: '1725968402669'
@@ -3764,9 +3765,8 @@
 - id: '1725970937211'
   alias: Ds02 - Tg msg
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.ds02_contact
     from: 'off'
     to: 'on'
@@ -3774,8 +3774,8 @@
       hours: 0
       minutes: 0
       seconds: 1
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - binary_sensor.ds02_contact
     from: 'on'
     to: 'off'
@@ -3783,8 +3783,9 @@
       hours: 0
       minutes: 0
       seconds: 1
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - action: timer.cancel
     target:
       entity_id: timer.ds02_lx
@@ -3805,7 +3806,7 @@
     - action: notify.gHA
       data:
         title: "\U0001F9F0 Ворота"
-        message: "открываются  \n"
+        message: "открываются\n⌚️ {{ states('sensor.time') }} \n"
         data:
           disable_notification: false
   - if:
@@ -3820,9 +3821,7 @@
     - action: notify.gHA
       data:
         title: "\U0001F9E4 Ворота"
-        message: 'закрыты
-
-          '
+        message: "закрыты\n⌚️ {{ states('sensor.time') }} \n"
         data:
           disable_notification: true
   mode: single
@@ -4045,51 +4044,19 @@
     metadata: {}
     data: {}
   mode: single
-- id: '1728236675771'
-  alias: Ts0 PreSet
-  description: ''
-  triggers: []
-  conditions: []
-  actions:
-  - action: climate.set_preset_mode
-    metadata: {}
-    data:
-      preset_mode: none
-    target:
-      entity_id: climate.termostate_0
-  - action: climate.set_preset_mode
-    metadata: {}
-    data:
-      preset_mode: away
-    target:
-      entity_id: climate.termostate_0
-  - action: climate.set_preset_mode
-    metadata: {}
-    data:
-      preset_mode: away
-    target:
-      entity_id: climate.termostate_0
-  - action: climate.set_preset_mode
-    metadata: {}
-    data:
-      preset_mode: eco
-    target:
-      entity_id: climate.termostate_0
-  mode: single
 - id: '1728239189433'
   alias: Ts PreSet
   description: ''
   triggers:
-  - trigger: time
-    at: 05:30:30
-  - trigger: time
-    at: '19:30:30'
+  - trigger: state
+    entity_id:
+    - binary_sensor.tod_night_boiler
   conditions: []
   actions:
   - if:
-    - condition: time
-      after: '19:00:00'
-      before: 05:00:00
+    - condition: state
+      entity_id: binary_sensor.tod_night_boiler
+      state: 'on'
     then:
     - action: climate.set_preset_mode
       metadata: {}
@@ -4119,9 +4086,9 @@
         entity_id:
         - climate.termostate_0
   - if:
-    - condition: time
-      after: 05:00:00
-      before: '19:00:00'
+    - condition: state
+      entity_id: binary_sensor.tod_night_boiler
+      state: 'off'
     then:
     - action: climate.set_preset_mode
       metadata: {}
