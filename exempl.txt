@@ -1,4 +1,14 @@
 
+{{ as_timestamp(state_attr('sun.sun', 'next_dawn')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+{{ as_timestamp(state_attr('sun.sun', 'next_noon')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+{{ as_timestamp(state_attr('sun.sun', 'next_dusk')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+
+{{ as_timestamp(state_attr('sun.sun', 'next_rising')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+{{ as_timestamp(state_attr('sun.sun', 'next_setting')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+
+{{ states.sun.sun.attributes['next_rising']| as_timestamp | timestamp_custom('%H:%M') }}
+
+
 {{ state_attr('light.lampochka_3', 'rgb_color') }}
 {{ is_state_attr('light.lampochka_3', 'rgb_color', (255, 0, 255) ) }}
 
@@ -12,11 +22,26 @@
 {{ state_attr('light.lampochka_3', 'brightness') }}
 {{ is_state_attr('light.lampochka_3', 'brightness', (255) ) }}
 
-{{ as_timestamp(state_attr('sun.sun', 'next_dawn')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
-{{ as_timestamp(state_attr('sun.sun', 'next_noon')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
-{{ as_timestamp(state_attr('sun.sun', 'next_dusk')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+{{ states('sensor.time') }}
 
-{{ as_timestamp(state_attr('sun.sun', 'next_rising')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
-{{ as_timestamp(state_attr('sun.sun', 'next_setting')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
+{## Imitate available variables: ##}
+{% set my_test_json = {
+  "temperature": 25,
+  "unit": "°C"
+} %}
 
-{{ states.sun.sun.attributes['next_rising']| as_timestamp | timestamp_custom('%H:%M') }}
+The temperature is {{ my_test_json.temperature }} {{ my_test_json.unit }}.
+
+{% if is_state("sun.sun", "above_horizon") -%}
+  The sun rose {{ relative_time(states.sun.sun.last_changed) }} ago.
+{%- else -%}
+  The sun will rise at {{ as_timestamp(state_attr("sun.sun", "next_rising")) | timestamp_local }}.
+{%- endif %}
+
+For loop example getting entity values in the weather domain:
+
+{% for state in states.weather -%}
+  {%- if loop.first %}The {% elif loop.last %} and the {% else %}, the {% endif -%}
+  {{ state.name | lower }} is {{state.state_with_unit}}
+{%- endfor %}.
+

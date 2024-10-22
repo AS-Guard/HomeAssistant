@@ -660,11 +660,6 @@
                       "entity": "sensor.kotel_ulitsa_k",
                       "secondary_info": "last-changed",
                       "name": "Температура У"
-                    },
-                    {
-                      "entity": "sensor.kotel_otopleniia",
-                      "name": "Температура СО",
-                      "secondary_info": "last-changed"
                     }
                   ]
                 },
@@ -948,7 +943,12 @@
                       ]
                     }
                   ]
-                },
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
                 {
                   "type": "vertical-stack",
                   "cards": [
@@ -1036,85 +1036,90 @@
                   ]
                 },
                 {
-                  "type": "thermostat",
-                  "entity": "climate.termostate_0",
-                  "name": "TS0",
-                  "show_current_as_primary": false
-                },
-                {
-                  "type": "horizontal-stack",
+                  "type": "vertical-stack",
                   "cards": [
                     {
-                      "show_name": true,
-                      "show_icon": false,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "climate.set_preset_mode",
-                        "target": {
-                          "entity_id": "climate.termostate_0"
-                        },
-                        "data": {
-                          "preset_mode": "none"
-                        }
-                      },
+                      "type": "thermostat",
                       "entity": "climate.termostate_0",
-                      "name": "None",
-                      "show_state": false
+                      "name": "TS0",
+                      "show_current_as_primary": false
                     },
                     {
-                      "show_name": true,
-                      "show_icon": false,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "climate.set_preset_mode",
-                        "target": {
-                          "entity_id": "climate.termostate_0"
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_0"
+                            },
+                            "data": {
+                              "preset_mode": "none"
+                            }
+                          },
+                          "entity": "climate.termostate_0",
+                          "name": "None",
+                          "show_state": false
                         },
-                        "data": {
-                          "preset_mode": "comfort"
-                        }
-                      },
-                      "entity": "climate.termostate_0",
-                      "show_state": false,
-                      "name": "Comfort"
-                    },
-                    {
-                      "show_name": true,
-                      "show_icon": false,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "climate.set_preset_mode",
-                        "target": {
-                          "entity_id": "climate.termostate_0"
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_0"
+                            },
+                            "data": {
+                              "preset_mode": "comfort"
+                            }
+                          },
+                          "entity": "climate.termostate_0",
+                          "show_state": false,
+                          "name": "Comfort"
                         },
-                        "data": {
-                          "preset_mode": "away"
-                        }
-                      },
-                      "entity": "climate.termostate_0",
-                      "show_state": false,
-                      "name": "Away"
-                    },
-                    {
-                      "show_name": true,
-                      "show_icon": false,
-                      "type": "button",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "climate.set_preset_mode",
-                        "target": {
-                          "entity_id": "climate.termostate_0"
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_0"
+                            },
+                            "data": {
+                              "preset_mode": "away"
+                            }
+                          },
+                          "entity": "climate.termostate_0",
+                          "show_state": false,
+                          "name": "Away"
                         },
-                        "data": {
-                          "preset_mode": "eco"
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_preset_mode",
+                            "target": {
+                              "entity_id": "climate.termostate_0"
+                            },
+                            "data": {
+                              "preset_mode": "eco"
+                            }
+                          },
+                          "entity": "climate.termostate_0",
+                          "show_state": false,
+                          "name": "Eco"
                         }
-                      },
-                      "entity": "climate.termostate_0",
-                      "show_state": false,
-                      "name": "Eco"
+                      ]
                     }
                   ]
                 }
