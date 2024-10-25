@@ -628,7 +628,13 @@
                 }
               ]
             }
-          ]
+          ],
+          "type": "custom:masonry-layout",
+          "theme": "day_and_night",
+          "layout": {
+            "width": 190,
+            "max_cols": 10
+          }
         },
         {
           "title": "TSA",
@@ -4269,6 +4275,173 @@
               ]
             }
           ]
+        },
+        {
+          "title": "TS20",
+          "path": "ts20",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_temperature",
+                            "target": {
+                              "entity_id": "climate.termostat"
+                            },
+                            "data": {
+                              "temperature": 23.4
+                            }
+                          },
+                          "entity": "climate.thermostat",
+                          "name": "23.4",
+                          "show_state": false
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_temperature",
+                            "target": {
+                              "entity_id": "climate.termostat"
+                            },
+                            "data": {
+                              "temperature": 23.5
+                            }
+                          },
+                          "entity": "climate.thermostat",
+                          "name": "23.5",
+                          "show_state": false
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_temperature",
+                            "target": {
+                              "entity_id": "climate.termostat"
+                            },
+                            "data": {
+                              "temperature": 24
+                            }
+                          },
+                          "entity": "climate.thermostat",
+                          "name": "24.0",
+                          "show_state": false
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_temperature",
+                            "target": {
+                              "entity_id": "climate.termostat"
+                            },
+                            "data": {
+                              "temperature": 24.1
+                            }
+                          },
+                          "entity": "climate.thermostat",
+                          "name": "24.1",
+                          "show_state": false
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.sound",
+                            "target": {
+                              "entity_id": "climate.termostat"
+                            },
+                            "data": {
+                              "sound": true
+                            }
+                          },
+                          "entity": "climate.thermostat",
+                          "name": "Sound",
+                          "show_state": false,
+                          "hold_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.set_sound",
+                            "target": {
+                              "entity_id": "climate.termostat"
+                            },
+                            "data": {
+                              "sound": false
+                            }
+                          }
+                        },
+                        {
+                          "show_name": true,
+                          "show_icon": false,
+                          "type": "button",
+                          "tap_action": {
+                            "action": "perform-action",
+                            "perform_action": "climate.toggle",
+                            "target": {
+                              "entity_id": [
+                                "climate.termostat"
+                              ]
+                            }
+                          },
+                          "entity": "climate.thermostat",
+                          "name": "On/Off",
+                          "show_state": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "История",
+              "type": "history-graph",
+              "entities": [
+                "climate.termostat"
+              ],
+              "hours_to_show": 0.3,
+              "min_y_axis": 23.3
+            },
+            {
+              "type": "history-graph",
+              "entities": [
+                {
+                  "entity": "climate.termostat"
+                }
+              ],
+              "logarithmic_scale": false,
+              "min_y_axis": 23,
+              "max_y_axis": 25,
+              "hours_to_show": 9
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.termostat"
+            }
+          ],
+          "layout": {
+            "width": 590,
+            "max_cols": 50
+          }
         }
       ]
     }
