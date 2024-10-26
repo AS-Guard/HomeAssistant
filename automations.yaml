@@ -4514,50 +4514,58 @@
   mode: parallel
   max: 50
 - id: '1729837406953'
-  alias: TS20 - 23,5
+  alias: TS20 Set 23,5
   description: ''
   triggers:
-  - trigger: state
+  - trigger: numeric_state
     entity_id:
-    - climate.thermostat
-    attribute: current_temperature
-    to: 23,5
-    from: 23,4
-  conditions: []
-  actions:
-  - delay:
+    - climate.termostat
+    for:
       hours: 0
-      minutes: 5
+      minutes: 20
       seconds: 0
-      milliseconds: 0
+    above: 23.5
+    attribute: current_temperature
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: climate.termostat
+      attribute: temperature
+      state: 23,5
+  actions:
   - action: climate.set_temperature
     metadata: {}
     data:
-      temperature: 23.4
+      temperature: 23.5
     target:
       entity_id: climate.termostat
   mode: single
 - id: '1729842985819'
-  alias: TS20 - 24,0
+  alias: TS20 Set 24,0
   description: ''
   triggers:
-  - trigger: state
+  - trigger: numeric_state
     entity_id:
-    - climate.thermostat
-    attribute: current_temperature
-    to: 24,0
-    from: 23,9
-  conditions: []
-  actions:
-  - delay:
+    - climate.termostat
+    for:
       hours: 0
-      minutes: 5
+      minutes: 20
       seconds: 0
-      milliseconds: 0
+    attribute: current_temperature
+    below: 24
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: climate.termostat
+      attribute: temperature
+      state: '24'
+  actions:
   - action: climate.set_temperature
     metadata: {}
     data:
-      temperature: 24.1
+      temperature: 24
     target:
       entity_id: climate.termostat
   mode: single

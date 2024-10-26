@@ -4418,8 +4418,7 @@
               "entities": [
                 "climate.termostat"
               ],
-              "hours_to_show": 0.3,
-              "min_y_axis": 23.3
+              "hours_to_show": 0.4
             },
             {
               "type": "history-graph",
@@ -4432,6 +4431,24 @@
               "min_y_axis": 23,
               "max_y_axis": 25,
               "hours_to_show": 9
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "automation.ts20_240",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "automation.ts20_235",
+                  "secondary_info": "last-triggered"
+                }
+              ]
+            },
+            {
+              "type": "markdown",
+              "content": "- Текущая уставка: {{ state_attr('climate.termostat', 'temperature') }}\n- Текущая температура: {{ state_attr('climate.termostat', 'current_temperature') }}\n- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуры выше 23.6 в течении 10 мин и меняем уставку на 23.5\n\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуры ниже 23.9 в течении 10 мин и меняем уставку на 24.0\n",
+              "theme": "amoled"
             },
             {
               "type": "thermostat",
