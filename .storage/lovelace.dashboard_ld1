@@ -565,19 +565,16 @@
                   "show_name": true,
                   "show_icon": true,
                   "type": "button",
-                  "tap_action": {
+                  "entity": "sensor.kotel_kotel",
+                  "name": "Reset",
+                  "icon": "mdi:air-filter",
+                  "hold_action": {
                     "action": "perform-action",
                     "perform_action": "automation.trigger",
                     "target": {
                       "entity_id": "automation.boiler_reset"
-                    },
-                    "data": {
-                      "skip_condition": false
                     }
-                  },
-                  "entity": "sensor.kotel_kotel",
-                  "name": "Reset",
-                  "icon": "mdi:air-filter"
+                  }
                 }
               ]
             },
@@ -641,6 +638,66 @@
           "path": "tsa",
           "icon": "mdi:thermometer-auto",
           "cards": [
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": false,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "automation.trigger",
+                    "target": {
+                      "entity_id": [
+                        "automation.ts_preset_comfort"
+                      ]
+                    },
+                    "data": {
+                      "skip_condition": true
+                    }
+                  },
+                  "entity": "automation.ts_preset_comfort",
+                  "name": "Comfort"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": false,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "automation.trigger",
+                    "target": {
+                      "entity_id": [
+                        "automation.ts_preset_away"
+                      ]
+                    },
+                    "data": {
+                      "skip_condition": true
+                    }
+                  },
+                  "entity": "automation.ts_preset_comfort",
+                  "name": "Away"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": false,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "automation.trigger",
+                    "target": {
+                      "entity_id": "automation.ts2_preset"
+                    },
+                    "data": {
+                      "skip_condition": true
+                    }
+                  },
+                  "entity": "automation.ts_preset_comfort",
+                  "name": "PreSet"
+                }
+              ]
+            },
             {
               "type": "vertical-stack",
               "cards": [
@@ -4300,29 +4357,11 @@
                               "entity_id": "climate.termostat"
                             },
                             "data": {
-                              "temperature": 23.4
-                            }
-                          },
-                          "entity": "climate.thermostat",
-                          "name": "23.4",
-                          "show_state": false
-                        },
-                        {
-                          "show_name": true,
-                          "show_icon": false,
-                          "type": "button",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "climate.set_temperature",
-                            "target": {
-                              "entity_id": "climate.termostat"
-                            },
-                            "data": {
                               "temperature": 23.5
                             }
                           },
                           "entity": "climate.thermostat",
-                          "name": "23.5",
+                          "name": "23,5",
                           "show_state": false
                         },
                         {
@@ -4340,54 +4379,8 @@
                             }
                           },
                           "entity": "climate.thermostat",
-                          "name": "24.0",
+                          "name": "24,0",
                           "show_state": false
-                        },
-                        {
-                          "show_name": true,
-                          "show_icon": false,
-                          "type": "button",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "climate.set_temperature",
-                            "target": {
-                              "entity_id": "climate.termostat"
-                            },
-                            "data": {
-                              "temperature": 24.1
-                            }
-                          },
-                          "entity": "climate.thermostat",
-                          "name": "24.1",
-                          "show_state": false
-                        },
-                        {
-                          "show_name": true,
-                          "show_icon": false,
-                          "type": "button",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "climate.sound",
-                            "target": {
-                              "entity_id": "climate.termostat"
-                            },
-                            "data": {
-                              "sound": true
-                            }
-                          },
-                          "entity": "climate.thermostat",
-                          "name": "Sound",
-                          "show_state": false,
-                          "hold_action": {
-                            "action": "perform-action",
-                            "perform_action": "climate.set_sound",
-                            "target": {
-                              "entity_id": "climate.termostat"
-                            },
-                            "data": {
-                              "sound": false
-                            }
-                          }
                         },
                         {
                           "show_name": true,
@@ -4428,9 +4421,9 @@
                 }
               ],
               "logarithmic_scale": false,
+              "max_y_axis": 24.5,
               "min_y_axis": 23,
-              "max_y_axis": 25,
-              "hours_to_show": 9
+              "hours_to_show": 24
             },
             {
               "type": "entities",
@@ -4447,7 +4440,7 @@
             },
             {
               "type": "markdown",
-              "content": "- Текущая уставка: {{ state_attr('climate.termostat', 'temperature') }}\n- Текущая температура: {{ state_attr('climate.termostat', 'current_temperature') }}\n- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуры выше 23.6 в течении 10 мин и меняем уставку на 23.5\n\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуры ниже 23.9 в течении 10 мин и меняем уставку на 24.0\n",
+              "content": "- Текущая уставка: {{ state_attr('climate.termostat', 'temperature') }}\n- Текущая температура: {{ state_attr('climate.termostat', 'current_temperature') }}\n- Текущий статус: {{ state_attr('climate.termostat', 'supported_features') }}\n\n- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуры выше 23.5 в течении 20 мин и меняем уставку на 23.5\n\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуры ниже 24.0 в течении 20 мин и меняем уставку на 24.0\n",
               "theme": "amoled"
             },
             {

@@ -860,7 +860,7 @@
       entity_id:
       - automation.ts2_preset
     data:
-      skip_condition: true
+      skip_condition: false
   - action: automation.trigger
     target:
       entity_id:
@@ -1300,6 +1300,9 @@
           hours: 0
           minutes: 0
           seconds: 0
+      enabled: false
+    - condition: template
+      value_template: '{{ not is_state(''sensor.kotel_kotel'', ''✅'') }}'
     then:
     - data:
         title: Котёл
@@ -1311,6 +1314,9 @@
     - condition: state
       entity_id: sensor.kotel_kotel
       state: ✅
+      enabled: false
+    - condition: template
+      value_template: '{{ is_state(''sensor.kotel_kotel'', ''✅'') }}'
     then:
     - action: automation.trigger
       target:
@@ -2863,9 +2869,8 @@
 - id: '1725520813967'
   alias: Boiler Reset
   description: Котёл сброс питанием
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - number.klimat_otoplenie_max
     to: '99.9'
     for:
@@ -2873,8 +2878,9 @@
       minutes: 0
       seconds: 11
     enabled: true
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: not
       conditions:
@@ -2900,10 +2906,28 @@
         entity_id:
         - switch.xs8
       action: switch.turn_on
+    - wait_for_trigger:
+      - trigger: template
+        value_template: '{{ not is_state(''sensor.kotel_kotel'', ''✅'') and not is_state(''sensor.kotel_kotel'',
+          ''❌'') }}'
+      timeout:
+        hours: 0
+        minutes: 0
+        seconds: 30
+        milliseconds: 0
     - delay:
         hours: 0
         minutes: 0
-        seconds: 11
+        seconds: 1
+        milliseconds: 0
+    - wait_for_trigger:
+      - trigger: template
+        value_template: '{{ is_state(''sensor.kotel_kotel'', ''✅'') or is_state(''sensor.kotel_kotel'',
+          ''❌'') }}'
+      timeout:
+        hours: 0
+        minutes: 0
+        seconds: 30
         milliseconds: 0
     - metadata: {}
       data: {}
@@ -4063,70 +4087,35 @@
     - binary_sensor.tod_night_boiler
   conditions: []
   actions:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: true
+    target:
+      entity_id:
+      - automation.ts_preset_eco
   - if:
     - condition: state
       entity_id: binary_sensor.tod_night_boiler
       state: 'on'
     then:
-    - action: climate.set_preset_mode
+    - action: automation.trigger
       metadata: {}
       data:
-        preset_mode: comfort
+        skip_condition: true
       target:
-        entity_id:
-        - climate.termostate_1
-    - action: climate.set_preset_mode
-      metadata: {}
-      data:
-        preset_mode: comfort
-      target:
-        entity_id: climate.termostate_2
-    - action: climate.set_preset_mode
-      metadata: {}
-      data:
-        preset_mode: comfort
-      target:
-        entity_id:
-        - climate.termostate_3
-    - action: climate.set_preset_mode
-      metadata: {}
-      data:
-        preset_mode: comfort
-      target:
-        entity_id:
-        - climate.termostate_0
+        entity_id: automation.ts_preset_comfort
   - if:
     - condition: state
       entity_id: binary_sensor.tod_night_boiler
       state: 'off'
     then:
-    - action: climate.set_preset_mode
+    - action: automation.trigger
       metadata: {}
       data:
-        preset_mode: away
+        skip_condition: true
       target:
-        entity_id:
-        - climate.termostate_1
-    - action: climate.set_preset_mode
-      metadata: {}
-      data:
-        preset_mode: away
-      target:
-        entity_id: climate.termostate_2
-    - action: climate.set_preset_mode
-      metadata: {}
-      data:
-        preset_mode: away
-      target:
-        entity_id:
-        - climate.termostate_3
-    - action: climate.set_preset_mode
-      metadata: {}
-      data:
-        preset_mode: away
-      target:
-        entity_id:
-        - climate.termostate_0
+        entity_id: automation.ts_preset_away
   mode: single
 - id: '1728392326854'
   alias: b1kr1 D
@@ -4560,7 +4549,7 @@
     - condition: state
       entity_id: climate.termostat
       attribute: temperature
-      state: '24'
+      state: 24,0
   actions:
   - action: climate.set_temperature
     metadata: {}
@@ -4568,4 +4557,106 @@
       temperature: 24
     target:
       entity_id: climate.termostat
+  mode: single
+- id: '1730191033831'
+  alias: Ts PreSet Comfort
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: comfort
+    target:
+      entity_id:
+      - climate.termostate_1
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: comfort
+    target:
+      entity_id: climate.termostate_2
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: comfort
+    target:
+      entity_id:
+      - climate.termostate_3
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: comfort
+    target:
+      entity_id:
+      - climate.termostate_0
+  mode: single
+- id: '1730191115957'
+  alias: Ts PreSet Away
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: away
+    target:
+      entity_id:
+      - climate.termostate_1
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: away
+    target:
+      entity_id: climate.termostate_2
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: away
+    target:
+      entity_id:
+      - climate.termostate_3
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: away
+    target:
+      entity_id:
+      - climate.termostate_0
+  mode: single
+- id: '1730264627892'
+  alias: Ts PreSet Eco
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: eco
+    target:
+      entity_id:
+      - climate.termostate_1
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: eco
+    target:
+      entity_id: climate.termostate_2
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: eco
+    target:
+      entity_id:
+      - climate.termostate_3
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: eco
+    target:
+      entity_id:
+      - climate.termostate_0
   mode: single
