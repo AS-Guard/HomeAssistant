@@ -7,6 +7,7 @@
 {{ as_timestamp(state_attr('sun.sun', 'next_setting')) | timestamp_custom('%Y-%m-%d %H:%M:%S %Z') }}
 
 {{ states.sun.sun.attributes['next_rising']| as_timestamp | timestamp_custom('%H:%M') }}
+{{ state_attr('automation.ts20_240', 'last_triggered' ) | as_timestamp | timestamp_custom('%H:%M') }}
 
 
 {{ state_attr('light.lampochka_3', 'rgb_color') }}

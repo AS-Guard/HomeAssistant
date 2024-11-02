@@ -1,0 +1,20 @@
+#   includes/input_numbers/inb_ts20.yaml
+#input_number:
+
+  in_ts20:
+    name: ts20
+    initial: 23.75 
+    min: 14
+    max: 28
+    step: 0.1
+    mode: box
+    unit_of_measurement: °C
+
+  in_ts20s:
+    name: ts20s
+    initial: 23.5 
+    min: 14
+    max: 28
+    step: 0.1
+    mode: box
+    unit_of_measurement: °C

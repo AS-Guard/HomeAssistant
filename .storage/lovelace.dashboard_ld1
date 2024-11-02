@@ -548,7 +548,8 @@
                   "show_name": true,
                   "show_icon": true,
                   "type": "button",
-                  "tap_action": {
+                  "name": "Test",
+                  "hold_action": {
                     "action": "perform-action",
                     "perform_action": "automation.trigger",
                     "target": {
@@ -558,8 +559,7 @@
                       "skip_condition": false
                     }
                   },
-                  "entity": "binary_sensor.st32",
-                  "name": "Test"
+                  "entity": "binary_sensor.st32"
                 },
                 {
                   "show_name": true,
@@ -705,24 +705,25 @@
                   "type": "entities",
                   "entities": [
                     {
+                      "entity": "sensor.kotel_ulitsa_k",
+                      "secondary_info": "last-changed",
+                      "name": "Температура У"
+                    },
+                    {
                       "entity": "sensor.klimat_seni1_t1",
                       "secondary_info": "last-changed",
-                      "icon": "mdi:thermometer"
+                      "icon": "mdi:thermometer",
+                      "name": "Температура Т1"
                     },
                     {
                       "entity": "sensor.tr01_temperature",
                       "secondary_info": "last-changed",
-                      "name": "Температура T1"
+                      "name": "Температура Tr1"
                     },
                     {
                       "entity": "sensor.tr2_temperature",
                       "secondary_info": "last-changed",
-                      "name": "Температура T2"
-                    },
-                    {
-                      "entity": "sensor.kotel_ulitsa_k",
-                      "secondary_info": "last-changed",
-                      "name": "Температура У"
+                      "name": "Температура Tr2"
                     }
                   ]
                 },
@@ -780,54 +781,6 @@
                       }
                     ]
                   }
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "sensor.kotel_gorelka",
-                      "name": "Горелка"
-                    },
-                    {
-                      "entity": "sensor.kotel_goriachaia_voda",
-                      "name": "ГВС"
-                    },
-                    {
-                      "entity": "sensor.kotel_otoplenie",
-                      "name": "СО"
-                    },
-                    {
-                      "entity": "switch.switch_tsa",
-                      "name": "TSA"
-                    },
-                    {
-                      "entity": "switch.heater_ts1"
-                    },
-                    {
-                      "entity": "switch.heater_ts2"
-                    },
-                    {
-                      "entity": "switch.heater_ts3"
-                    },
-                    {
-                      "entity": "binary_sensor.tod_night_boiler"
-                    }
-                  ],
-                  "hours_to_show": 2.2
-                },
-                {
-                  "chart_type": "line",
-                  "period": "5minute",
-                  "type": "statistics-graph",
-                  "entities": [
-                    "sensor.tr01_temperature",
-                    "sensor.tr2_temperature"
-                  ],
-                  "stat_types": [
-                    "max"
-                  ],
-                  "days_to_show": 0.05,
-                  "hide_legend": true
                 }
               ]
             },
@@ -841,7 +794,7 @@
                       "type": "thermostat",
                       "entity": "climate.termostate_1",
                       "show_current_as_primary": false,
-                      "name": "TS1"
+                      "name": "TS1 (Сени)"
                     },
                     {
                       "type": "horizontal-stack",
@@ -927,7 +880,7 @@
                     {
                       "type": "thermostat",
                       "entity": "climate.termostate_2",
-                      "name": "TS2"
+                      "name": "TS2 (Коридор)"
                     },
                     {
                       "type": "horizontal-stack",
@@ -1018,7 +971,7 @@
                     {
                       "type": "thermostat",
                       "entity": "climate.termostate_3",
-                      "name": "TS3"
+                      "name": "TS3 (Зал)"
                     },
                     {
                       "type": "horizontal-stack",
@@ -1104,7 +1057,7 @@
                     {
                       "type": "thermostat",
                       "entity": "climate.termostate_0",
-                      "name": "TS0",
+                      "name": "TS0 (Улица)",
                       "show_current_as_primary": false
                     },
                     {
@@ -1185,6 +1138,62 @@
                       ]
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.tr01_temperature",
+                    "sensor.tr2_temperature"
+                  ],
+                  "stat_types": [
+                    "max"
+                  ],
+                  "days_to_show": 0.05,
+                  "hide_legend": true
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.kotel_gorelka",
+                      "name": "Горелка"
+                    },
+                    {
+                      "entity": "sensor.kotel_goriachaia_voda",
+                      "name": "ГВС"
+                    },
+                    {
+                      "entity": "sensor.kotel_otoplenie",
+                      "name": "СО"
+                    },
+                    {
+                      "entity": "switch.switch_tsa",
+                      "name": "TSA"
+                    },
+                    {
+                      "entity": "switch.heater_ts1"
+                    },
+                    {
+                      "entity": "switch.heater_ts2"
+                    },
+                    {
+                      "entity": "switch.heater_ts3"
+                    },
+                    {
+                      "entity": "switch.heater_ts0"
+                    },
+                    {
+                      "entity": "binary_sensor.tod_night_boiler"
+                    }
+                  ],
+                  "hours_to_show": 2.2
                 }
               ]
             }
@@ -4409,15 +4418,25 @@
               "title": "История",
               "type": "history-graph",
               "entities": [
-                "climate.termostat"
+                {
+                  "entity": "climate.termostat"
+                },
+                {
+                  "entity": "input_number.ts20"
+                }
               ],
-              "hours_to_show": 0.4
+              "hours_to_show": 0.5,
+              "min_y_axis": 23.4,
+              "max_y_axis": 24.1
             },
             {
               "type": "history-graph",
               "entities": [
                 {
                   "entity": "climate.termostat"
+                },
+                {
+                  "entity": "input_number.ts20"
                 }
               ],
               "logarithmic_scale": false,
@@ -4429,18 +4448,40 @@
               "type": "entities",
               "entities": [
                 {
+                  "entity": "automation.n_hour",
+                  "secondary_info": "last-triggered"
+                },
+                {
                   "entity": "automation.ts20_240",
                   "secondary_info": "last-triggered"
                 },
                 {
                   "entity": "automation.ts20_235",
                   "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "automation.ts20_action",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "input_boolean.ts20",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "input_number.ts20",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "input_number.in_ts20"
+                },
+                {
+                  "entity": "input_number.in_ts20s"
                 }
               ]
             },
             {
               "type": "markdown",
-              "content": "- Текущая уставка: {{ state_attr('climate.termostat', 'temperature') }}\n- Текущая температура: {{ state_attr('climate.termostat', 'current_temperature') }}\n- Текущий статус: {{ state_attr('climate.termostat', 'supported_features') }}\n\n- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуры выше 23.5 в течении 20 мин и меняем уставку на 23.5\n\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуры ниже 24.0 в течении 20 мин и меняем уставку на 24.0\n",
+              "content": "- Текущая уставка: {{ state_attr('climate.termostat', 'temperature') }}\n- Текущая температура: {{ state_attr('climate.termostat', 'current_temperature') }}\n- Текущий статус: {{ state_attr('climate.termostat', 'supported_features') }}\n\n- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуру 23.5 или выше, в течении 20 мин и меняем уставку на 23.5\n\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуру 24.0 или ниже, в течении 20 мин и меняем уставку на 24.0\n",
               "theme": "amoled"
             },
             {

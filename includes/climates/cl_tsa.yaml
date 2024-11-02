@@ -9,7 +9,7 @@
     min_temp: 8 
     max_temp: 16 
     ac_mode: false 
-    target_temp: 11.1 
+    target_temp: 9.3 
     cold_tolerance: 0.1 
     hot_tolerance: 0.1 
     min_cycle_duration: 
@@ -18,12 +18,9 @@
       minutes: 1 
     initial_hvac_mode: "heat" 
     precision: 0.1 
-    comfort_temp: 11.1 
-    home_temp: 12.3 
-    sleep_temp: 14.7 
-    activity_temp: 11.1 
-    away_temp: 9 
-    eco_temp: 7 
+    comfort_temp: 10.1 
+    away_temp: 9.1 
+    eco_temp: 7.1 
 
 #climate:
   - platform: generic_thermostat
@@ -57,7 +54,7 @@
     heater: switch.heater_ts3
     target_sensor: sensor.temperature_ts3
     min_temp: 20 
-    max_temp: 27 
+    max_temp: 26 
     ac_mode: false 
     target_temp: 23.4 
     cold_tolerance: 0.1 
@@ -69,10 +66,10 @@
     initial_hvac_mode: "heat" 
     precision: 0.1 
     comfort_temp: 24.4 
-    home_temp: 23.4 
+    home_temp: 23.6 
     sleep_temp: 20.1 
     activity_temp: 18.1 
-    away_temp: 22.4 
+    away_temp: 23.4 
     eco_temp: 18.4 
 
 #climate:

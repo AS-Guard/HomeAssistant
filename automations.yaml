@@ -1680,17 +1680,25 @@
 - id: '1724328582716'
   alias: 8-min
   description: ''
-  trigger:
-  - platform: time_pattern
-    minutes: '8'
-  condition: []
-  action:
+  triggers:
+  - minutes: '8'
+    trigger: time_pattern
+  conditions: []
+  actions:
   - action: automation.trigger
     metadata: {}
     data:
       skip_condition: false
     target:
       entity_id: automation.lamptest
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.n_hour
+    enabled: false
   mode: single
 - id: '1724337718722'
   alias: Tr2 Err -Tg nsg
@@ -4515,13 +4523,7 @@
       seconds: 0
     above: 23.5
     attribute: current_temperature
-  conditions:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: climate.termostat
-      attribute: temperature
-      state: 23,5
+  conditions: []
   actions:
   - action: climate.set_temperature
     metadata: {}
@@ -4543,13 +4545,7 @@
       seconds: 0
     attribute: current_temperature
     below: 24
-  conditions:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: climate.termostat
-      attribute: temperature
-      state: 24,0
+  conditions: []
   actions:
   - action: climate.set_temperature
     metadata: {}
@@ -4659,4 +4655,170 @@
     target:
       entity_id:
       - climate.termostate_0
+  mode: single
+- id: '1730378630243'
+  alias: N-hour
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: '1'
+    seconds: '8'
+  - trigger: time_pattern
+    minutes: '31'
+    seconds: '8'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: climate.termostat
+        above: 23.7
+        attribute: temperature
+      sequence:
+      - action: automation.trigger
+        metadata: {}
+        data:
+          skip_condition: true
+        target:
+          entity_id:
+          - automation.ts20_235
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 30
+          milliseconds: 0
+        enabled: true
+      - action: automation.trigger
+        metadata: {}
+        data:
+          skip_condition: true
+        target:
+          entity_id: automation.ts20_240
+    - conditions:
+      - condition: numeric_state
+        entity_id: climate.termostat
+        attribute: temperature
+        below: 23.7
+      sequence:
+      - action: automation.trigger
+        metadata: {}
+        data:
+          skip_condition: true
+        target:
+          entity_id: automation.ts20_240
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 30
+          milliseconds: 0
+        enabled: true
+      - action: automation.trigger
+        metadata: {}
+        data:
+          skip_condition: true
+        target:
+          entity_id:
+          - automation.ts20_235
+  mode: single
+- id: '1730399343408'
+  alias: TS20 Action
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - climate.termostat
+    attribute: current_temperature
+    above: 23.9
+  - trigger: numeric_state
+    entity_id:
+    - climate.termostat
+    attribute: current_temperature
+    below: 23.6
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: climate.termostat
+        attribute: temperature
+        above: 23.75
+      sequence:
+      - if:
+        - condition: numeric_state
+          entity_id: climate.termostat
+          attribute: current_temperature
+          above: 24.4
+        then:
+        - action: input_number.set_value
+          metadata: {}
+          data:
+            value: 24.5
+          target:
+            entity_id: input_number.ts20
+          enabled: true
+        - action: input_boolean.turn_off
+          metadata: {}
+          data: {}
+          target:
+            entity_id: input_boolean.ts20
+      - if:
+        - condition: numeric_state
+          entity_id: climate.termostat
+          attribute: current_temperature
+          below: 23.6
+        then:
+        - action: input_number.set_value
+          metadata: {}
+          data:
+            value: 23.5
+          target:
+            entity_id: input_number.ts20
+          enabled: true
+        - action: input_boolean.turn_on
+          target:
+            entity_id:
+            - input_boolean.ts20
+          data: {}
+    - conditions:
+      - condition: numeric_state
+        entity_id: climate.termostat
+        attribute: temperature
+        below: 23.75
+      sequence:
+      - if:
+        - condition: numeric_state
+          entity_id: climate.termostat
+          attribute: current_temperature
+          above: 23.9
+        then:
+        - action: input_number.set_value
+          metadata: {}
+          data:
+            value: 24
+          target:
+            entity_id: input_number.ts20
+          enabled: true
+        - action: input_boolean.turn_off
+          metadata: {}
+          data: {}
+          target:
+            entity_id: input_boolean.ts20
+      - if:
+        - condition: numeric_state
+          entity_id: climate.termostat
+          attribute: current_temperature
+          below: 23.1
+        then:
+        - action: input_number.set_value
+          metadata: {}
+          data:
+            value: 23
+          target:
+            entity_id: input_number.ts20
+          enabled: true
+        - action: input_boolean.turn_on
+          target:
+            entity_id:
+            - input_boolean.ts20
+          data: {}
   mode: single
