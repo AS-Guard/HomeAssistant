@@ -8,7 +8,7 @@
     platform: telegram
     chat_id: 
       !secret telegram_D_chat_id
-    
+
   - name: gHA
     platform: telegram
     chat_id: 
@@ -18,6 +18,12 @@
     platform: telegram
     chat_id: 
       !secret telegram_MF_chat_id
+
+  - name: gEO
+    platform: telegram
+    chat_id: 
+      !secret telegram_EO_chat_id
+
 
   - name: gDA
     platform: telegram

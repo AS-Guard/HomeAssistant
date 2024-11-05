@@ -2995,35 +2995,6 @@
     target:
       entity_id: timer.sw4k3
   mode: single
-- id: '1725653225526'
-  alias: Ms3 - tim
-  description: ''
-  trigger:
-  - type: occupied
-    platform: device
-    device_id: 4f7476725d9dceb90bdbd305516fc45b
-    entity_id: 20d6ff06d73852819f8b8410a3278c1e
-    domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 1
-  condition: []
-  action:
-  - action: automation.trigger
-    metadata: {}
-    data:
-      skip_condition: false
-    target:
-      entity_id:
-      - automation.ms3_tim
-  - action: automation.trigger
-    metadata: {}
-    data:
-      skip_condition: false
-    target:
-      entity_id: automation.ms3_run
-  mode: single
 - id: '1725700702051'
   alias: Sw4k4 - tim
   description: Запуск таймера при включении выключателя
@@ -4821,4 +4792,193 @@
             entity_id:
             - input_boolean.ts20
           data: {}
+  - action: input_number.set_value
+    target:
+      entity_id: input_number.in_ts20
+    data:
+      value: ' {{ state_attr(''climate.termostat'', ''temperature'') + 0.1 | float
+        }} '
   mode: single
+- id: '1730521901534'
+  alias: TS20 Set Ust
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - climate.termostat
+    attribute: temperature
+    below: 5.1
+  conditions: []
+  actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - action: climate.set_temperature
+    target:
+      entity_id: climate.termostat
+    data:
+      temperature: ' {{ state_attr(''climate.termostat'', ''temperature'') + 2.0 |
+        float }} '
+  - wait_for_trigger:
+    - trigger: numeric_state
+      entity_id:
+      - climate.termostat
+      above: 14
+      attribute: temperature
+    timeout:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+    continue_on_timeout: true
+    enabled: true
+  - action: input_number.set_value
+    target:
+      entity_id: input_number.in_ts20s
+    data:
+      value: ' {{ state_attr(''climate.termostat'', ''temperature'') + 0.1 | float
+        }} '
+  mode: single
+- id: '1730528091922'
+  alias: Ms3 - tim
+  description: ''
+  triggers:
+  - type: occupied
+    device_id: 4f7476725d9dceb90bdbd305516fc45b
+    entity_id: 20d6ff06d73852819f8b8410a3278c1e
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    trigger: device
+  conditions: []
+  actions:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.ms3_tim
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.ms3_run
+  mode: single
+- id: '1730658534847'
+  alias: Ts20 tim
+  description: ''
+  triggers:
+  - entity_id:
+    - climate.termostat
+    for:
+      hours: 0
+      minutes: 16
+      seconds: 0
+    trigger: state
+    to: unavailable
+  - trigger: state
+    entity_id:
+    - timer.ts20
+    to: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  conditions:
+  - condition: or
+    conditions:
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: climate.termostat
+        state: heat_cool
+    - condition: numeric_state
+      entity_id: climate.termostat
+      attribute: current_temperature
+      below: 23.5
+  actions:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: true
+    target:
+      entity_id: automation.ts20_tg_msg
+  - action: timer.cancel
+    data: {}
+    enabled: true
+    target:
+      entity_id: timer.ts20
+  - action: timer.start
+    data: {}
+    enabled: true
+    target:
+      entity_id: timer.ts20
+  - action: notify.gEO
+    data:
+      message: ⚠️ {{ states('sensor.time') }}
+      data:
+        disable_notification: false
+    enabled: true
+  mode: single
+- id: '1730659588587'
+  alias: Ts20 - Tg msg
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.ts20
+    to: 'on'
+  - trigger: state
+    entity_id:
+    - input_boolean.ts20
+    to: 'off'
+  actions:
+  - action: notify.me
+    data:
+      title: "Термостат {% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('climate.termostat',
+        'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}\U0001F232
+        {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}"
+      message: "{{ state_attr('climate.termostat', 'current_temperature') }} \U0001F321
+        Текущая\n{{ state_attr('climate.termostat', 'temperature') }} \U0001F321 Уставки
+        \n⌚️ {{ states('sensor.time') }}\n"
+      data:
+        disable_notification: true
+    enabled: true
+  - action: notify.gEO
+    data:
+      title: "Термостат {% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('climate.termostat',
+        'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}\U0001F232
+        {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}"
+      message: "{{ state_attr('climate.termostat', 'current_temperature') }} \U0001F321
+        Текущая\n{{ state_attr('climate.termostat', 'temperature') }} \U0001F321 Уставки
+        \n⌚️ {{ states('sensor.time') }}\n"
+      data:
+        disable_notification: true
+    enabled: true
+- id: '1730796156096'
+  alias: tg temp_kotel_s
+  description: ''
+  triggers:
+  - event_type: telegram_command
+    event_data:
+      command: /temp_kotel_s
+    context: {}
+    trigger: event
+  - event_type: telegram_command
+    event_data:
+      command: /temp_kotel_s@asg_ha_bot
+    context: {}
+    trigger: event
+  actions:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: true
+    target:
+      entity_id: automation.ts20_tg_msg

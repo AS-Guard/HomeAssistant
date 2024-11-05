@@ -8,3 +8,7 @@
 # TSA
   tsa:
     duration: "00:02:00"
+
+# TS20
+  ts20:
+    duration: "00:30:00"

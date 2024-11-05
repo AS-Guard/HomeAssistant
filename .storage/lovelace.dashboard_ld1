@@ -4415,34 +4415,45 @@
               ]
             },
             {
-              "title": "История",
-              "type": "history-graph",
-              "entities": [
+              "type": "vertical-stack",
+              "cards": [
                 {
-                  "entity": "climate.termostat"
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "input_boolean.ts20"
+                    }
+                  ]
                 },
                 {
-                  "entity": "input_number.ts20"
-                }
-              ],
-              "hours_to_show": 0.5,
-              "min_y_axis": 23.4,
-              "max_y_axis": 24.1
-            },
-            {
-              "type": "history-graph",
-              "entities": [
-                {
-                  "entity": "climate.termostat"
+                  "title": "История",
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "climate.termostat"
+                    },
+                    {
+                      "entity": "input_number.ts20"
+                    }
+                  ],
+                  "hours_to_show": 0.5
                 },
                 {
-                  "entity": "input_number.ts20"
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "climate.termostat"
+                    },
+                    {
+                      "entity": "input_number.ts20"
+                    }
+                  ],
+                  "logarithmic_scale": false,
+                  "max_y_axis": 24.5,
+                  "min_y_axis": 23,
+                  "hours_to_show": 24
                 }
-              ],
-              "logarithmic_scale": false,
-              "max_y_axis": 24.5,
-              "min_y_axis": 23,
-              "hours_to_show": 24
+              ]
             },
             {
               "type": "entities",
@@ -4476,8 +4487,18 @@
                 },
                 {
                   "entity": "input_number.in_ts20s"
+                },
+                {
+                  "entity": "automation.ts20_set_ust"
+                },
+                {
+                  "entity": "automation.ts20_tg_msg"
+                },
+                {
+                  "entity": "automation.ts20_tim"
                 }
-              ]
+              ],
+              "state_color": true
             },
             {
               "type": "markdown",
@@ -4487,6 +4508,11 @@
             {
               "type": "thermostat",
               "entity": "climate.termostat"
+            },
+            {
+              "type": "markdown",
+              "content": "{{ states('climate.termostat') }}\n{{ is_state('climate.termostat', 'heat_cool') }}\n{{ is_state('climate.termostat', 'Off') }}\n{{ state_attr('climate.termostat', 'hvac_action') }}\n{{ state_attr('climate.termostat', 'hvac_modes') }}\n\n{{ state_attr('climate.termostat', 'temperature') }}\n{{ state_attr('climate.termostat', 'current_temperature') }}\n{{ states('input_number.in_ts20s'), '22' }}\n\n{{ states('climate.termostat') }}\n{{ not is_state('climate.termostat', 'heat_cool') }}\n{% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}❌ {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\n{% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('input_boolean.ts20', 'off') %}❌ {% elif not is_state('input_boolean.ts20', 'off') %}Ошибка {% endif %}\n\n{{ relative_time(state_attr('automation.ts20_tg_msg', 'last_triggered')) }}\n{{ state_attr('input_boolean.ts20', 'secondary_info, last-changed') }}\n{{ states('input_boolean.ts20') }}",
+              "theme": "amoled"
             }
           ],
           "layout": {
