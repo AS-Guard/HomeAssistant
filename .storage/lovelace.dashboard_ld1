@@ -260,10 +260,6 @@
               "aspect_ratio": "16:1"
             },
             {
-              "type": "markdown",
-              "content": "https://github.com/AS-Guard/HomeAssistant\nhttps://g.co/kgs/jLghHsS\n"
-            },
-            {
               "show_name": true,
               "show_icon": true,
               "type": "button",
@@ -4418,14 +4414,6 @@
               "type": "vertical-stack",
               "cards": [
                 {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "input_boolean.ts20"
-                    }
-                  ]
-                },
-                {
                   "title": "История",
                   "type": "history-graph",
                   "entities": [
@@ -4452,6 +4440,14 @@
                   "max_y_axis": 24.5,
                   "min_y_axis": 23,
                   "hours_to_show": 24
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "input_boolean.ts20"
+                    }
+                  ]
                 }
               ]
             },
@@ -4483,19 +4479,24 @@
                   "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "input_number.in_ts20"
+                  "entity": "input_number.in_ts20",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "input_number.in_ts20s"
+                  "entity": "input_number.in_ts20s",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "automation.ts20_set_ust"
+                  "entity": "automation.ts20_set_ust",
+                  "secondary_info": "last-triggered"
                 },
                 {
-                  "entity": "automation.ts20_tg_msg"
+                  "entity": "automation.ts20_tg_msg",
+                  "secondary_info": "last-triggered"
                 },
                 {
-                  "entity": "automation.ts20_tim"
+                  "entity": "automation.ts20_tim",
+                  "secondary_info": "last-triggered"
                 }
               ],
               "state_color": true
@@ -4511,7 +4512,7 @@
             },
             {
               "type": "markdown",
-              "content": "{{ states('climate.termostat') }}\n{{ is_state('climate.termostat', 'heat_cool') }}\n{{ is_state('climate.termostat', 'Off') }}\n{{ state_attr('climate.termostat', 'hvac_action') }}\n{{ state_attr('climate.termostat', 'hvac_modes') }}\n\n{{ state_attr('climate.termostat', 'temperature') }}\n{{ state_attr('climate.termostat', 'current_temperature') }}\n{{ states('input_number.in_ts20s'), '22' }}\n\n{{ states('climate.termostat') }}\n{{ not is_state('climate.termostat', 'heat_cool') }}\n{% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}❌ {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\n{% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('input_boolean.ts20', 'off') %}❌ {% elif not is_state('input_boolean.ts20', 'off') %}Ошибка {% endif %}\n\n{{ relative_time(state_attr('automation.ts20_tg_msg', 'last_triggered')) }}\n{{ state_attr('input_boolean.ts20', 'secondary_info, last-changed') }}\n{{ states('input_boolean.ts20') }}",
+              "content": "{{ now() }}\n{{ utcnow() }}\n{{ as_local(now()) }}\n\n{{ as_local( states.sensor.time.last_changed ) }}\n{{ as_local(states.input_boolean.ts20.last_changed) }}\n\nсейчас {{ states('sensor.time') }}\nвкл/выкл {{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M') }}\n\n---\n{{ now() - as_local( states.input_boolean.ts20.last_changed ) }}\n\n{{ ( states.sensor.time.last_changed -states.input_boolean.ts20.last_changed ) }}\n\n{{ ( as_timestamp(utcnow()) - as_timestamp(states.input_boolean.ts20.last_changed) )  | timestamp_custom('%H:%M') }}\n\n{{ (as_timestamp(states.sensor.time.last_changed) - as_timestamp(states.input_boolean.ts20.last_changed) ) | timestamp_custom('%-I:%M') }}\n\n---\n{{ (states.sensor.time.last_changed)  | as_timestamp | timestamp_custom('%H:%M') }}\n\n{{ states('climate.termostat') }}\n{{ is_state('climate.termostat', 'heat_cool') }}\n{{ is_state('climate.termostat', 'Off') }}\n{{ state_attr('climate.termostat', 'hvac_action') }}\n{{ state_attr('climate.termostat', 'hvac_modes') }}\n\n{{ state_attr('climate.termostat', 'temperature') }}\n{{ state_attr('climate.termostat', 'current_temperature') }}\n{{ states('input_number.in_ts20s') }}\n\n---\n{{ state_attr('climate.termostat', 'current_temperature') < 22.2 }}\n{{ states('climate.termostat') }}\n{{ is_state('climate.termostat', 'heat_cool') }}\n{{ not is_state('climate.termostat', 'heat_cool') }}\n\n{% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}❌ {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\n\n{% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('input_boolean.ts20', 'off') %}❌ {% elif not is_state('input_boolean.ts20', 'off') %}Ошибка {% endif %}\n\n{{ states('input_boolean.ts20') }}",
               "theme": "amoled"
             }
           ],

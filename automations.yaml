@@ -4874,6 +4874,13 @@
   alias: Ts20 tim
   description: ''
   triggers:
+  - trigger: template
+    value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+      < 22.2 }}'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
   - entity_id:
     - climate.termostat
     for:
@@ -4901,14 +4908,15 @@
     - condition: numeric_state
       entity_id: climate.termostat
       attribute: current_temperature
-      below: 23.5
+      below: 23.1
   actions:
   - action: automation.trigger
     metadata: {}
     data:
       skip_condition: true
     target:
-      entity_id: automation.ts20_tg_msg
+      entity_id:
+      - automation.ts20_tg_msg_g
   - action: timer.cancel
     data: {}
     enabled: true
@@ -4941,23 +4949,24 @@
   actions:
   - action: notify.me
     data:
-      title: "Термостат {% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('climate.termostat',
+      title: "{{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M')
+        }} {% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('climate.termostat',
         'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}\U0001F232
         {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}"
-      message: "{{ state_attr('climate.termostat', 'current_temperature') }} \U0001F321
-        Текущая\n{{ state_attr('climate.termostat', 'temperature') }} \U0001F321 Уставки
-        \n⌚️ {{ states('sensor.time') }}\n"
+      message: "{{ state_attr('climate.termostat', 'current_temperature') }} Тек\U0001F321\n{{
+        state_attr('climate.termostat', 'temperature') }} Уст\U0001F321\n ⌚️{{ states('sensor.time')
+        }}\n"
       data:
         disable_notification: true
-    enabled: true
+    enabled: false
   - action: notify.gEO
     data:
-      title: "Термостат {% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('climate.termostat',
+      title: "{{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M')
+        }} {% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('climate.termostat',
         'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}\U0001F232
         {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}"
-      message: "{{ state_attr('climate.termostat', 'current_temperature') }} \U0001F321
-        Текущая\n{{ state_attr('climate.termostat', 'temperature') }} \U0001F321 Уставки
-        \n⌚️ {{ states('sensor.time') }}\n"
+      message: "{{ state_attr('climate.termostat', 'current_temperature') }} Тек\U0001F321\n{{
+        state_attr('climate.termostat', 'temperature') }} Уст\U0001F321\n"
       data:
         disable_notification: true
     enabled: true
@@ -4981,4 +4990,22 @@
     data:
       skip_condition: true
     target:
-      entity_id: automation.ts20_tg_msg
+      entity_id:
+      - automation.ts20_tg_msg_g
+- id: '1730948003421'
+  alias: Ts20 - Tg msg G
+  description: ''
+  triggers: []
+  actions:
+  - action: notify.gEO
+    data:
+      title: "{{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M')
+        }} {% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('climate.termostat',
+        'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}\U0001F232
+        {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}"
+      message: "{{ state_attr('climate.termostat', 'current_temperature') }} Тек\U0001F321\n{{
+        state_attr('climate.termostat', 'temperature') }} Уст\U0001F321\n⌚️{{ states('sensor.time')
+        }}\n"
+      data:
+        disable_notification: true
+    enabled: true
