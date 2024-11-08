@@ -4482,48 +4482,44 @@
   mode: parallel
   max: 50
 - id: '1729837406953'
-  alias: TS20 Set 23,5
+  alias: TS20 Set Dn
   description: ''
   triggers:
-  - trigger: numeric_state
-    entity_id:
-    - climate.termostat
+  - trigger: template
+    value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+      > (states(''input_number.in_ts20s'') | float) + 0.0 }}'
     for:
       hours: 0
       minutes: 20
       seconds: 0
-    above: 23.5
-    attribute: current_temperature
+    enabled: true
   conditions: []
   actions:
-  - action: climate.set_temperature
-    metadata: {}
-    data:
-      temperature: 23.5
+  - action: input_number.set_value
     target:
-      entity_id: climate.termostat
+      entity_id: input_number.in_ts20
+    data:
+      value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
   mode: single
 - id: '1729842985819'
-  alias: TS20 Set 24,0
+  alias: TS20 Set Up
   description: ''
   triggers:
-  - trigger: numeric_state
-    entity_id:
-    - climate.termostat
+  - trigger: template
+    value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+      < (states(''input_number.in_ts20s'') | float) + 0.5 }}'
     for:
       hours: 0
       minutes: 20
       seconds: 0
-    attribute: current_temperature
-    below: 24
+    enabled: true
   conditions: []
   actions:
-  - action: climate.set_temperature
-    metadata: {}
-    data:
-      temperature: 24
+  - action: input_number.set_value
     target:
-      entity_id: climate.termostat
+      entity_id: input_number.in_ts20
+    data:
+      value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.5  }} '
   mode: single
 - id: '1730191033831'
   alias: Ts PreSet Comfort
@@ -4632,172 +4628,90 @@
   description: ''
   triggers:
   - trigger: time_pattern
-    minutes: '1'
-    seconds: '8'
+    minutes: '59'
+    seconds: '28'
   - trigger: time_pattern
-    minutes: '31'
-    seconds: '8'
+    minutes: '29'
+    seconds: '28'
   conditions: []
   actions:
   - choose:
     - conditions:
-      - condition: numeric_state
-        entity_id: climate.termostat
-        above: 23.7
-        attribute: temperature
+      - condition: template
+        value_template: '{{ state_attr(''climate.termostat'', ''temperature'') > (states(''input_number.in_ts20s'')
+          | float) + 0.25 }}'
       sequence:
-      - action: automation.trigger
-        metadata: {}
-        data:
-          skip_condition: true
+      - action: input_number.set_value
         target:
-          entity_id:
-          - automation.ts20_235
+          entity_id: input_number.in_ts20
+        data:
+          value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
       - delay:
           hours: 0
           minutes: 0
-          seconds: 30
+          seconds: 20
           milliseconds: 0
         enabled: true
-      - action: automation.trigger
-        metadata: {}
-        data:
-          skip_condition: true
+      - action: input_number.set_value
         target:
-          entity_id: automation.ts20_240
+          entity_id: input_number.in_ts20
+        data:
+          value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.5  }} '
     - conditions:
-      - condition: numeric_state
-        entity_id: climate.termostat
-        attribute: temperature
-        below: 23.7
+      - condition: template
+        value_template: '{{ state_attr(''climate.termostat'', ''temperature'') < (states(''input_number.in_ts20s'')
+          | float) + 0.25 }}'
       sequence:
-      - action: automation.trigger
-        metadata: {}
-        data:
-          skip_condition: true
+      - action: input_number.set_value
         target:
-          entity_id: automation.ts20_240
+          entity_id: input_number.in_ts20
+        data:
+          value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.5  }} '
       - delay:
           hours: 0
           minutes: 0
-          seconds: 30
+          seconds: 20
           milliseconds: 0
         enabled: true
-      - action: automation.trigger
-        metadata: {}
-        data:
-          skip_condition: true
+      - action: input_number.set_value
         target:
-          entity_id:
-          - automation.ts20_235
+          entity_id: input_number.in_ts20
+        data:
+          value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
   mode: single
 - id: '1730399343408'
   alias: TS20 Action
   description: ''
   triggers:
-  - trigger: numeric_state
-    entity_id:
-    - climate.termostat
-    attribute: current_temperature
-    above: 23.9
-  - trigger: numeric_state
-    entity_id:
-    - climate.termostat
-    attribute: current_temperature
-    below: 23.6
+  - trigger: template
+    value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+      > ( state_attr(''climate.termostat'', ''temperature'') + 0.4 ) }}'
+  - trigger: template
+    value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+      < ( state_attr(''climate.termostat'', ''temperature'') - 0.4 ) }}'
   conditions: []
   actions:
   - choose:
     - conditions:
-      - condition: numeric_state
-        entity_id: climate.termostat
-        attribute: temperature
-        above: 23.75
+      - condition: template
+        value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+          > ( state_attr(''climate.termostat'', ''temperature'') + 0.4 ) }}'
       sequence:
-      - if:
-        - condition: numeric_state
-          entity_id: climate.termostat
-          attribute: current_temperature
-          above: 24.4
-        then:
-        - action: input_number.set_value
-          metadata: {}
-          data:
-            value: 24.5
-          target:
-            entity_id: input_number.ts20
-          enabled: true
-        - action: input_boolean.turn_off
-          metadata: {}
-          data: {}
-          target:
-            entity_id: input_boolean.ts20
-      - if:
-        - condition: numeric_state
-          entity_id: climate.termostat
-          attribute: current_temperature
-          below: 23.6
-        then:
-        - action: input_number.set_value
-          metadata: {}
-          data:
-            value: 23.5
-          target:
-            entity_id: input_number.ts20
-          enabled: true
-        - action: input_boolean.turn_on
-          target:
-            entity_id:
-            - input_boolean.ts20
-          data: {}
+      - action: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.ts20
     - conditions:
-      - condition: numeric_state
-        entity_id: climate.termostat
-        attribute: temperature
-        below: 23.75
+      - condition: template
+        value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+          < ( state_attr(''climate.termostat'', ''temperature'') - 0.4 ) }}'
       sequence:
-      - if:
-        - condition: numeric_state
-          entity_id: climate.termostat
-          attribute: current_temperature
-          above: 23.9
-        then:
-        - action: input_number.set_value
-          metadata: {}
-          data:
-            value: 24
-          target:
-            entity_id: input_number.ts20
-          enabled: true
-        - action: input_boolean.turn_off
-          metadata: {}
-          data: {}
-          target:
-            entity_id: input_boolean.ts20
-      - if:
-        - condition: numeric_state
-          entity_id: climate.termostat
-          attribute: current_temperature
-          below: 23.1
-        then:
-        - action: input_number.set_value
-          metadata: {}
-          data:
-            value: 23
-          target:
-            entity_id: input_number.ts20
-          enabled: true
-        - action: input_boolean.turn_on
-          target:
-            entity_id:
-            - input_boolean.ts20
-          data: {}
-  - action: input_number.set_value
-    target:
-      entity_id: input_number.in_ts20
-    data:
-      value: ' {{ state_attr(''climate.termostat'', ''temperature'') + 0.1 | float
-        }} '
+      - action: input_boolean.turn_on
+        target:
+          entity_id:
+          - input_boolean.ts20
+        data: {}
   mode: single
 - id: '1730521901534'
   alias: TS20 Set Ust
@@ -4807,39 +4721,51 @@
     entity_id:
     - climate.termostat
     attribute: temperature
-    below: 5.1
+    below: 16
+  - trigger: template
+    value_template: '{{ is_state(''switch.termostat_child_lock'', ''on'') }}'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   conditions: []
   actions:
   - delay:
       hours: 0
       minutes: 0
-      seconds: 3
+      seconds: 5
       milliseconds: 0
-  - action: climate.set_temperature
-    target:
-      entity_id: climate.termostat
-    data:
-      temperature: ' {{ state_attr(''climate.termostat'', ''temperature'') + 2.0 |
-        float }} '
   - wait_for_trigger:
     - trigger: numeric_state
       entity_id:
       - climate.termostat
-      above: 14
+      above: 16
       attribute: temperature
     timeout:
       hours: 0
-      minutes: 0
+      minutes: 30
       seconds: 0
       milliseconds: 0
     continue_on_timeout: true
     enabled: true
-  - action: input_number.set_value
-    target:
-      entity_id: input_number.in_ts20s
-    data:
-      value: ' {{ state_attr(''climate.termostat'', ''temperature'') + 0.1 | float
-        }} '
+  - if:
+    - condition: numeric_state
+      entity_id: climate.termostat
+      above: 16
+      attribute: temperature
+    then:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.in_ts20s
+      data:
+        value: ' {{ state_attr(''climate.termostat'', ''temperature'') + 0.1 | float
+          }} '
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.in_ts20
+      data:
+        value: ' {{ state_attr(''climate.termostat'', ''temperature'') + 0.1 | float
+          }} '
   mode: single
 - id: '1730528091922'
   alias: Ms3 - tim
@@ -4871,7 +4797,7 @@
       entity_id: automation.ms3_run
   mode: single
 - id: '1730658534847'
-  alias: Ts20 tim
+  alias: Ts20 tim - Tg msg
   description: ''
   triggers:
   - trigger: template
@@ -4879,13 +4805,13 @@
       < 22.2 }}'
     for:
       hours: 0
-      minutes: 0
-      seconds: 30
+      minutes: 1
+      seconds: 0
   - entity_id:
     - climate.termostat
     for:
       hours: 0
-      minutes: 16
+      minutes: 8
       seconds: 0
     trigger: state
     to: unavailable
@@ -4908,7 +4834,7 @@
     - condition: numeric_state
       entity_id: climate.termostat
       attribute: current_temperature
-      below: 23.1
+      below: 22.2
   actions:
   - action: automation.trigger
     metadata: {}
@@ -4947,18 +4873,6 @@
     - input_boolean.ts20
     to: 'off'
   actions:
-  - action: notify.me
-    data:
-      title: "{{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M')
-        }} {% if is_state('input_boolean.ts20', 'on') %}✅ {% elif is_state('climate.termostat',
-        'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}\U0001F232
-        {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}"
-      message: "{{ state_attr('climate.termostat', 'current_temperature') }} Тек\U0001F321\n{{
-        state_attr('climate.termostat', 'temperature') }} Уст\U0001F321\n ⌚️{{ states('sensor.time')
-        }}\n"
-      data:
-        disable_notification: true
-    enabled: false
   - action: notify.gEO
     data:
       title: "{{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M')
@@ -5009,3 +4923,22 @@
       data:
         disable_notification: true
     enabled: true
+- id: '1731006782873'
+  alias: TS20 Set
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_number.in_ts20
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  conditions: []
+  actions:
+  - action: climate.set_temperature
+    target:
+      entity_id: climate.termostat
+    data:
+      temperature: ' {{ states(''input_number.in_ts20'') }} '
+  mode: single
