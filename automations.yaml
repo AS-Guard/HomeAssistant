@@ -4980,3 +4980,54 @@
       data:
         disable_notification: true
     enabled: true
+- id: '1731308180135'
+  alias: ms5 tim
+  description: ''
+  triggers:
+  - entity_id:
+    - timer.ms5
+    to: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.ms5_occupancy
+    state: 'on'
+  actions:
+  - action: timer.cancel
+    target:
+      entity_id: timer.ms5
+    data: {}
+  - action: timer.start
+    target:
+      entity_id: timer.ms5
+    data: {}
+  mode: single
+- id: '1731308209278'
+  alias: Ms5 - tim
+  description: ''
+  triggers:
+  - type: occupied
+    device_id: c72867a8d892d0394798dde1e698b8ca
+    entity_id: 6963ff857f57f1f57a2f32566d0d3103
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.ms5_tim
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.ms5_run
+  mode: single
