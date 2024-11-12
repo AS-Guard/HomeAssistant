@@ -1,0 +1,10 @@
+#   includes/timers/tim_ts20.yaml
+#Timers:
+
+# TS20
+  ts20:
+    duration: "00:30:00"
+
+# TS20
+  ts20f:
+    duration: "01:00:00"

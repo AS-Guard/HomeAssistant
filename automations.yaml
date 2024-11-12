@@ -3752,20 +3752,20 @@
 - id: '1725968744725'
   alias: ds02 tim
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - timer.ds02
     to: idle
     for:
       hours: 0
       minutes: 0
       seconds: 1
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: binary_sensor.ds02_contact
     state: 'on'
-  action:
+  actions:
   - action: timer.cancel
     target:
       entity_id: timer.ds02
@@ -3774,6 +3774,12 @@
     target:
       entity_id: timer.ds02
     data: {}
+  - action: timer.change
+    metadata: {}
+    data:
+      duration: '-6'
+    target:
+      entity_id: timer.ds02
   mode: single
 - id: '1725970937211'
   alias: Ds02 - Tg msg
@@ -4630,9 +4636,11 @@
   - trigger: time_pattern
     minutes: '59'
     seconds: '28'
+    enabled: true
   - trigger: time_pattern
     minutes: '29'
     seconds: '28'
+    enabled: true
   conditions: []
   actions:
   - choose:
@@ -4678,6 +4686,7 @@
           entity_id: input_number.in_ts20
         data:
           value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
+    enabled: true
   mode: single
 - id: '1730399343408'
   alias: TS20 Action
@@ -4685,12 +4694,20 @@
   triggers:
   - trigger: template
     value_template: '{{ ( state_attr(''climate.termostat'', ''current_temperature'')
-      < ( state_attr(''climate.termostat'', ''temperature'') - 0.4 ) ) and ( state_attr(''climate.termostat'',
-      ''temperature'') > (states(''input_number.in_ts20s'') | float) + 0.25 ) }}'
+      > ( state_attr(''climate.termostat'', ''temperature'') + 0.4 ) ) }}'
+  - trigger: template
+    value_template: '{{ ( state_attr(''climate.termostat'', ''current_temperature'')
+      < ( state_attr(''climate.termostat'', ''temperature'') - 0.4 ) ) }}'
   - trigger: template
     value_template: '{{ ( state_attr(''climate.termostat'', ''current_temperature'')
       > ( state_attr(''climate.termostat'', ''temperature'') + 0.4 ) ) and ( state_attr(''climate.termostat'',
       ''temperature'') < (states(''input_number.in_ts20s'') | float) + 0.25 ) }}'
+    enabled: false
+  - trigger: template
+    value_template: '{{ ( state_attr(''climate.termostat'', ''current_temperature'')
+      < ( state_attr(''climate.termostat'', ''temperature'') - 0.4 ) ) and ( state_attr(''climate.termostat'',
+      ''temperature'') > (states(''input_number.in_ts20s'') | float) + 0.25 ) }}'
+    enabled: false
   conditions: []
   actions:
   - choose:
@@ -4771,6 +4788,14 @@
   triggers:
   - trigger: template
     value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+      < (states(''input_number.in_ts20s'') | float) - 1.5 }}'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    enabled: true
+  - trigger: template
+    value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
       < 18.1 }}'
     for:
       hours: 0
@@ -4804,6 +4829,9 @@
       entity_id: climate.termostat
       attribute: current_temperature
       below: 18.1
+    - condition: template
+      value_template: '"{{ state_attr(''climate.termostat'', ''current_temperature'')
+        < (states(''input_number.in_ts20s'') | float) - 1.5 }}"'
   actions:
   - action: automation.trigger
     metadata: {}
@@ -5010,11 +5038,10 @@
   alias: Ms5 - tim
   description: ''
   triggers:
-  - type: occupied
-    device_id: c72867a8d892d0394798dde1e698b8ca
-    entity_id: 6963ff857f57f1f57a2f32566d0d3103
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.ms5_occupancy
+    to: 'on'
   conditions: []
   actions:
   - action: automation.trigger
@@ -5030,4 +5057,91 @@
       skip_condition: false
     target:
       entity_id: automation.ms5_run
+  mode: single
+- id: '1731353149117'
+  alias: Ms5 - Run
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.lw3_on_off
+    enabled: false
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id:
+      - automation.pris_tim
+  mode: single
+- id: '1731396932481'
+  alias: Ts20f tim
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - timer.ts20f
+    to: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  - trigger: template
+    value_template: '"{{ is_state(''input_boolean.ts20'', ''off'') }}"'
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+  - trigger: template
+    value_template: '"{{ is_state(''input_boolean.ts20'', ''off'') and as_timestamp(now())
+      > as_timestamp(states.input_boolean.ts20.last_changed) + 1*60*60 }}"'
+    enabled: false
+  conditions: []
+  actions:
+  - if:
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: input_boolean.ts20
+        state: 'on'
+    then:
+    - action: timer.cancel
+      data: {}
+      enabled: true
+      target:
+        entity_id:
+        - timer.ts20f
+    - action: timer.start
+      data: {}
+      enabled: true
+      target:
+        entity_id:
+        - timer.ts20f
+    - if:
+      - condition: template
+        value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+          < (states(''input_number.in_ts20s'') | float) + 0.4 }}'
+      then:
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.in_ts20
+        data:
+          value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.5  }} '
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 20
+          milliseconds: 0
+        enabled: true
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.in_ts20
+        data:
+          value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
   mode: single

@@ -2327,25 +2327,6 @@
                       "secondary_info": "last-changed"
                     },
                     {
-                      "entity": "sensor.ms5_illuminance",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.ms5_illuminance_interval",
-                      "name": "Illuminance interval"
-                    },
-                    {
-                      "entity": "number.ms5_illuminance_interval"
-                    },
-                    {
-                      "entity": "select.ms5_keep_time",
-                      "name": "Keep time"
-                    },
-                    {
-                      "entity": "select.ms5_sensitivity",
-                      "name": "Sensitivity"
-                    },
-                    {
                       "entity": "sensor.ms5_battery"
                     }
                   ],
@@ -2889,6 +2870,27 @@
                     }
                   ],
                   "hours_to_show": 1
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "automation.ds02_longopen_tg_msg",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "automation.ds02_tim_2",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "automation.ds02_tg_msg_3",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "automation.ds02_tim",
+                  "secondary_info": "last-triggered"
                 }
               ]
             }
@@ -3806,6 +3808,10 @@
                   "secondary_info": "last-changed"
                 },
                 {
+                  "entity": "sensor.ms5_battery",
+                  "secondary_info": "last-changed"
+                },
+                {
                   "entity": "sensor.ls1_battery",
                   "secondary_info": "last-changed"
                 },
@@ -4071,7 +4077,7 @@
                   "entity": "switch.heater_ts3"
                 },
                 {
-                  "entity": "sensor.tr01_temperature"
+                  "entity": "sensor.kotel_ulitsa_k"
                 },
                 {
                   "entity": "sensor.tr2_temperature"
@@ -4080,10 +4086,10 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
-                  "entity": "sensor.kotel_ulitsa_k"
+                  "entity": "sensor.klimat_seni1_t1"
                 },
                 {
-                  "entity": "sensor.klimat_seni1_t1"
+                  "entity": "sensor.tr01_temperature"
                 },
                 {
                   "entity": "sensor.klimat_seni2_t2"
@@ -4140,7 +4146,7 @@
                   "entity": "switch.heater_ts3"
                 },
                 {
-                  "entity": "sensor.tr01_temperature"
+                  "entity": "sensor.kotel_ulitsa_k"
                 },
                 {
                   "entity": "sensor.tr2_temperature"
@@ -4149,10 +4155,10 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
-                  "entity": "sensor.kotel_ulitsa_k"
+                  "entity": "sensor.klimat_seni1_t1"
                 },
                 {
-                  "entity": "sensor.klimat_seni1_t1"
+                  "entity": "sensor.tr01_temperature"
                 },
                 {
                   "entity": "sensor.klimat_seni2_t2"
@@ -4208,7 +4214,7 @@
                   "entity": "switch.heater_ts3"
                 },
                 {
-                  "entity": "sensor.tr01_temperature"
+                  "entity": "sensor.kotel_ulitsa_k"
                 },
                 {
                   "entity": "sensor.tr2_temperature"
@@ -4217,10 +4223,10 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
-                  "entity": "sensor.kotel_ulitsa_k"
+                  "entity": "sensor.klimat_seni1_t1"
                 },
                 {
-                  "entity": "sensor.klimat_seni1_t1"
+                  "entity": "sensor.tr01_temperature"
                 },
                 {
                   "entity": "sensor.klimat_seni2_t2"
@@ -4278,7 +4284,7 @@
                   "entity": "switch.heater_ts3"
                 },
                 {
-                  "entity": "sensor.tr01_temperature"
+                  "entity": "sensor.kotel_ulitsa_k"
                 },
                 {
                   "entity": "sensor.tr2_temperature"
@@ -4287,10 +4293,10 @@
                   "entity": "sensor.kotel_otopleniia"
                 },
                 {
-                  "entity": "sensor.kotel_ulitsa_k"
+                  "entity": "sensor.klimat_seni1_t1"
                 },
                 {
-                  "entity": "sensor.klimat_seni1_t1"
+                  "entity": "sensor.tr01_temperature"
                 },
                 {
                   "entity": "sensor.klimat_seni2_t2"
@@ -4493,9 +4499,12 @@
                     },
                     {
                       "entity": "input_number.in_ts20s"
+                    },
+                    {
+                      "entity": "input_boolean.ts20"
                     }
                   ],
-                  "hours_to_show": 0.5
+                  "hours_to_show": 1
                 },
                 {
                   "type": "history-graph",
@@ -4548,6 +4557,10 @@
                 {
                   "entity": "input_number.in_ts20",
                   "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "automation.ts20f_tim",
+                  "secondary_info": "last-triggered"
                 },
                 {
                   "entity": "automation.n_hour",
