@@ -148,17 +148,17 @@
 - id: Температура_на_бойлера_телеграм
   alias: tg temp_kotel_u
   description: ''
-  trigger:
-  - platform: event
-    event_type: telegram_command
+  triggers:
+  - event_type: telegram_command
     event_data:
-      command: /temp_kotel_u
+      command: /stat_u
     context: {}
-  action:
-  - service: notify.me
-    data:
+    trigger: event
+  actions:
+  - data:
       message: 'Температура улицы датчика котла -  {{ states(''sensor.kotel_ulitsa_k'')
         }} '
+    action: notify.me
 - id: Отопление_телеграм
   alias: Otoplenie - Tg msg
   description: ''
@@ -187,18 +187,18 @@
 - id: '1715770066650'
   alias: tg temp_kotel_h
   description: ''
-  trigger:
-  - platform: event
-    event_type: telegram_command
+  triggers:
+  - event_type: telegram_command
     event_data:
-      command: /temp_kotel_h
+      command: /stat_h
     context: {}
-  - platform: event
-    event_type: telegram_command
+    trigger: event
+  - event_type: telegram_command
     event_data:
-      command: /temp_kotel_h@asg_ha_bot
+      command: /stat_h@asg_ha_bot
     context: {}
-  action:
+    trigger: event
+  actions:
   - action: notify.gHA
     data:
       title: Запрос Tg
@@ -1051,14 +1051,14 @@
 - id: '1723451166787'
   alias: Tg kotel_restart
   description: ''
-  trigger:
-  - platform: event
-    event_type: telegram_command
+  triggers:
+  - event_type: telegram_command
     event_data:
-      command: /kotel_restart
+      command: /kotel_r
     context: {}
-  condition: []
-  action:
+    trigger: event
+  conditions: []
+  actions:
   - data:
       message: Сброс питания котла -  {{ states('sensor.kotel_otopleniia') }}
     action: notify.gHA
@@ -4693,28 +4693,21 @@
   description: ''
   triggers:
   - trigger: template
-    value_template: '{{ ( state_attr(''climate.termostat'', ''current_temperature'')
-      > ( state_attr(''climate.termostat'', ''temperature'') + 0.4 ) ) }}'
+    value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+      > ( state_attr(''climate.termostat'', ''temperature'') + state_attr(''climate.termostat'',
+      ''target_temp_step'') - 0.1 ) }}'
   - trigger: template
-    value_template: '{{ ( state_attr(''climate.termostat'', ''current_temperature'')
-      < ( state_attr(''climate.termostat'', ''temperature'') - 0.4 ) ) }}'
-  - trigger: template
-    value_template: '{{ ( state_attr(''climate.termostat'', ''current_temperature'')
-      > ( state_attr(''climate.termostat'', ''temperature'') + 0.4 ) ) and ( state_attr(''climate.termostat'',
-      ''temperature'') < (states(''input_number.in_ts20s'') | float) + 0.25 ) }}'
-    enabled: false
-  - trigger: template
-    value_template: '{{ ( state_attr(''climate.termostat'', ''current_temperature'')
-      < ( state_attr(''climate.termostat'', ''temperature'') - 0.4 ) ) and ( state_attr(''climate.termostat'',
-      ''temperature'') > (states(''input_number.in_ts20s'') | float) + 0.25 ) }}'
-    enabled: false
+    value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+      < ( state_attr(''climate.termostat'', ''temperature'') - state_attr(''climate.termostat'',
+      ''target_temp_step'') + 0.1 ) }}'
   conditions: []
   actions:
   - choose:
     - conditions:
       - condition: template
         value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
-          > ( state_attr(''climate.termostat'', ''temperature'') + 0.4 ) }}'
+          > ( state_attr(''climate.termostat'', ''temperature'') + state_attr(''climate.termostat'',
+          ''target_temp_step'') - 0.1 ) }}'
       - condition: state
         entity_id: input_boolean.ts20
         state: 'on'
@@ -4734,7 +4727,8 @@
     - conditions:
       - condition: template
         value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
-          < ( state_attr(''climate.termostat'', ''temperature'') - 0.4 ) }}'
+          < ( state_attr(''climate.termostat'', ''temperature'') - state_attr(''climate.termostat'',
+          ''target_temp_step'') + 0.1 ) }}'
       - condition: state
         entity_id: input_boolean.ts20
         state: 'off'
@@ -4885,17 +4879,17 @@
         disable_notification: true
     enabled: true
 - id: '1730796156096'
-  alias: tg temp_kotel_s
+  alias: tg stat_s
   description: ''
   triggers:
   - event_type: telegram_command
     event_data:
-      command: /temp_kotel_s
+      command: /stat_s
     context: {}
     trigger: event
   - event_type: telegram_command
     event_data:
-      command: /temp_kotel_s@asg_ha_bot
+      command: /stat_s@asg_ha_bot
     context: {}
     trigger: event
   actions:
@@ -4956,7 +4950,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 10
+      seconds: 5
   conditions: []
   actions:
   - if:
@@ -5086,62 +5080,93 @@
   triggers:
   - trigger: state
     entity_id:
+    - input_boolean.ts20
+    to: 'off'
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+  - trigger: state
+    entity_id:
     - timer.ts20f
     to: idle
     for:
       hours: 0
       minutes: 0
       seconds: 3
-  - trigger: template
-    value_template: '"{{ is_state(''input_boolean.ts20'', ''off'') }}"'
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_boolean.ts20
+      state: 'on'
+  actions:
+  - action: timer.cancel
+    data: {}
+    enabled: true
+    target:
+      entity_id:
+      - timer.ts20f
+  - action: timer.start
+    data: {}
+    enabled: true
+    target:
+      entity_id:
+      - timer.ts20f
+  - if:
+    - condition: template
+      value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
+        < (states(''input_number.in_ts20s'') | float) + state_attr(''climate.termostat'',
+        ''target_temp_step'') - 0.1 }}'
+    then:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.in_ts20
+      data:
+        value: ' {{ (states(''input_number.in_ts20s'') | float) + state_attr(''climate.termostat'',
+          ''target_temp_step'') }} '
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 30
+        milliseconds: 0
+      enabled: true
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.in_ts20
+      data:
+        value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
+  mode: single
+- id: '1731469484007'
+  alias: Ts20 az
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.ts20
+    from: 'on'
+    to: 'off'
     for:
-      hours: 1
+      hours: 3
       minutes: 0
       seconds: 0
-  - trigger: template
-    value_template: '"{{ is_state(''input_boolean.ts20'', ''off'') and as_timestamp(now())
-      > as_timestamp(states.input_boolean.ts20.last_changed) + 1*60*60 }}"'
-    enabled: false
   conditions: []
   actions:
-  - if:
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: input_boolean.ts20
-        state: 'on'
-    then:
-    - action: timer.cancel
-      data: {}
-      enabled: true
-      target:
-        entity_id:
-        - timer.ts20f
-    - action: timer.start
-      data: {}
-      enabled: true
-      target:
-        entity_id:
-        - timer.ts20f
-    - if:
-      - condition: template
-        value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
-          < (states(''input_number.in_ts20s'') | float) + 0.4 }}'
-      then:
-      - action: input_number.set_value
-        target:
-          entity_id: input_number.in_ts20
-        data:
-          value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.5  }} '
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 20
-          milliseconds: 0
-        enabled: true
-      - action: input_number.set_value
-        target:
-          entity_id: input_number.in_ts20
-        data:
-          value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
+  - action: input_number.set_value
+    target:
+      entity_id: input_number.in_ts20
+    data:
+      value: ' {{ state_attr(''climate.termostat'', ''current_temperature'') + state_attr(''climate.termostat'',
+        ''target_temp_step'')*2  }} '
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 5
+      milliseconds: 0
+    enabled: true
+  - action: input_number.set_value
+    target:
+      entity_id: input_number.in_ts20
+    data:
+      value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
   mode: single

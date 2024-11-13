@@ -4037,6 +4037,11 @@
               "url": "https://www.youtube.com/playlist?list=PL4y1yofoNjT737C4hXti0SD-V6pBjqOmO",
               "aspect_ratio": "50%",
               "title": "https://www.youtube.com/playlist?list=PL4y1yofoNjT737C4hXti0SD-V6pBjqOmO"
+            },
+            {
+              "type": "markdown",
+              "content": "stat_s - Солнечная 20\nstat_h - Датчики 54 1\nkotel_r - Сброс котла 54",
+              "theme": "amoled"
             }
           ],
           "title": "Пол",
@@ -4520,10 +4525,10 @@
                     }
                   ],
                   "logarithmic_scale": false,
-                  "max_y_axis": 24,
+                  "max_y_axis": 23.5,
                   "hours_to_show": 24,
                   "fit_y_data": false,
-                  "min_y_axis": 18
+                  "min_y_axis": 20.5
                 },
                 {
                   "type": "history-graph",
@@ -4559,7 +4564,14 @@
                   "secondary_info": "last-changed"
                 },
                 {
+                  "entity": "timer.ts20f"
+                },
+                {
                   "entity": "automation.ts20f_tim",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "automation.ts20_az",
                   "secondary_info": "last-triggered"
                 },
                 {
@@ -4613,12 +4625,8 @@
             },
             {
               "type": "markdown",
-              "content": "Состояние {% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nРежим {{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M') }}({{ (as_timestamp(now()) -18000 - as_timestamp(states.input_boolean.ts20.last_changed)) | timestamp_custom('%H:%M') }}){% if is_state('input_boolean.ts20', 'on') %}🔥 {% elif is_state('climate.termostat', 'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nПредыдущий {{ states('input_datetime.tsa_time') }}\nТекущая температура: {{ state_attr('climate.termostat', 'current_temperature') }}\nТекущая уставка: {{ state_attr('climate.termostat', 'temperature') }} ({{ states('input_number.in_ts20s') }})\n\n- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуру 23.5 или выше, в течении 20 мин и меняем уставку на 23.5\n\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуру 24.0 или ниже, в течении 20 мин и меняем уставку на 24.0",
+              "content": "Состояние {% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nРежим {{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M') }}({{ (as_timestamp(now()) -18000 - as_timestamp(states.input_boolean.ts20.last_changed)) | timestamp_custom('%H:%M') }}){% if is_state('input_boolean.ts20', 'on') %}🔥 {% elif is_state('climate.termostat', 'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nПредыдущий {{ states('input_datetime.tsa_time') }}\nТекущая температура: {{ state_attr('climate.termostat', 'current_temperature') }}\nТекущая уставка: {{ state_attr('climate.termostat', 'temperature') }} ({{ states('input_number.in_ts20s') }})\nГистерезис: ±{{ state_attr('climate.termostat', 'target_temp_step') }}\n\n- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуру 23.5 или выше, в течении 20 мин и меняем уставку на 23.5\n\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуру 24.0 или ниже, в течении 20 мин и меняем уставку на 24.0",
               "theme": "amoled"
-            },
-            {
-              "type": "thermostat",
-              "entity": "climate.termostat"
             }
           ],
           "layout": {
