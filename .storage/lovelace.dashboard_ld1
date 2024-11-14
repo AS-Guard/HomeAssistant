@@ -4422,65 +4422,6 @@
           "path": "ts20",
           "cards": [
             {
-              "type": "markdown",
-              "content": "Состояние:   {% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nРежим:   {{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M') }} ({{ (as_timestamp(now()) -18000 - as_timestamp(states.input_boolean.ts20.last_changed)) | timestamp_custom('%H:%M') }}) {% if is_state('input_boolean.ts20', 'on') %}🔥 {% elif is_state('climate.termostat', 'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nПредыдущий:   {{ states('input_datetime.ts20_time') }} {% if\n    is_state('input_boolean.ts20', 'on') %}📉{% elif\n    is_state('input_boolean.ts20', 'off') %}📈{% endif %}\nТекущая температура:   {{ state_attr('climate.termostat', 'current_temperature') }}\nТекущая уставка:   {{ state_attr('climate.termostat', 'temperature') }} {{ ( state_attr('climate.termostat', 'temperature') == (states('input_number.in_ts20s')|float) ) | iif('', '('+ states('input_number.in_ts20s')+')' ) }}\nГистерезис:   ±{{ states('input_number.in_ts20g') }}\n",
-              "theme": "amoled"
-            },
-            {
-              "type": "markdown",
-              "content": "{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }}\n\n{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + 0.6 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + 0.6 }}",
-              "theme": "amoled"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "input_boolean.ts20",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "automation.ts20_action",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "automation.ts20_set",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "input_number.in_ts20",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "timer.ts20f"
-                },
-                {
-                  "entity": "automation.ts20f_tim",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "automation.ts20_az",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "input_number.in_ts20g",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "input_number.in_ts20s",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "automation.ts20_set_ust_2",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "switch.termostat_child_lock",
-                  "secondary_info": "last-changed"
-                }
-              ],
-              "state_color": true
-            },
-            {
               "type": "vertical-stack",
               "cards": [
                 {
@@ -4538,6 +4479,55 @@
               ]
             },
             {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "input_boolean.ts20",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "automation.ts20_action",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "automation.ts20_set",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "input_number.in_ts20",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "timer.ts20f"
+                },
+                {
+                  "entity": "automation.ts20f_tim",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "automation.ts20_az",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "input_number.in_ts20g",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "input_number.in_ts20s",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "automation.ts20_set_ust_2",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "switch.termostat_child_lock",
+                  "secondary_info": "last-changed"
+                }
+              ],
+              "state_color": true
+            },
+            {
               "type": "vertical-stack",
               "cards": [
                 {
@@ -4563,6 +4553,16 @@
                   "state_color": true
                 }
               ]
+            },
+            {
+              "type": "markdown",
+              "content": "Состояние:   {% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nРежим:   {{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M') }} ({{ (as_timestamp(now()) -18000 - as_timestamp(states.input_boolean.ts20.last_changed)) | timestamp_custom('%H:%M') }}) {% if is_state('input_boolean.ts20', 'on') %}🔥 {% elif is_state('climate.termostat', 'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nПредыдущий:   {{ states('input_datetime.ts20_time') }} {% if\n    is_state('input_boolean.ts20', 'on') %}📉{% elif\n    is_state('input_boolean.ts20', 'off') %}📈{% endif %}\nТекущая температура:   {{ state_attr('climate.termostat', 'current_temperature') }}\nТекущая уставка:   {{ state_attr('climate.termostat', 'temperature') }} {{ ( state_attr('climate.termostat', 'temperature') == (states('input_number.in_ts20s')|float) ) | iif('', '('+ states('input_number.in_ts20s')+')' ) }}\nГистерезис:   ±{{ states('input_number.in_ts20g') }}\n",
+              "theme": "amoled"
+            },
+            {
+              "type": "markdown",
+              "content": "{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }}\n\n{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + 0.6 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + 0.6 }}",
+              "theme": "amoled"
             },
             {
               "type": "markdown",

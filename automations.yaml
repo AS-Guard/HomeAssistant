@@ -5101,7 +5101,7 @@
       | float) - 0.2 }}'
     for:
       hours: 0
-      minutes: 30
+      minutes: 25
       seconds: 0
   - trigger: state
     entity_id:
