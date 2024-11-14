@@ -4422,133 +4422,20 @@
           "path": "ts20",
           "cards": [
             {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "vertical-stack",
-                  "cards": [
-                    {
-                      "type": "horizontal-stack",
-                      "cards": [
-                        {
-                          "show_name": true,
-                          "show_icon": false,
-                          "type": "button",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "climate.set_temperature",
-                            "target": {
-                              "entity_id": "climate.termostat"
-                            },
-                            "data": {
-                              "temperature": 23.5
-                            }
-                          },
-                          "entity": "climate.thermostat",
-                          "name": "23,5",
-                          "show_state": false
-                        },
-                        {
-                          "show_name": true,
-                          "show_icon": false,
-                          "type": "button",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "climate.set_temperature",
-                            "target": {
-                              "entity_id": "climate.termostat"
-                            },
-                            "data": {
-                              "temperature": 24
-                            }
-                          },
-                          "entity": "climate.thermostat",
-                          "name": "24,0",
-                          "show_state": false
-                        },
-                        {
-                          "show_name": true,
-                          "show_icon": false,
-                          "type": "button",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "climate.toggle",
-                            "target": {
-                              "entity_id": [
-                                "climate.termostat"
-                              ]
-                            }
-                          },
-                          "entity": "climate.thermostat",
-                          "name": "On/Off",
-                          "show_state": false
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
+              "type": "markdown",
+              "content": "Состояние:   {% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nРежим:   {{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M') }} ({{ (as_timestamp(now()) -18000 - as_timestamp(states.input_boolean.ts20.last_changed)) | timestamp_custom('%H:%M') }}) {% if is_state('input_boolean.ts20', 'on') %}🔥 {% elif is_state('climate.termostat', 'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nПредыдущий:   {{ states('input_datetime.ts20_time') }} {% if\n    is_state('input_boolean.ts20', 'on') %}📉{% elif\n    is_state('input_boolean.ts20', 'off') %}📈{% endif %}\nТекущая температура:   {{ state_attr('climate.termostat', 'current_temperature') }}\nТекущая уставка:   {{ state_attr('climate.termostat', 'temperature') }} {{ ( state_attr('climate.termostat', 'temperature') == (states('input_number.in_ts20s')|float) ) | iif('', '('+ states('input_number.in_ts20s')+')' ) }}\nГистерезис:   ±{{ states('input_number.in_ts20g') }}\n",
+              "theme": "amoled"
             },
             {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "title": "История",
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "climate.termostat"
-                    },
-                    {
-                      "entity": "input_number.in_ts20"
-                    },
-                    {
-                      "entity": "input_number.in_ts20s"
-                    },
-                    {
-                      "entity": "input_boolean.ts20"
-                    }
-                  ],
-                  "hours_to_show": 1
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "climate.termostat"
-                    },
-                    {
-                      "entity": "input_number.in_ts20"
-                    },
-                    {
-                      "entity": "input_number.in_ts20s"
-                    }
-                  ],
-                  "logarithmic_scale": false,
-                  "max_y_axis": 23.5,
-                  "hours_to_show": 24,
-                  "fit_y_data": false,
-                  "min_y_axis": 20.5
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "input_boolean.ts20"
-                    }
-                  ]
-                }
-              ]
+              "type": "markdown",
+              "content": "{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }}\n\n{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + 0.6 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + 0.6 }}",
+              "theme": "amoled"
             },
             {
               "type": "entities",
               "entities": [
                 {
                   "entity": "input_boolean.ts20",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "input_datetime.tsa_time",
                   "secondary_info": "last-changed"
                 },
                 {
@@ -4575,16 +4462,8 @@
                   "secondary_info": "last-triggered"
                 },
                 {
-                  "entity": "automation.n_hour",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "automation.ts20_240",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "automation.ts20_235",
-                  "secondary_info": "last-triggered"
+                  "entity": "input_number.in_ts20g",
+                  "secondary_info": "last-changed"
                 },
                 {
                   "entity": "input_number.in_ts20s",
@@ -4602,30 +4481,92 @@
               "state_color": true
             },
             {
-              "type": "entities",
-              "entities": [
+              "type": "vertical-stack",
+              "cards": [
                 {
-                  "entity": "automation.ts20_tg_msg",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "automation.ts20_tg_msg_s",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "automation.ts20_tg_msg_g",
-                  "secondary_info": "last-triggered"
-                },
-                {
-                  "entity": "automation.ts20_tim",
-                  "secondary_info": "last-triggered"
+                  "title": "История",
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "climate.termostat"
+                    },
+                    {
+                      "entity": "input_number.in_ts20"
+                    },
+                    {
+                      "entity": "input_number.in_ts20s"
+                    },
+                    {
+                      "entity": "input_boolean.ts20"
+                    }
+                  ],
+                  "max_y_axis": 23,
+                  "hours_to_show": 2.1
                 }
-              ],
-              "state_color": true
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "climate.termostat"
+                    },
+                    {
+                      "entity": "input_number.in_ts20"
+                    },
+                    {
+                      "entity": "input_number.in_ts20s"
+                    }
+                  ],
+                  "logarithmic_scale": false,
+                  "hours_to_show": 24,
+                  "fit_y_data": false,
+                  "max_y_axis": 23.25,
+                  "min_y_axis": 21.75
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "input_boolean.ts20"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "automation.ts20_tg_msg",
+                      "secondary_info": "last-triggered"
+                    },
+                    {
+                      "entity": "automation.ts20_tg_msg_s",
+                      "secondary_info": "last-triggered"
+                    },
+                    {
+                      "entity": "automation.ts20_tg_msg_g",
+                      "secondary_info": "last-triggered"
+                    },
+                    {
+                      "entity": "automation.ts20_tim",
+                      "secondary_info": "last-triggered"
+                    }
+                  ],
+                  "state_color": true
+                }
+              ]
             },
             {
               "type": "markdown",
-              "content": "Состояние {% if is_state('climate.termostat', 'heat_cool') %}✅ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nРежим {{ states.input_boolean.ts20.last_changed| as_timestamp | timestamp_custom('%H:%M') }}({{ (as_timestamp(now()) -18000 - as_timestamp(states.input_boolean.ts20.last_changed)) | timestamp_custom('%H:%M') }}){% if is_state('input_boolean.ts20', 'on') %}🔥 {% elif is_state('climate.termostat', 'heat_cool') %}❄️ {% elif is_state('climate.termostat', 'off') %}🈲 {% elif not is_state('climate.termostat', 'off') %}Ошибка {% endif %}\nПредыдущий {{ states('input_datetime.tsa_time') }}\nТекущая температура: {{ state_attr('climate.termostat', 'current_temperature') }}\nТекущая уставка: {{ state_attr('climate.termostat', 'temperature') }} ({{ states('input_number.in_ts20s') }})\nГистерезис: ±{{ state_attr('climate.termostat', 'target_temp_step') }}\n\n- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуру 23.5 или выше, в течении 20 мин и меняем уставку на 23.5\n\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуру 24.0 или ниже, в течении 20 мин и меняем уставку на 24.0",
+              "content": "- После включения на температуре 23.5 (уставка 24.0)\n- Ждём температуру 23.5 или выше, в течении 20 мин и меняем уставку на 23.5\n- После выключении на температуре 24.0 (уставка 23.5)\n- Ждём температуру 24.0 или ниже, в течении 20 мин и меняем уставку на 24.0",
               "theme": "amoled"
             }
           ],

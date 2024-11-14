@@ -1,0 +1,8 @@
+#   includes/input_booleans/ib_ts20.yaml
+#input_boolean:
+  ib_ts20dn:
+    initial: off
+
+  ib_ts2up:
+    initial: off
+

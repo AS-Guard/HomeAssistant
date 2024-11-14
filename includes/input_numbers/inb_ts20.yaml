@@ -3,7 +3,7 @@
 
   in_ts20:
     name: ts20
-    initial: 23.1 
+    initial: 22.1 
     min: 5 
     max: 28 
     step: 0.1 
@@ -12,9 +12,18 @@
 
   in_ts20s:
     name: ts20s
-    initial: 23.1 
+    initial: 22.0 
     min: 5 
     max: 28 
     step: 0.1 
+    mode: box
+    unit_of_measurement: °C
+
+  in_ts20g:
+    name: ts20g
+    initial: 1.0 
+    min: 0.5 
+    max: 5.5 
+    step: 0.5 
     mode: box
     unit_of_measurement: °C
