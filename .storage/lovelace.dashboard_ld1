@@ -4439,16 +4439,30 @@
                     },
                     {
                       "entity": "input_boolean.ts20"
+                    },
+                    {
+                      "entity": "input_datetime.ts20_time"
                     }
                   ],
-                  "max_y_axis": 23,
-                  "hours_to_show": 2.1
+                  "hours_to_show": 2.1,
+                  "max_y_axis": 23.4
                 }
               ]
             },
             {
               "type": "vertical-stack",
               "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "input_boolean.ts20"
+                    },
+                    {
+                      "entity": "input_datetime.ts20_time"
+                    }
+                  ]
+                },
                 {
                   "type": "history-graph",
                   "entities": [
@@ -4466,15 +4480,7 @@
                   "hours_to_show": 24,
                   "fit_y_data": false,
                   "max_y_axis": 23.25,
-                  "min_y_axis": 21.75
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "input_boolean.ts20"
-                    }
-                  ]
+                  "min_y_axis": 21.5
                 }
               ]
             },
@@ -4561,7 +4567,7 @@
             },
             {
               "type": "markdown",
-              "content": "{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }}\n\n{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + 0.6 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + 0.6 }}",
+              "content": "{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }} {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float) - 0.2 }}\n\n{{ state_attr('climate.termostat', 'current_temperature') }} < {{ (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float)/2 + 0.1 }}   {{ state_attr('climate.termostat', 'current_temperature') < (states('input_number.in_ts20s') | float) + (states('input_number.in_ts20g') | float)/2 + 0.1 }}\n\n{{ (states('input_number.in_ts20s') | float) }} + {{ (states('input_number.in_ts20g') | float)*1.5 + 0.2 }}",
               "theme": "amoled"
             },
             {

@@ -4732,6 +4732,27 @@
         data: {}
         target:
           entity_id: input_boolean.ts20
+      - if:
+        - condition: template
+          value_template: '{{ states(''input_number.in_ts20s'') == states(''input_number.in_ts20'')
+            }}'
+        then:
+        - action: input_number.set_value
+          target:
+            entity_id: input_number.in_ts20
+          data:
+            value: ' {{ (states(''input_number.in_ts20s'') | float) - 0.1 }} '
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 500
+          enabled: true
+        - action: input_number.set_value
+          target:
+            entity_id: input_number.in_ts20
+          data:
+            value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
     - conditions:
       - condition: trigger
         id:
@@ -4946,7 +4967,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 1
+      seconds: 2
   conditions: []
   actions:
   - action: climate.set_temperature
@@ -5108,7 +5129,7 @@
     - input_boolean.ts20
     to: 'off'
     for:
-      hours: 1
+      hours: 3
       minutes: 0
       seconds: 0
   - trigger: state
@@ -5126,33 +5147,62 @@
       entity_id: input_boolean.ts20
       state: 'on'
   actions:
-  - action: timer.cancel
-    data: {}
-    enabled: true
-    target:
-      entity_id:
-      - timer.ts20f
-  - action: timer.start
-    data: {}
-    enabled: true
-    target:
-      entity_id:
-      - timer.ts20f
+  - if:
+    - condition: template
+      value_template: '{{ states(''input_number.in_ts20s'') == states(''input_number.in_ts20'')
+        }}'
+    then:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.in_ts20
+      data:
+        value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.1 }} '
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 500
+      enabled: true
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.in_ts20
+      data:
+        value: ' {{ (states(''input_number.in_ts20s'') | float) + 0.0  }} '
+  - if:
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: timer.ts20f
+        state: active
+    then:
+    - action: timer.cancel
+      data: {}
+      enabled: true
+      target:
+        entity_id:
+        - timer.ts20f
+    - action: timer.start
+      data: {}
+      enabled: true
+      target:
+        entity_id:
+        - timer.ts20f
   - if:
     - condition: template
       value_template: '{{ state_attr(''climate.termostat'', ''current_temperature'')
-        < (states(''input_number.in_ts20s'') | float) + 0.6 }}'
+        < (states(''input_number.in_ts20s'') | float) + (states(''input_number.in_ts20g'')
+        | float)/2 + 0.1 }}'
     then:
     - action: input_number.set_value
       target:
         entity_id: input_number.in_ts20
       data:
         value: ' {{ (states(''input_number.in_ts20s'') | float) + (states(''input_number.in_ts20g'')
-          | float) + 0.5 }} '
+          | float)*1.5 + 0.2 }} '
     - delay:
         hours: 0
-        minutes: 0
-        seconds: 30
+        minutes: 1
+        seconds: 0
         milliseconds: 0
       enabled: true
     - action: input_number.set_value
